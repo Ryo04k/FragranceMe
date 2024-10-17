@@ -92,3 +92,9 @@
 | API            | OpenAI API / Google Maps JavaScript API / Google Places API / Google Geolocation API |
 | VCS            | GitHub                                                                               |
 | CI/CD          | GitHub Actions                                                                       |
+
+<br><br>
+
+## 画面遷移図
+
+https://www.figma.com/design/5tT3d0kSZ9hs80GaPYPuLP/FragranceMe?node-id=0-1&t=0sUjoPGsrGRMsRZa-1
