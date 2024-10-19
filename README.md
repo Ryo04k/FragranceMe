@@ -98,3 +98,8 @@
 ## 画面遷移図
 
 https://www.figma.com/design/5tT3d0kSZ9hs80GaPYPuLP/FragranceMe?node-id=0-1&t=0sUjoPGsrGRMsRZa-1
+<br><br>
+
+## ER 図
+
+[詳細 URL](https://dbdiagram.io/d/6712172c97a66db9a36ee694)
