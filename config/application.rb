@@ -1,6 +1,6 @@
 require_relative "boot"
 
-require "rails/all"
+require "rails/all"rubocop.yml
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -23,5 +23,10 @@ module Myapp
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.generators do |g|
+      g.skip_routes true # ルーティングを自動で記述しないようにする
+      g.helper false # ヘルパーファイルを自動生成しないようにする
+      g.test_framework nil # テストフレームワークを使わないようにする
+    end
   end
 end
