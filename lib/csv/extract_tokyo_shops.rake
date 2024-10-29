@@ -12,7 +12,7 @@ namespace :Shop do
     # 既存の店舗を Set に読み込む
     existing_shops = Set.new
     CSV.foreach(csv_file, headers: true) do |row|
-      existing_shops.add(row['店名'])
+      existing_shops.add(row["店名"])
     end
 
     # 新しい店舗を追加するための配列
@@ -30,9 +30,9 @@ namespace :Shop do
 
       loop do
         shops = client.spots(area[:lat], area[:lng],
-                             name: 'フレグランス OR 香水 OR お香',
-                             language: 'ja',
-                             types: ['store', 'shopping_mall', 'department_store'],
+                             name: "フレグランス OR 香水 OR お香",
+                             language: "ja",
+                             types: [ "store", "shopping_mall", "department_store" ],
                              radius: 3000,
                              page_token: next_page_token)
 
@@ -45,7 +45,7 @@ namespace :Shop do
 
           begin
             # 各店舗の詳細情報を別途リクエスト
-            details = client.spot(shop.place_id, fields: ['formatted_phone_number'])
+            details = client.spot(shop.place_id, fields: [ "formatted_phone_number" ])
             phone_number = details.formatted_phone_number || "情報なし"
           rescue => e
             puts "Error fetching details for #{shop.name}: #{e.message}"
