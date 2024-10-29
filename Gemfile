@@ -34,7 +34,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 # 認証
-gem 'devise'
+gem "devise"
 
 # デバック
 gem "pry-rails"
