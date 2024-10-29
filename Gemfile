@@ -39,6 +39,15 @@ gem "devise"
 # デバック
 gem "pry-rails"
 
+# 環境変数
+gem "dotenv-rails"
+
+# google_places_api
+gem "google_places"
+
+# Geocoding
+gem "geocoder"
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
