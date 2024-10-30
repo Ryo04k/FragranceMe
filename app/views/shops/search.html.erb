@@ -1,0 +1,20 @@
+<div class="max-w-[1400px] mx-auto">
+  <div class="max-w-xl mx-auto">
+    <%= render "search_form", q: @q, url: search_shops_path %>
+
+    <% if @shops.any? %>
+      <ul class="space-y-4">
+        <% @shops.each do |shop| %>
+          <li class="p-4 border rounded shadow">
+            <strong class="text-lg"><%= shop.name %></strong><br>
+            住所: <%= shop.address %><br>
+            評価: <%= shop.rating %>
+          </li>
+        <% end %>
+      </ul>
+    <% elsif params[:q].present? %>
+      <p class="text-center">ご指定の条件に該当するショップは見つかりませんでした。<br>
+      検索条件を変更して、再度検索してください。</p>
+    <% end %>
+  </div>
+</div>
