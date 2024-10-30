@@ -36,6 +36,9 @@ gem "bootsnap", require: false
 # 認証
 gem "devise"
 
+# 検索
+gem 'ransack'
+
 # デバック
 gem "pry-rails"
 
