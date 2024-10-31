@@ -11,5 +11,4 @@ class Shop < ApplicationRecord
       "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{shop_image.image}&key=#{GoogleApi.api_key}"
     end
   end
-
 end
