@@ -1,19 +1,30 @@
 <div class="max-w-[1400px] mx-auto">
-  <div class="max-w-xl mx-auto">
+  <div class="max-w-2xl mx-auto">
     <%= render "search_form", q: @q, url: search_shops_path %>
 
     <% if @shops.any? %>
-      <ul class="space-y-4">
+      <ul class="space-y-6"> <!-- リスト型のレイアウト -->
         <% @shops.each do |shop| %>
-          <li class="p-4 border rounded shadow">
-            <strong class="text-lg"><%= shop.name %></strong><br>
-            住所: <%= shop.address %><br>
-            評価: <%= shop.rating %>
+          <li class="flex p-4 border rounded shadow items-center"> <!-- items-centerで中央揃え -->
+            <div class="mr-4 w-32 h-32 overflow-hidden"> <!-- サイズを指定 -->
+              <% if shop.photo_urls.any? %>
+                <%= image_tag shop.photo_urls.first, alt: "#{shop.name}の画像", class: "w-full h-full object-cover" %>
+              <% else %>
+                <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                  <span class="text-gray-500">No image</span>
+                </div>
+              <% end %>
+            </div>
+            <div class="flex flex-col justify-between flex-grow"> <!-- テキストを縦方向に均等に配置 -->
+              <h3 class="text-lg font-semibold mb-1"><%= shop.name %></h3>
+              <p class="text-sm">住所: <%= shop.address %></p>
+              <p class="text-sm">評価: <%= shop.rating %></p>
+            </div>
           </li>
         <% end %>
       </ul>
     <% elsif params[:q].present? %>
-      <p class="text-center">ご指定の条件に該当するショップは見つかりませんでした。<br>
+      <p class="text-center mt-8">ご指定の条件に該当するショップは見つかりませんでした。<br>
       検索条件を変更して、再度検索してください。</p>
     <% end %>
   </div>
