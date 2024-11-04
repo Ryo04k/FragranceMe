@@ -51,6 +51,12 @@ gem "google_places"
 # Geocoding
 gem "geocoder"
 
+# Geokit
+gem "geokit-rails"
+
+# javasctipt
+gem "gon"
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

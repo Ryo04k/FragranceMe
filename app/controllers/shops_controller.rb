@@ -2,11 +2,17 @@ class ShopsController < ApplicationController
   before_action :set_ransack_query, only: [ :search ]
 
   def search
-    if params[:q].blank?
-      @shops = [] # 検索条件がない場合は空の配列に設定
+    @shops = Shop.includes(:shop_images).all.map do |shop|
+      shop.as_json(only: [ :id, :name, :latitude, :longitude, :address, :rating ]).merge(
+        image: shop.shop_images.first&.image
+      )
+    end
+    @shops_json = @shops.to_json
+
+    if params[:q].present?
+      @filtered_shops = @q.result(distinct: true) # 検索条件がある場合のみ検索結果を設定
     else
-      @q = Shop.ransack(params[:q])
-      @shops = @q.result(distinct: true) # 検索条件がある場合のみ検索結果を設定
+      @filtered_shops = [] # 検索条件がない場合は空の配列に設定
     end
   end
 

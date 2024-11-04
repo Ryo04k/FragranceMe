@@ -5,6 +5,10 @@ class Shop < ApplicationRecord
     [ "name" ]
   end
 
+  # Geocoding setup
+  geocoded_by :address
+  after_validation :geocode, if: ->(obj) { obj.address.present? && obj.address_changed? }
+
   # shop_imageからimage属性を取得し、GoogleMapsAPIから画像を取得するためのURLを生成
   def photo_urls
     shop_images.map do |shop_image|
