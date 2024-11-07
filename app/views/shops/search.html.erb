@@ -1,6 +1,15 @@
 <div class="max-w-[1400px] mx-auto">
   <div class="max-w-2xl mx-auto">
-    <%= render "search_form", q: @q, url: search_shops_path %>
+
+<div class="mt-4">
+  <%= render "search_form", q: @q, url: search_shops_path %>
+  <div class="text-center">
+<%= link_to map_shops_path, class: "btn btn-primary mt-3 w-44 flex items-center justify-center" do %>
+  <span class="material-symbols-outlined mr-2">location_on</span>
+  現在地から探す
+<% end %>
+  </div>
+</div>
 
 <% if @filtered_shops.any? %>
   <ul class="space-y-6">
@@ -29,8 +38,6 @@
     検索条件を変更して、再度検索してください。</p>
   <% end %>
 <% end %>
-
-<%= render "location_search", shops_json: @shops_json %>
 
   </div>
 </div>
