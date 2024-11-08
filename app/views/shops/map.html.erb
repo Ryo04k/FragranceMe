@@ -1,11 +1,22 @@
 <!-- GoogleMap -->
-<div class="mx-auto items-center justify-center">
-  <input class="flex items-center px-6 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" type="button" value="現在地から探す" onclick="showCurrentLocation()">
+
+<div class="max-w-[1400px] mx-auto">
+  <div class="max-w-2xl mx-auto">
+
+<button class="px-6 py-2 btn btn-primary flex items-center" onclick="showCurrentLocation()">
+  <span class="material-symbols-outlined mr-2">my_location</span>
+  現在地を表示
+</button>
+
   <div id="map" class="rounded-xl"></div>
+    <div id="shop-list">
+      <!-- ここに店舗リストが表示されます -->
+    </div>
+  </div>
 </div>
 
 <script>
-  var googleMapApiKey = "<%= ENV["GOOGLE_API_KEY"] %>";
+  let googleMapApiKey = "<%= ENV["GOOGLE_API_KEY"] %>";
 </script>
 
 <style>
@@ -32,15 +43,6 @@ function initMap() {
   });
 
   showCurrentLocation(); // ユーザーの現在地を取得し、地図上に表示
-
-//   function updateInfoCard(shop) {
-//   document.getElementById('infoCard').classList.remove('hidden');
-//   const imageUrl = `https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&maxwidth=1000&photo_reference=${shop.image}&key=${googleMapApiKey}`;
-//   console.log("Generated Image URL:", imageUrl);
-//   document.getElementById('shopImage').src = imageUrl;
-//   document.getElementById('shopName').textContent = shop.name;
-//   document.getElementById('shopRating').textContent = `⭐️ ${shop.rating}`;
-// }
 
   // 各ショップのマーカーを作成
   shops.forEach(function(shop) {
@@ -85,6 +87,9 @@ function showCurrentLocation(){
       };
       map.setCenter(userLocation);
       marker.setPosition(userLocation);
+
+      // 周辺店舗を取得
+      fetchNearbyShops(userLocation.lat, userLocation.lng);
     }, function() {
       alert('位置情報の取得に失敗しました。');
       map.setCenter({ lat: 35.6803997, lng: 139.7690174 }); // 東京の座標
@@ -92,6 +97,53 @@ function showCurrentLocation(){
   } else {
     alert('お使いのブラウザでは地理位置情報の取得がサポートされていません。');
     map.setCenter({ lat: 35.6803997, lng: 139.7690174 }); // 東京の座標
+  }
+}
+
+// ユーザーの現在地に基づいた周辺店舗情報を取得
+function fetchNearbyShops(lat, lng) {
+  fetch(`/shops/list?latitude=${lat}&longitude=${lng}`)
+    .then(response => response.json()) // レスポンスをJSON形式に変換
+    .then(shops => { // JSONデータを受け取る
+      displayShopList(shops); // 店舗リストを表示する関数を呼び出す
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function displayShopList(shops) {
+  const shopListElement = document.getElementById('shop-list');
+  shopListElement.innerHTML = '<h2 class="text-2xl text-center font-bold mb-4">周辺のショップリスト</h2>';
+
+  if (shops.length > 0) {
+    const ul = document.createElement('ul');
+    ul.className = "space-y-4";
+
+    shops.forEach(shop => {
+      const li = document.createElement('li');
+      li.className = "flex items-center p-4 border rounded-lg shadow";
+
+      const imageUrl = shop.image
+        ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${shop.image}&key=${googleMapApiKey}`
+        : 'path/to/default/image.jpg';
+
+        const shopLink = `/shops/${shop.id}`; // 詳細ページへのリンク作成
+
+      li.innerHTML = `
+        <a href="${shopLink}" class="flex items-center">
+        <img src="${imageUrl}" alt="${shop.name}" class="w-24 h-24 object-cover mr-4">
+        <div class="flex flex-col">
+          <h3 class="text-lg font-semibold">${shop.name}</h3>
+          <p class="text-sm text-gray-500">⭐️${shop.rating}</p>
+        </div>
+        </a>
+      `;
+
+      ul.appendChild(li);
+    });
+
+    shopListElement.appendChild(ul);
+  } else {
+    shopListElement.innerHTML += '<p>周辺に店舗が見つかりませんでした。</p>';
   }
 }
 </script>

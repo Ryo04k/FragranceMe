@@ -3,9 +3,13 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: "users/registrations"
   }
+
+
   resources :shops do
     collection do
       get "search"
+      get "map"
+      get "list"
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
