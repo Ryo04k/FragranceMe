@@ -4,11 +4,9 @@
   <div id="map" class="rounded-xl"></div>
 </div>
 
-
 <script>
-  var googleMapApiKey = "<%= ENV['GOOGLE_API_KEY'] %>";
+  var googleMapApiKey = "<%= ENV["GOOGLE_API_KEY"] %>";
 </script>
-
 
 <style>
 #map {
@@ -35,7 +33,6 @@ function initMap() {
 
   showCurrentLocation(); // ユーザーの現在地を取得し、地図上に表示
 
-
 //   function updateInfoCard(shop) {
 //   document.getElementById('infoCard').classList.remove('hidden');
 //   const imageUrl = `https://maps.googleapis.com/maps/api/place/photo?maxheight=1000&maxwidth=1000&photo_reference=${shop.image}&key=${googleMapApiKey}`;
@@ -45,8 +42,6 @@ function initMap() {
 //   document.getElementById('shopRating').textContent = `⭐️ ${shop.rating}`;
 // }
 
-
-
   // 各ショップのマーカーを作成
   shops.forEach(function(shop) {
     let marker = new google.maps.Marker({
@@ -54,8 +49,6 @@ function initMap() {
       position: { lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude) },
       title: shop.name
     });
-
-
 
     // クリックすると情報ウィンドウが開くように設定
 marker.addListener('click', function() {
@@ -74,10 +67,6 @@ marker.addListener('click', function() {
 
   infoWindow.open(map, marker);
 });
-
-
-
-
 
     // マーカーをクリックするとウィンドウを表示
     marker.addListener('click', function() {

@@ -1,27 +1,24 @@
 class ShopsController < ApplicationController
   before_action :set_ransack_query, only: [ :search, :map ]
 
-  def search;end
-
-
-def map
-  @shops = Shop.includes(:shop_images).all.map do |shop|
-    shop.as_json(only: [ :id, :name, :latitude, :longitude, :address, :rating ]).merge(
-      image: shop.shop_images.first&.image
-    )
+  def search
+    @shops = Shop.includes(:shop_images).all.map do |shop|
+      shop.as_json(only: [ :id, :name, :latitude, :longitude, :address, :rating ]).merge(
+        image: shop.shop_images.first&.image
+      )
+    end
+    @shops_json = @shops.to_json
   end
-  @shops_json = @shops.to_json
-end
 
 def list
   @latitude = params[:latitude].to_f
   @longitude = params[:longitude].to_f
   @radius = (params[:radius] || 5).to_f
 
-  @nearby_shops = Shop.includes(:shop_images).near([@latitude, @longitude], @radius, units: :km).limit(10)
+  @nearby_shops = Shop.includes(:shop_images).near([ @latitude, @longitude ], @radius, units: :km).limit(10)
 
   @nearby_shops_json = @nearby_shops.map do |shop|
-    shop.as_json(only: [:id, :name, :latitude, :longitude, :address, :rating]).merge(
+    shop.as_json(only: [ :id, :name, :latitude, :longitude, :address, :rating ]).merge(
       image: shop.shop_images.first&.image
     )
   end

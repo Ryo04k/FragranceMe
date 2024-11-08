@@ -3,8 +3,6 @@
 <div class="max-w-[1400px] mx-auto">
   <div class="max-w-2xl mx-auto">
 
-<%= render "search_form", q: @q, url: search_shops_path %>
-
 <button class="px-6 py-2 btn btn-primary flex items-center" onclick="showCurrentLocation()">
   <span class="material-symbols-outlined mr-2">my_location</span>
   現在地を表示
@@ -111,7 +109,6 @@ function fetchNearbyShops(lat, lng) {
     })
     .catch(error => console.error('Error:', error));
 }
-
 
 function displayShopList(shops) {
   const shopListElement = document.getElementById('shop-list');
