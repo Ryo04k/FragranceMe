@@ -26,7 +26,10 @@ def list
   render json: @nearby_shops_json
 end
 
-def show;end
+def show
+@shop = Shop.includes(:shop_images).find(params[:id])
+@shop_images = @shop.photo_urls
+end
 
 
   private
