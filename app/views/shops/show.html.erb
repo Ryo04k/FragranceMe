@@ -1,5 +1,5 @@
-<div class="max-w-[1200px] mx-auto">
-  <h2 class="text-xl md:text-3xl font-bold mt-6 ml-2 md:ml-0"><%= @shop.name %></h2>
+<div class="max-w-[1200px] mx-auto mb-20">
+  <h2 class="text-2xl md:text-3xl font-bold mt-6 ml-2 md:ml-0"><%= @shop.name %></h2>
   <div class="flex items-center mb-2 ml-2 md:ml-0">
     <% full_stars = @shop.rating.floor %>
     <% half_star = @shop.rating - full_stars >= 0.5 %>
@@ -30,7 +30,7 @@
   </div>
 
   <!-- スライダー -->
-  <div class="swiper slider mb-2 md:w-full">
+  <div class="swiper slider mb-2 md:w-full h-72 md:h-96">
     <div class="swiper-wrapper w-full">
       <% @shop_images.each do |image_url| %>
         <div class="swiper-slide">
@@ -92,14 +92,24 @@
     </div>
   <% end %>
 
+  <iframe
+    frameborder="0"
+    class="w-full md:h-64 h-48"
+    src="https://www.google.com/maps/embed/v1/place?key=<%= GoogleApi.api_key %>&q=<%= @shop.name %>,<%= @shop.address %>">
+  </iframe>
+<div class="flex justify-end mt-5 mr-2 md:mr-0">
+  <%= link_to "https://www.google.com/maps/search/?api=1&query=#{CGI.escape(@shop.name)},#{CGI.escape(@shop.address)}",
+              target: :_blank,
+              class: "text-xs btn btn-outline" do %>
+    <span class="material-symbols-outlined">map_search</span>
+    <p>GoogleMapで開く</p>
+  <% end %>
+</div>
 </div>
 
 <style>
   .slider-thumbnail .swiper-slide.swiper-slide-thumb-active {
     opacity: 1;
-  }
-  .swiper.slider {
-    height: 400px;
   }
 </style>
 
