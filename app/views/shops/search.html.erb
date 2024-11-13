@@ -1,35 +1,64 @@
-<div class="max-w-[1400px] mx-auto">
-  <div class="max-w-2xl mx-auto mt-4">
+<div class="max-w-[1200px] mx-auto">
+  <div class="mt-4">
+    <div class="w-[750px] mx-auto">
     <%= render "search_form", q: @q, url: search_shops_path %>
+    </div>
 
-    <% if @filtered_shops.any? %>
-      <ul class="space-y-6 mt-6">
-        <% @filtered_shops.each do |shop| %>
-          <li class="flex p-4 border rounded shadow items-center">
-            <a href="/shops/<%= shop.id %>" class="flex items-center w-full">
-                <div class="mr-4 w-32 h-32 overflow-hidden">
-                  <% if shop.photo_urls.any? %>
-                    <%= image_tag shop.photo_urls.first, alt: "#{shop.name}の画像", class: "w-full h-full object-cover" %>
-                  <% else %>
-                    <div class="w-full h-full bg-gray-200 flex items-center justify-center">
-                      <span class="text-gray-500">No image</span>
-                    </div>
-                  <% end %>
-                </div>
-                <div class="flex flex-col justify-between flex-grow">
-                  <h3 class="text-lg font-semibold mb-1"><%= shop.name %></h3>
-                  <p class="font-semibold">⭐️<%= shop.rating %></p>
-                </div>
-            </a>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <% if params[:q].present? %>
-        <p class="text-center mt-8">ご指定の条件に該当するショップは見つかりませんでした。<br>
-        検索条件を変更して、再度検索してください。</p>
-      <% end %>
+<% if @filtered_shops.any? %>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 px-4">
+    <% @filtered_shops.each do |shop| %>
+      <div class="bg-white border shadow-sm hover:shadow-lg transition-shadow duration-300 group">
+        <a href="/shops/<%= shop.id %>" class="flex flex-col h-full">
+          <div class="w-full h-36 flex items-center justify-center overflow-hidden">
+            <% if shop.photo_urls.any? %>
+              <%= image_tag shop.photo_urls.first, alt: "#{shop.name}の画像", class: "object-cover w-full h-full transition-transform duration-300 group-hover:scale-105 group-hover:opacity-85", loading: "lazy" %>
+
+            <% else %>
+              <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                <span class="text-gray-500">No image</span>
+              </div>
+            <% end %>
+          </div>
+          <div class="p-4 pb-8 flex flex-col flex-grow">
+            <h3 class="text-base font-semibold mb-1 line-clamp-2"><%= shop.name %></h3>
+            <div class="flex items-center mb-2">
+              <% full_stars = shop.rating.floor %>
+              <% half_star = shop.rating - full_stars >= 0.5 %>
+              <% (1..5).each do |i| %>
+                <% if i <= full_stars %>
+                  <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 15l-5.878 3.09 1.122-6.534L0 6.236l6.545-.954L10 0l2.455 5.282L20 6.236l-5.244 5.32 1.122 6.534z" />
+                  </svg>
+                <% elsif half_star && i == full_stars + 1 %>
+                  <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <defs>
+                      <mask id="right-half-star">
+                        <rect width="100%" height="100%" fill="white" />
+                        <rect x="50%" width="50%" height="100%" fill="black" />
+                      </mask>
+                    </defs>
+                    <path d="M10 15l-5.878 3.09 1.122-6.534L0 6.236l6.545-.954L10 0l2.455 5.282L20 6.236l-5.244 5.32 1.122 6.534z" fill="currentColor" mask="url(#right-half-star)" />
+                    <path d="M10 15l-5.878 3.09 1.122-6.534L0 6.236l6.545-.954L10 0l2.455 5.282L20 6.236l-5.244 5.32 1.122 6.534z" fill="currentColor" opacity="0.5" />
+                  </svg>
+                <% else %>
+                  <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" opacity="0.5">
+                    <path d="M10 15l-5.878 3.09 1.122-6.534L0 6.236l6.545-.954L10 0l2.455 5.282L20 6.236l-5.244 5.32 1.122 6.534z" />
+                  </svg>
+                <% end %>
+              <% end %>
+              <p class="text-base text-yellow-400 font-semibold ml-2"><%= shop.rating %></p>
+            </div>
+          </div>
+        </a>
+      </div>
     <% end %>
+  </div>
+<% else %>
+  <% if params[:q].present? %>
+    <p class="text-center mt-8">ご指定の条件に該当するショップは見つかりませんでした。<br>
+    検索条件を変更して、再度検索してください。</p>
+  <% end %>
+<% end %>
 
     <div class="mt-4 mb-4">
       <button class="px-6 py-2 btn btn-primary flex items-center" onclick="showCurrentLocation()">
@@ -81,7 +110,7 @@
           <div class="w-52 p-3 rounded shadow flex flex-col items-center">
             <h3 class="text-sm font-semibold mb-2 text-center">${shop.name}</h3>
             <p class="text-sm font-semibold mb-2">⭐️${shop.rating}</p>
-            <img src="${imageUrl}" alt="${shop.name}" class="w-48 h-32 object-cover mb-2">
+            <img src="${imageUrl}" alt="${shop.name}" class="w-48 h-32 object-cover mb-2" loading: "lazy" >
             <a href="/shops/${shop.id}" class="text-xs w-32 h-0 btn btn-sm btn-outline">詳細を見る</a>
           </div>
         `;
@@ -148,7 +177,8 @@
       li.innerHTML = `
         <a href="${shopLink}" class="flex items-center w-full">
           <div class="mr-4 w-32 h-32 overflow-hidden">
-            <img src="${imageUrl}" alt="${shop.name}" class="w-full h-full object-cover">
+            <img src="${imageUrl}" alt="${shop.name}" class="w-full h-full object-cover" loading="lazy">
+
           </div>
           <div class="flex flex-col justify-between flex-grow">
             <h3 class="text-lg font-semibold mb-1">${shop.name}</h3>
