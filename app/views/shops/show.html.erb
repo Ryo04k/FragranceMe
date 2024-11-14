@@ -74,14 +74,14 @@
     </div>
   <% end %>
 
-  <% if @shop.web_site.present? %>
+    <% if @shop.web_site.present? %>
     <div class="border-b border-gray-300 py-8 flex flex-col md:flex-row px-4">
-      <p class="text-base font-bold w-full md:w-40 flex mb-2 md:mb-0 items-center">
+        <p class="text-base font-bold w-full md:w-40 flex mb-2 md:mb-0 items-center">
         <span class="material-symbols-outlined mr-2">desktop_windows</span> Webサイト
-      </p>
-        <%= link_to sanitize(@shop.web_site), sanitize(@shop.web_site), class: "text-base w-full md:w-auto", target: :_blank %>
+        </p>
+        <%= link_to @shop.web_site, @shop.web_site, class: "text-base w-full md:w-auto", target: :_blank, rel: "noopener noreferrer" %>
     </div>
-  <% end %>
+    <% end %>
 
   <% if @shop.address.present? && @shop.postal_code.present? %>
     <div class="py-8 flex flex-col md:flex-row px-4">
