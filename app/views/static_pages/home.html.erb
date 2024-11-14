@@ -1,7 +1,14 @@
-<div class="min-h-screen">
-  <div class="container pt-8 pl-7">
-    <div class="max-w-xl">
-      <p class="text-base pb-2">仮のTopページです。</p>
+<div class="relative w-full h-full overflow-hidden">
+    <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+    <div class="w-full h-full">
+        <%= video_tag "/assets/videos/top.mp4", playsinline: true, autoplay: false, loop: false, muted: true, width: "100%", class: "index-video w-full h-full h-screen md:w-screen md:h-screen object-cover pointer-events-none" %>
     </div>
-  </div>
+    <div class="absolute inset-0 flex flex-col items-center justify-center">
+        <p class="text-shadow  z-10 text-white font-bold text-lg md:text-3xl">
+            お気に入りの香りに、きっと出会える。
+        </p>
+        <div class="">
+            <%= link_to "探しに行く", search_shops_path, class: "btn btn-wide mt-6 text-base mt-8" %>
+        </div>
+    </div>
 </div>

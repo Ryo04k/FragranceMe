@@ -10,6 +10,10 @@
   text-overflow: ellipsis; /* テキストがあふれた場合に...を表示 */
 }
 
+.text-shadow{
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1490196078);
+}
+
 @media (max-width: 768px) {
   .swiper-button-next::after,
   .swiper-button-prev::after {
