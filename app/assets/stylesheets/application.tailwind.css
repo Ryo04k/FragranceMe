@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* 2行まで表示 */
+  overflow: hidden;
+  text-overflow: ellipsis; /* テキストがあふれた場合に...を表示 */
+}
+
 @media (max-width: 768px) {
   .swiper-button-next::after,
   .swiper-button-prev::after {
