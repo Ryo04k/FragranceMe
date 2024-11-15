@@ -18,11 +18,8 @@ module.exports = {
           "sans-serif",
         ],
       },
-      fontSize: {
-        "custom-size": "1.5rem",
-      },
       fontWeight: {
-        "custom-weight": 500,
+        "custom-weight": 400,
       },
       letterSpacing: {
         custom: "0.02em",
