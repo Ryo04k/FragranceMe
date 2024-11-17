@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :shops do
     collection do
+      get "index"
       get "search"
       get "map"
       get "list"
