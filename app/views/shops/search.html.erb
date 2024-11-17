@@ -4,11 +4,12 @@
       <%= render "search_form", q: @q, url: search_shops_path %>
     </div>
 
+<%= turbo_frame_tag "search_results" do %>
     <% if @filtered_shops.any? %>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 px-4">
         <% @filtered_shops.each do |shop| %>
           <div class="bg-white border shadow-sm hover:shadow-lg transition-shadow duration-300 group rounded">
-            <a href="/shops/<%= shop.id %>" class="flex flex-col h-full">
+            <a href="/shops/<%= shop.id %>" data-turbo="false" class="flex flex-col h-full">
               <div class="w-full h-36 flex items-center justify-center overflow-hidden">
                 <% if shop.photo_urls.any? %>
                   <%= image_tag shop.photo_urls.first, alt: "#{shop.name}の画像", class: "object-cover w-full h-full transition-transform duration-300 group-hover:scale-105 group-hover:opacity-85", loading: "lazy" %>
@@ -58,7 +59,7 @@
           検索条件を変更して、再度検索してください。</p>
       <% end %>
     <% end %>
-
+<% end %>
     <div id="shop-list" class="mb-6 mt-20 px-4">
       <!-- 周辺店舗を表示 -->
     </div>
