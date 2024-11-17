@@ -9,6 +9,16 @@ class Shop < ApplicationRecord
     []
   end
 
+  def simplified_address
+    match_data = address.match(/(.*?[都道府県].*?[市区町村].*?)(\d+[-]\d+)?/)
+
+    if match_data
+      match_data[0].strip
+    else
+      "住所不明"
+    end
+  end
+
   # Geocoding setup
   geocoded_by :address
   after_validation :geocode, if: ->(obj) { obj.address.present? && obj.address_changed? }
