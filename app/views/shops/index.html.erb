@@ -1,39 +1,12 @@
 <div class="max-w-[1200px] mx-auto mb-20">
   <div class="mt-4">
     <div class="w-full sm:w-[800px] mx-auto px-4 ">
-			<%= render "search_form", q: @q, url: shops_path %>
+      <%= render "search_form", q: @q, url: shops_path %>
     </div>
 
-<%= turbo_frame_tag "search_results" do %>
-    <% if @filtered_shops.any? %>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 px-4">
-        <% @filtered_shops.each do |shop| %>
-          <div class="bg-white border shadow-sm hover:shadow-lg transition-shadow duration-300 group rounded">
-            <a href="/shops/<%= shop.id %>" data-turbo="false" class="flex flex-col h-full">
-              <div class="w-full h-36 flex items-center justify-center overflow-hidden">
-                <% if shop.photo_urls.any? %>
-                <%= image_tag shop.photo_urls.first, alt: "#{shop.name}の画像", class: "object-cover w-full h-full transition-transform duration-300 group-hover:scale-105 group-hover:opacity-85", loading: "lazy" %>
-                <% end %>
-              </div>
-              <div class="p-4 pb-8 flex flex-col flex-grow">
-                <p class="text-xs text-secondary dark:text-neutral-500 mb-1"><%= shop.simplified_address %></p>
-                <h3 class="text-base font-semibold mb-1 line-clamp-2"><%= shop.name %></h3>
-                <div class="flex items-center mb-2">
-									<%= render_rating(shop) %>
-                </div>
-              </div>
-            </a>
-          </div>
-        <% end %>
-      </div>
-      <%= paginate @filtered_shops %>
-    <% else %>
-      <% if params[:q].present? %>
-        <p class="text-center mt-8 text-sm sm:text-base">指定された条件ではショップが見つかりませんでした。<br>
-          検索条件を変更して、再度検索してください。</p>
-      <% end %>
+    <%= turbo_frame_tag "search_results" do %>
+      <%= render partial: 'search_results', locals: { filtered_shops: @filtered_shops } %>
     <% end %>
-<% end %>
 
     <div id="shop-list" class="mb-6 mt-20 px-4">
       <!-- 周辺店舗を表示 -->
