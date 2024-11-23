@@ -50,6 +50,7 @@
           </div>
         <% end %>
       </div>
+      <%= paginate @filtered_shops %>
     <% else %>
       <% if params[:q].present? %>
         <p class="text-center mt-8 text-sm sm:text-base">指定された条件ではショップが見つかりませんでした。<br>
@@ -57,6 +58,7 @@
       <% end %>
     <% end %>
 <% end %>
+
     <div id="shop-list" class="mb-6 mt-20 px-4">
       <!-- 周辺店舗を表示 -->
     </div>

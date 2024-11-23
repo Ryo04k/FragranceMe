@@ -35,9 +35,9 @@ class ShopsController < ApplicationController
   def set_ransack_query
     @q = Shop.ransack(params[:q])
     if params[:q].present?
-      @filtered_shops = @q.result(distinct: true).includes(:shop_images) # 検索条件がある場合はフィルタリング
+      @filtered_shops = @q.result(distinct: true).includes(:shop_images).page(params[:page]).per(12)
     else
-      @filtered_shops = Shop.all.includes(:shop_images) # 検索条件がない場合は全店舗を表示
+      @filtered_shops = Shop.all.includes(:shop_images).page(params[:page]).per(12)
     end
   end
 
