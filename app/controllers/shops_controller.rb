@@ -25,8 +25,12 @@ class ShopsController < ApplicationController
   end
 
   def show
-    @shop = Shop.includes(:shop_images).find(params[:id])
-    @shop_images = @shop.photo_urls
+    @shop = Shop.includes(:shop_images).find_by(id: params[:id])
+    if @shop
+      @shop_images = @shop.photo_urls
+    else
+      redirect_to shops_path
+    end
   end
 
 
