@@ -36,6 +36,9 @@ gem "bootsnap", require: false
 # 認証
 gem "devise"
 
+gem "devise-i18n"
+gem "devise-i18n-views"
+
 # 検索
 gem "ransack"
 
