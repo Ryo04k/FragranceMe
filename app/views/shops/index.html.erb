@@ -8,21 +8,6 @@
       <%= render partial: 'search_results', locals: { filtered_shops: @filtered_shops } %>
     <% end %>
 
-    <div id="shop-list" class="mb-6 mt-20 px-4">
-      <!-- 周辺店舗を表示 -->
-    </div>
-
-    <div id="location_container" class="relative">
-      <div class="mt-6 flex justify-center space-x-4">
-      </div>
-
-      <div id="map" class="rounded w-full h-96 mb-8 mt-4"></div>
-      <button class="btn btn-neutral absolute bottom-4 left-4 text-xs opacity-90" onclick="showCurrentLocation()">
-        <span class="material-symbols-outlined text-xs">my_location</span>
-        現在地を表示
-      </button>
-    </div>
-
   </div>
 </div>
 
