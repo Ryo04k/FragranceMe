@@ -4,17 +4,13 @@
     </div>
 
     <div id="map" class="rounded w-full h-[600px] mb-8 mt-4"></div>
-    <%= link_to shops_path, class: "w-36 btn btn-neutral absolute bottom-4 left-4 text-xs opacity-90" do %>
-      <span class="material-symbols-outlined text-xs">undo</span>
-      一覧に戻る
-    <% end %>
-    <button class="w-36 btn btn-neutral absolute bottom-20 left-4 text-xs opacity-90" onclick="showCurrentLocation()">
+    <button class="w-36 btn btn-neutral absolute bottom-8 left-4 text-xs opacity-90" onclick="showCurrentLocation()">
       <span class="material-symbols-outlined text-xs">my_location</span>
       現在地を表示
     </button>
   </div>
 
-  <div id="shop-list" class="mt-20 px-4 max-w-[1200px] mx-auto">
+  <div id="shop-list" class="px-4 max-w-[1200px] mx-auto">
     <!-- 周辺店舗を表示 -->
   </div>
 </div>
@@ -113,7 +109,7 @@
 
   function displayShopList(shops) {
     const shopListElement = document.getElementById('shop-list');
-    shopListElement.innerHTML = '<h2 class="text-2xl text-center font-bold mb-4">現在地から近いショップ</h2>';
+    shopListElement.innerHTML = '<h2 class="text-lg md:text-2xl text-center font-bold mb-4">現在地から近いショップ</h2>';
 
     if (shops.length > 0) {
       const ul = document.createElement('ul');

@@ -24,9 +24,7 @@ class ShopsController < ApplicationController
     render json: @nearby_shops_json
   end
 
-  def map
-
-  end
+  def map;end
 
   def show
     @shop = Shop.includes(:shop_images).find_by(id: params[:id])
