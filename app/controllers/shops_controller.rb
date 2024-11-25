@@ -1,6 +1,6 @@
 class ShopsController < ApplicationController
-  before_action :set_ransack_query, only: [ :index, :search ]
-  before_action :set_map_data, only: [ :index, :search ]
+  before_action :set_ransack_query, only: [ :index, :search, :map ]
+  before_action :set_map_data, only: [ :index, :search, :map ]
 
   def index;end
 
@@ -23,6 +23,8 @@ class ShopsController < ApplicationController
 
     render json: @nearby_shops_json
   end
+
+  def map;end
 
   def show
     @shop = Shop.includes(:shop_images).find_by(id: params[:id])
