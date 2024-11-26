@@ -15,7 +15,11 @@ namespace :Shop do
     new_shops = []
 
     tokyo_areas = [
-      { name: "新宿", lat: 35.6895, lng: 139.7004 }
+      { name: "新宿", lat: 35.6895, lng: 139.7004 },
+      { name: "渋谷", lat: 35.6586, lng: 139.7016 },
+      { name: "銀座", lat: 35.6718, lng: 139.7642 },
+      { name: "表参道", lat: 35.6643, lng: 139.7125 },
+      { name: "秋葉原", lat: 35.6996, lng: 139.7745 }
     ]
 
     client = GooglePlaces::Client.new(API_KEY)
@@ -25,10 +29,10 @@ namespace :Shop do
 
       loop do
         shops = client.spots(area[:lat], area[:lng],
-                             name: "フレグランス OR 香水 OR お香",
+                             name: "フレグランス",
                              language: "ja",
-                             types: [ "store", "shopping_mall", "department_store" ],
-                             radius: 3000,
+                             types: [ "store" ],
+                             radius: 8000,
                              page_token: next_page_token)
 
         next_page_token = shops.next_page_token if shops.respond_to?(:next_page_token)
@@ -44,21 +48,15 @@ namespace :Shop do
             puts "Error fetching details for #{shop.name}: #{e.message}"
           end
 
+          # 電話番号を国際形式にフォーマット
+          formatted_phone_number = format_phone_number(phone_number)
+
           new_shops << [
             13,  # 都道府県ID
             shop.name,
-            phone_number,
+            formatted_phone_number,
             false  # 香水体験のデフォルト値
           ]
-
-          # 電話番号を国際形式にフォーマットするメソッド
-          def format_phone_number(phone_number)
-            return "情報なし" if phone_number == "情報なし"
-
-            # 日本の国番号 +81 を付与
-            formatted_number = phone_number.gsub(/^0/, "")  # 最初の0を削除
-            "+81 #{formatted_number}"  # 国際番号形式に変換
-          end
 
           existing_shops.add(shop.name)
         end
@@ -78,5 +76,14 @@ namespace :Shop do
     end
 
     puts "#{new_shops.size}件の新しい店舗情報を #{csv_file} に追加しました。"
+  end
+
+  # 電話番号を国際形式にフォーマットするメソッド
+  def self.format_phone_number(phone_number)
+    return "情報なし" if phone_number == "情報なし"
+
+    # 日本の国番号 +81 を付与
+    formatted_number = phone_number.gsub(/^0/, "")  # 最初の0を削除
+    "+81 #{formatted_number}"  # 国際番号形式に変換
   end
 end
