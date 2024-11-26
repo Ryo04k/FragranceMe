@@ -15,4 +15,12 @@ module ShopsHelper
     text_size_class = options[:text_size] || "text-base"
     rating_html + content_tag(:p, shop.rating, class: "#{text_size_class} text-yellow-400 font-semibold ml-2")
   end
+
+  def experience_tag(shop)
+    if shop.has_experience
+      content_tag(:p, "#自分好みの香水を作れる", class: "w-44 text-xs rounded-full border border-gray-300 py-1 text-center")
+    else
+      "" # has_experienceがfalseの場合は空の文字列を返す
+    end
+  end
 end
