@@ -72,15 +72,14 @@
   <iframe
     frameborder="0"
     class="w-full md:h-64 h-48"
-    src="https://www.google.com/maps/embed/v1/place?key=<%= GoogleApi.api_key %>&q=<%= @shop.name %>,<%= @shop.address %>">
+    src="https://www.google.com/maps/embed/v1/place?key=<%= GoogleApi.api_key %>&q=<%= CGI.escape(@shop.name) %>,<%= CGI.escape(@shop.address) %>">
   </iframe>
+
 <div class="flex justify-end mt-5 mr-2 md:mr-0">
-  <%= link_to "https://www.google.com/maps/search/?api=1&query=#{CGI.escape(@shop.name)},#{CGI.escape(@shop.address)}",
-              target: :_blank,
-              class: "text-xs btn btn-outline" do %>
+<%= link_to "https://www.google.com/maps/search/?api=1&query=#{CGI.escape(@shop.name)},#{CGI.escape(@shop.address)}", target: :_blank, class: "text-xs btn btn-outline" do %>
     <span class="material-symbols-outlined">map_search</span>
-    <p>GoogleMapで開く</p>
-  <% end %>
+    <span>GoogleMapで開く</span>
+<% end %>
 </div>
 </div>
 
