@@ -58,6 +58,6 @@ class ShopsController < ApplicationController
     shops.map do |shop|
       first_image = shop.shop_images.first&.image
       shop.as_json(only: [ :id, :name, :latitude, :longitude, :address, :rating ]).merge(image: first_image)
-    end.to_json
+    end
   end
 end
