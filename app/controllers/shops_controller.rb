@@ -1,6 +1,5 @@
 class ShopsController < ApplicationController
-  before_action :set_ransack_query, only: [ :index, :search, :map ]
-  before_action :set_map_data, only: [ :index, :search, :map ]
+  before_action :set_ransack_query, only: [ :index ]
 
   def index;end
 
@@ -24,7 +23,10 @@ class ShopsController < ApplicationController
     render json: @nearby_shops_json
   end
 
-  def map;end
+  def map
+    @shops = Shop.includes(:shop_images)
+    @shops_json = generate_shops_json(@shops)
+  end
 
   def show
     @shop = Shop.includes(:shop_images).find_by(id: params[:id])
@@ -40,19 +42,22 @@ class ShopsController < ApplicationController
 
   def set_ransack_query
     @q = Shop.ransack(params[:q])
-    if params[:q].present?
-      @filtered_shops = @q.result(distinct: true).includes(:shop_images).page(params[:page]).per(12)
-    else
-      @filtered_shops = Shop.all.includes(:shop_images).page(params[:page]).per(12)
-    end
+    @filtered_shops = fetch_filtered_shops
   end
 
-  def set_map_data
-    @shops = @filtered_shops.map do |shop|
-      shop.as_json(only: [ :id, :name, :latitude, :longitude, :address, :rating ]).merge(
-        image: shop.shop_images.first&.image
-      )
-    end
-    @shops_json = @shops.to_json
+  def fetch_filtered_shops
+    shops = params[:q].present? ? @q.result(distinct: true) : Shop.all
+    paginate_shops(shops)
+  end
+
+  def paginate_shops(shops)
+    shops.page(params[:page]).per(12)
+  end
+
+  def generate_shops_json(shops)
+    shops.map do |shop|
+      first_image = shop.shop_images.first&.image
+      shop.as_json(only: [ :id, :name, :latitude, :longitude, :address, :rating ]).merge(image: first_image)
+    end.to_json
   end
 end
