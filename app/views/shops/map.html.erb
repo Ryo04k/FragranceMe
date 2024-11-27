@@ -19,7 +19,7 @@
 <script type="text/javascript">
   const googleMapApiKey = "<%= ENV["GOOGLE_API_KEY"] %>";
   let map, marker;
-  let shops = <%= @shops_json.html_safe %>;
+  let shops = <%= @shops_json.to_json.html_safe %>;
 
   function initMap() {
     // 新しい地図オブジェクトを作成
