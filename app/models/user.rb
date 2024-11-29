@@ -12,14 +12,14 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }, on: :create
 
   def bookmark(shop)
-    bookmark_shops << shop
+    shop_bookmarks << shop
   end
 
   def unbookmarks(shop)
-    bookmarks_shops.destroy(shop)
+    shop_bookmarks.destroy(shop)
   end
 
-  def bookmark(shop)
-    bookmark_shops.include?(shop)
+  def bookmark?(shop)
+    shop_bookmarks.include?(shop)
   end
 end
