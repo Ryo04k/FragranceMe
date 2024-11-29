@@ -6,6 +6,6 @@ class CreateShopBookmarks < ActiveRecord::Migration[7.2]
 
       t.timestamps
     end
-    add_index :shop_bookmarks, [:user_id, :shop_id], unique: true
+    add_index :shop_bookmarks, [ :user_id, :shop_id ], unique: true
   end
 end

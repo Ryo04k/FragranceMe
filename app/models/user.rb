@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  has_many :shop_bookmarks, dependent: :destroy
+  has_many :shops, through: :shop_bookmarks, source: :shop
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
