@@ -10,4 +10,16 @@ class User < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, presence: true, length: { minimum: 6 }, on: :create
+
+  def bookmark(shop)
+    bookmark_shops << shop
+  end
+
+  def unbookmarks(shop)
+    bookmarks_shops.destroy(shop)
+  end
+
+  def bookmark(shop)
+    bookmark_shops.include?(shop)
+  end
 end
