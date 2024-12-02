@@ -30,6 +30,9 @@ module.exports = {
       colors: {
         customColor: "#111",
       },
+      screens: {
+        hoverable: { raw: '(hover: hover) and (pointer: fine)' },
+      },
     },
   },
   plugins: [require("daisyui")],
