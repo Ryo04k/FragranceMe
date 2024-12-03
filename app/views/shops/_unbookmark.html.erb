@@ -1,0 +1,11 @@
+<%= link_to shop_bookmark_path(current_user.shop_bookmarks.find_by(shop_id: shop.id)),
+            id: "unbookmark-button-for-shop-#{shop.id}",
+            method: :delete,
+            data: { turbo_method: :delete },
+            class: "flex items-center" do %>
+  <button class="flex justify-center items-center w-11 h-11 sm:w-9 sm:h-9 border opacity-90 rounded-full bg-gray-50 text-red-500">
+    <span class="material-symbols-outlined material-symbols-outlined-unbookmark material-icons md-30">
+      favorite
+    </span>
+  </button>
+<% end %>

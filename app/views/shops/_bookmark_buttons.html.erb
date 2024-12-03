@@ -1,0 +1,11 @@
+<% if user_signed_in? %>
+  <div>
+    <% if current_user.bookmark?(shop) %> <!-- ログインしている場合、指定されたショップがブックマークされているか確認 -->
+      <%= render "unbookmark", { shop: shop } %> <!-- ブックマークされている場合は「ブックマーク解除」ボタンを表示 -->
+    <% else %>
+      <%= render "bookmark", { shop: shop } %> <!-- ブックマークされていない場合は「ブックマーク追加」ボタンを表示 -->
+    <% end %>
+  </div>
+<% else %>
+  <!-- 未ログインユーザー処理 -->
+<% end %>

@@ -37,6 +37,10 @@ class ShopsController < ApplicationController
     end
   end
 
+  def bookmarks
+    @shop_bookmarks = current_user.shop_bookmarks.includes(:shop).order(created_at: :desc)
+  end
+
 
   private
 
