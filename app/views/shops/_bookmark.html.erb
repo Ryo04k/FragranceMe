@@ -1,0 +1,11 @@
+<%= link_to shop_bookmarks_path(shop_id: shop.id),
+            id: "bookmark-button-for-shop-#{shop.id}",
+            method: :post,
+            data: { turbo_method: :post },
+            class: "flex items-center" do %>
+  <button class="flex justify-center items-center w-11 h-11 sm:w-9 sm:h-9 border opacity-90 rounded-full bg-gray-50 hoverable:hover:text-red-500 transition-colors text-gray-400">
+    <span class="material-symbols-outlined material-icons md-30 material-symbols-outlined-bookmark">
+      favorite
+    </span>
+  </button>
+<% end %>
