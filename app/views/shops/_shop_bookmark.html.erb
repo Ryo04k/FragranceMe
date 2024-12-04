@@ -1,0 +1,31 @@
+
+  <div class="bg-white border shadow-sm hoverable:hover:shadow-lg transition-shadow duration-300 group rounded">
+    <a href="/shops/<%= bookmark.shop.id %>" data-turbo="false">
+      <div class="relative w-full h-36 flex items-center justify-center overflow-hidden">
+        <% if bookmark.shop.photo_urls.any? %>
+          <%= image_tag bookmark.shop.photo_urls.first,
+              alt: "#{bookmark.shop.name}の画像",
+              class: "object-cover w-full h-full transition-transform duration-300 hoverable:group-hover:scale-105 ghoverable:roup-hover:opacity-85",
+              loading: "lazy" %>
+        <% end %>
+        <!-- bookmark_buttonsを配置 -->
+        <object class="absolute top-4 right-4">
+          <%= render 'bookmark_buttons', { shop: bookmark.shop } %>
+        </object>
+      </div>
+      <div class="p-4 pb-8 flex flex-col flex-grow">
+        <div class="flex justify-between items-center">
+          <p class="text-xs text-secondary dark:text-neutral-500 mr-2">
+            <%= bookmark.shop.simplified_address %>
+          </p>
+        </div>
+        <h3 class="text-base font-semibold mb-1 line-clamp-2">
+          <%= bookmark.shop.name %>
+        </h3>
+        <div class="flex items-center mb-2">
+          <%= render_rating(bookmark.shop) %>
+        </div>
+        <%= experience_tag(bookmark.shop) %>
+      </div>
+    </a>
+  </div>
