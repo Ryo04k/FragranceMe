@@ -1,18 +1,21 @@
 <div class="max-w-[1200px] mx-auto mb-20">
-<h2 class="text-2xl md:text-3xl font-bold mt-6 mb-1 ml-2 md:ml-0">お気に入り</h2>
-  <!-- ショップ一覧 -->
-  <div class="row">
-    <div class="col-12">
-      <div class="row">
-        <% if @shop_bookmarks.present? %>
-          <% @shop_bookmarks.each do |bookmark| %>
-          <p>ショップID:<%= bookmark.shop_id %></p>
-          <p><%= bookmark.shop.name %></p>
-        <% end %>
-        <% else %>
-          <p>まだお気に入りがありません</p>
-        <% end %>
+  <h2 class="text-2xl md:text-3xl font-bold mt-6 mb-1 ml-2 md:ml-0">お気に入り</h2>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 px-4">
+    <% if @shop_bookmarks.any? %>
+      <% @shop_bookmarks.each do |bookmark| %>
+        <%= render partial: "shop_bookmark", locals: { bookmark: bookmark } %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <% if @shop_bookmarks.blank? %>
+    <div class="mt-8 text-center">
+      <h3 class="text-lg font-semibold">まだお気に入りがありません</h3>
+      <p>気になるショップを見つけたら、<span class="block sm:inline">ぜひ追加してみましょう！</p>
+      <div class="mt-4">
+        <%= link_to "ショップを探す", shops_path, class: "btn btn-neutral btn-wide text-base" %>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>
