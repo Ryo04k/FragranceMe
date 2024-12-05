@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
 
   resources :shops do
+    resources :reviews, only: %i[new create show edit update destroy], shallow: true
     collection do
       get "search"
       get "map"
