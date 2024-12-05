@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_29_075914) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_05_051715) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "shop_id", null: false
+    t.text "body"
+    t.decimal "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shop_id"], name: "index_reviews_on_shop_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
 
   create_table "shop_bookmarks", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -62,6 +73,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_29_075914) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "reviews", "shops"
+  add_foreign_key "reviews", "users"
   add_foreign_key "shop_bookmarks", "shops"
   add_foreign_key "shop_bookmarks", "users"
   add_foreign_key "shop_images", "shops"
