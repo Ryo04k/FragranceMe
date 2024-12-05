@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :shop_bookmarks, dependent: :destroy
   has_many :shops, through: :shop_bookmarks, source: :shop
+  has_many :reviews, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -21,5 +22,10 @@ class User < ApplicationRecord
 
   def bookmark?(shop)
     shop_bookmarks.exists?(shop_id: shop.id)
+  end
+
+  # オブジェクトが特定のユーザーに属しているかを判定
+  def own?(object)
+    id == object&.user_id
   end
 end
