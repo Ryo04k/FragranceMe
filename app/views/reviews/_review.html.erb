@@ -1,0 +1,9 @@
+<div id="review-<%= review.id %>" class="p-5 border-b border-gray-300">
+  <p class="text-base text-gray-600"><%= review.user.name %></p>
+  <p class="text-xs text-gray-600"><%= review.created_at.strftime("%Y年%m月%d日") %></p>
+  <p class="mt-2 text-gray-800"><%= review.body %></p>
+
+  <% if current_user&.own?(review) %>
+    <%= link_to "口コミを削除する", review_path(review), class: "mt-2 p-1 border inline-block text-xs", data: { turbo_method: :delete } %>
+  <% end %>
+</div>

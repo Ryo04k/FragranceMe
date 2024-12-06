@@ -15,12 +15,12 @@
         </div>
       <% end %>
     </div>
-    <!-- 前後の矢印 -->
+    <!-- スライダー矢印 -->
     <div class="swiper-button-next text-white p-2 rounded-full"></div>
     <div class="swiper-button-prev text-white p-2 rounded-full"></div>
   </div>
 
-  <!-- サムネイル -->
+  <!-- スライダー サムネイル -->
   <div class="swiper slider-thumbnail">
     <div class="swiper-wrapper">
       <% @shop_images.each do |image_url| %>
@@ -31,9 +31,10 @@
     </div>
   </div>
 
+  <!-- タブ切り替え -->
   <div role="tablist" class="tabs tabs-bordered mt-3">
     <a role="tab" class="tab tab-active text-base font-semibold" id="shopDetailsTab" onclick="showTab('shopDetailsContent')">ショップ詳細</a>
-    <a role="tab" class="tab text-base font-semibold" id="reviewsTab" onclick="showTab('reviewsContent')">口コミ</a>
+    <a role="tab" class="tab text-base font-semibold" id="reviewsTab" onclick="showTab('reviewsContent')">口コミ（<%= @shop.reviews.count %>件）</a>
   </div>
 
   <!-- ショップ詳細コンテンツ -->
@@ -90,10 +91,15 @@
     </div>
   </div>
 
-  <!-- 口コミコンテンツ -->
-  <div id="reviewsContent" class="hidden">
-    <p>口コミ内容</p>
-  </div>
+	<!-- 口コミコンテンツ -->
+	<div id="reviewsContent" class="hidden">
+		<div id="table-review">
+			<%= render @reviews, shop: @shop %>
+		</div>
+		<% if user_signed_in? %>
+			<%= render "reviews/form", review: @review, shop: @shop %>
+		<% end %>
+	</div>
 </div>
 
 <style>
@@ -145,5 +151,4 @@
       activeTab.classList.add('tab-active');
     }
   }
-
 </script>
