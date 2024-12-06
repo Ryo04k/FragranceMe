@@ -15,12 +15,12 @@
         </div>
       <% end %>
     </div>
-    <!-- 前後の矢印 -->
+    <!-- スライダー矢印 -->
     <div class="swiper-button-next text-white p-2 rounded-full"></div>
     <div class="swiper-button-prev text-white p-2 rounded-full"></div>
   </div>
 
-  <!-- サムネイル -->
+  <!-- スライダー サムネイル -->
   <div class="swiper slider-thumbnail">
     <div class="swiper-wrapper">
       <% @shop_images.each do |image_url| %>
@@ -31,56 +31,75 @@
     </div>
   </div>
 
-  <% if @shop.opening_hours.present? %>
-    <div class="py-8 border-b border-gray-300 flex flex-col md:flex-row items-start px-4">
-      <p class="text-base font-bold w-full md:w-40 flex items-start mb-2 md:mb-0 items-center">
-        <span class="material-symbols-outlined mr-2">schedule</span> 営業時間
-      </p>
-      <div class="text-base w-full md:w-auto">
-        <%= sanitize(@shop.opening_hours.gsub("\n", "<br>")) %>
-      </div>
-    </div>
-  <% end %>
+  <!-- タブ切り替え -->
+  <div role="tablist" class="tabs tabs-bordered mt-3">
+    <a role="tab" class="tab tab-active text-base font-semibold" id="shopDetailsTab" onclick="showTab('shopDetailsContent')">ショップ詳細</a>
+    <a role="tab" class="tab text-base font-semibold" id="reviewsTab" onclick="showTab('reviewsContent')">口コミ（<%= @shop.reviews.count %>件）</a>
+  </div>
 
-  <% if @shop.phone_number.present? %>
-    <div class="py-8 border-b border-gray-300 flex flex-col md:flex-row px-4">
-      <p class="text-base font-bold w-full md:w-40 flex mb-2 md:mb-0 items-center">
-        <span class="material-symbols-outlined mr-2">call</span> 電話番号
-      </p>
-      <p class="text-base w-full md:w-auto"><%= @shop.phone_number %></p>
-    </div>
-  <% end %>
-
-    <% if @shop.web_site.present? %>
-    <div class="py-8 border-b border-gray-300 flex flex-col md:flex-row px-4">
-        <p class="text-base font-bold w-full md:w-40 flex mb-2 md:mb-0 items-center">
-        <span class="material-symbols-outlined mr-2">desktop_windows</span> Webサイト
+  <!-- ショップ詳細コンテンツ -->
+  <div id="shopDetailsContent" class="block">
+    <% if @shop.opening_hours.present? %>
+      <div class="py-8 border-b border-gray-300 flex flex-col md:flex-row items-start px-4">
+        <p class="text-base font-bold w-full md:w-40 flex items-start mb-2 md:mb-0 items-center">
+          <span class="material-symbols-outlined mr-2">schedule</span> 営業時間
         </p>
-        <%= link_to @shop.web_site.to_s, @shop.web_site.to_s, class: "text-base w-full md:w-auto", target: :_blank, rel: "noopener noreferrer" %>
-    </div>
+        <div class="text-base w-full md:w-auto">
+          <%= sanitize(@shop.opening_hours.gsub("\n", "<br>")) %>
+        </div>
+      </div>
     <% end %>
 
-  <% if @shop.address.present? && @shop.postal_code.present? %>
-    <div class="py-8 flex flex-col md:flex-row px-4">
-      <p class="text-base font-bold w-full md:w-40 flex mb-2 md:mb-0 items-center">
-        <span class="material-symbols-outlined mr-2">pin_drop</span> 住所
-      </p>
-      <p class="text-base w-full md:w-auto"><%= @shop.postal_code %><br><%= @shop.address %></p>
+    <% if @shop.phone_number.present? %>
+      <div class="py-8 border-b border-gray-300 flex flex-col md:flex-row px-4">
+        <p class="text-base font-bold w-full md:w-40 flex mb-2 md:mb-0 items-center">
+          <span class="material-symbols-outlined mr-2">call</span> 電話番号
+        </p>
+        <p class="text-base w-full md:w-auto"><%= @shop.phone_number %></p>
+      </div>
+    <% end %>
+
+    <% if @shop.web_site.present? %>
+      <div class="py-8 border-b border-gray-300 flex flex-col md:flex-row px-4">
+        <p class="text-base font-bold w-full md:w-40 flex mb-2 md:mb-0 items-center">
+          <span class="material-symbols-outlined mr-2">desktop_windows</span> Webサイト
+        </p>
+        <%= link_to @shop.web_site.to_s, @shop.web_site.to_s, class: "text-base w-full md:w-auto", target: :_blank, rel: "noopener noreferrer" %>
+      </div>
+    <% end %>
+
+    <% if @shop.address.present? && @shop.postal_code.present? %>
+      <div class="py-8 flex flex-col md:flex-row px-4">
+        <p class="text-base font-bold w-full md:w-40 flex mb-2 md:mb-0 items-center">
+          <span class="material-symbols-outlined mr-2">pin_drop</span> 住所
+        </p>
+        <p class="text-base w-full md:w-auto"><%= @shop.postal_code %><br><%= @shop.address %></p>
+      </div>
+    <% end %>
+
+    <iframe
+      frameborder="0"
+      class="w-full md:h-64 h-48"
+      src="https://www.google.com/maps/embed/v1/place?key=<%= GoogleApi.api_key %>&q=<%= CGI.escape(@shop.name) %>,<%= CGI.escape(@shop.address) %>">
+    </iframe>
+
+    <div class="flex justify-end mt-5 mr-2 md:mr-0">
+      <%= link_to "https://www.google.com/maps/search/?api=1&query=#{CGI.escape(@shop.name)},#{CGI.escape(@shop.address)}", target: :_blank, class: "text-xs btn btn-outline" do %>
+        <span class="material-symbols-outlined">map_search</span>
+        <span>GoogleMapで開く</span>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 
-  <iframe
-    frameborder="0"
-    class="w-full md:h-64 h-48"
-    src="https://www.google.com/maps/embed/v1/place?key=<%= GoogleApi.api_key %>&q=<%= CGI.escape(@shop.name) %>,<%= CGI.escape(@shop.address) %>">
-  </iframe>
-
-<div class="flex justify-end mt-5 mr-2 md:mr-0">
-<%= link_to "https://www.google.com/maps/search/?api=1&query=#{CGI.escape(@shop.name)},#{CGI.escape(@shop.address)}", target: :_blank, class: "text-xs btn btn-outline" do %>
-    <span class="material-symbols-outlined">map_search</span>
-    <span>GoogleMapで開く</span>
-<% end %>
-</div>
+	<!-- 口コミコンテンツ -->
+	<div id="reviewsContent" class="hidden">
+		<div id="table-review">
+			<%= render @reviews, shop: @shop %>
+		</div>
+		<% if user_signed_in? %>
+			<%= render "reviews/form", review: @review, shop: @shop %>
+		<% end %>
+	</div>
 </div>
 
 <style>
@@ -106,4 +125,30 @@
       },
     });
   });
+</script>
+
+<script type="text/javascript">
+  function showTab(tabContentId) {
+    // すべてのタブコンテンツを非表示にする
+    const contents = document.querySelectorAll('div[id$="Content"]'); // IDがContentで終わる要素を選択
+    contents.forEach(content => {
+      content.classList.add('hidden'); // hiddenクラスを追加
+    });
+
+    // 選択されたタブのコンテンツを表示する
+    const selectedContent = document.getElementById(tabContentId);
+    selectedContent.classList.remove('hidden'); // hiddenクラスを削除
+
+    // すべてのタブのアクティブクラスを削除
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => {
+      tab.classList.remove('tab-active');
+    });
+
+    // クリックされたタブにアクティブクラスを追加
+    const activeTab = document.querySelector(`[onclick="showTab('${tabContentId}')"]`);
+    if (activeTab) {
+      activeTab.classList.add('tab-active');
+    }
+  }
 </script>

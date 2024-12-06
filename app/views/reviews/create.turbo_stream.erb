@@ -1,0 +1,12 @@
+<% if @review.errors.present? %>
+  <%= turbo_stream.replace "review-form" do %>
+    <%= render 'reviews/form', review: @review, shop: @review.shop %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.prepend "table-review" do %>
+    <%= render 'reviews/review', review: @review %>
+  <% end %>
+  <%= turbo_stream.replace "review-form" do %>
+    <%= render 'reviews/form', review: Review.new, shop: @review.shop %>
+  <% end %>
+<% end %>

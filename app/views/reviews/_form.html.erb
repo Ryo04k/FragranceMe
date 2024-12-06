@@ -1,0 +1,14 @@
+<div class="mt-10 p-5 md:p-0" id="review-form">
+  <div class="w-full max-w-lg mx-auto">
+    <%= form_with model: review, url: shop_reviews_path(shop) do |f| %>
+      <div class="mb-2">
+        <%= f.label :body, class: "block text-gray-700" %>
+        <%= f.text_area :body, class: "form-control mt-1 block w-full border rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2", rows: "4", placeholder: "購入した商品、自分の感想やおすすめポイントを気軽に投稿してみてください！" %>
+      </div>
+
+      <div class="flex justify-center">
+        <%= f.submit "口コミを投稿する", class: "mt-1 btn btn-wide btn-neutral rounded" %>
+      </div>
+    <% end %>
+  </div>
+</div>

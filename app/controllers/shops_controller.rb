@@ -30,6 +30,9 @@ class ShopsController < ApplicationController
 
   def show
     @shop = Shop.includes(:shop_images).find_by(id: params[:id])
+    @review = Review.new
+    @reviews = @shop.reviews.includes(:user).order(created_at: :desc)
+
     if @shop
       @shop_images = @shop.photo_urls
     else

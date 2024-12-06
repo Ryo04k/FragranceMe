@@ -1,6 +1,7 @@
 class Shop < ApplicationRecord
   has_many :shop_images, dependent: :destroy
   has_many :shop_bookmarks, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   def self.ransackable_attributes(auth_object = nil)
     [ "name", "address" ]
