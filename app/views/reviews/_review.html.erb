@@ -4,6 +4,6 @@
   <p class="mt-2 text-gray-800"><%= review.body %></p>
 
   <% if current_user&.own?(review) %>
-    <%= link_to "口コミを削除する", review_path(review), class: "mt-2 p-1 border inline-block text-xs", data: { turbo_method: :delete } %>
+    <%= link_to "口コミを削除する", review_path(review), class: "mt-2 p-1 border inline-block text-xs", data: { turbo_method: :delete, turbo_confirm: "口コミを削除すると元に戻せません。\n本当に削除しますか？" } %>
   <% end %>
 </div>
