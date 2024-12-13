@@ -7,5 +7,4 @@ class Diagnosis < ApplicationRecord
   validates :user_id, presence: true
   validates :fragrance_id, presence: true
   validates :diagnosis_date, presence: true
-
 end

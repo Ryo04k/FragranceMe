@@ -1,5 +1,4 @@
 class DiagnosesController < ApplicationController
-
   def start
     @user_fragrance_form = UserFragranceForm.new
   end
@@ -47,12 +46,12 @@ class DiagnosesController < ApplicationController
     scores.select { |k, v| v == max_score }.keys.map do |name|
       # ここで日本語に変換
       case name
-      when :herbal then 'ハーブ'
-      when :floral then 'フローラル'
-      when :citrus then '柑橘'
-      when :oriental then 'オリエンタル'
-      when :spicy then 'スパイシー'
-      when :woody then 'ウッディ'
+      when :herbal then "ハーブ"
+      when :floral then "フローラル"
+      when :citrus then "柑橘"
+      when :oriental then "オリエンタル"
+      when :spicy then "スパイシー"
+      when :woody then "ウッディ"
       else name.to_s
       end
     end

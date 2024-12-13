@@ -40,15 +40,15 @@ class UserFragranceForm
     user_answers.each do |question_id, answer_content|
       Rails.logger.debug "Expertise answer content: #{answer_content}"
       scores = case question_id
-               when "1" then expertise_scores(answer_content)
-               when "2" then lifestyle_scores(answer_content)
-               when "3" then scene_scores(answer_content)
-               when "4" then fashion_scores(answer_content)
-               when "5" then desired_fragrance_scores(answer_content)
-               when "6" then image_scores(answer_content)
-               when "7" then impression_scores(answer_content)
-               else { floral: 0, citrus: 0, oriental: 0, spicy: 0, herbal: 0, woody: 0 }
-               end
+      when "1" then expertise_scores(answer_content)
+      when "2" then lifestyle_scores(answer_content)
+      when "3" then scene_scores(answer_content)
+      when "4" then fashion_scores(answer_content)
+      when "5" then desired_fragrance_scores(answer_content)
+      when "6" then image_scores(answer_content)
+      when "7" then impression_scores(answer_content)
+      else { floral: 0, citrus: 0, oriental: 0, spicy: 0, herbal: 0, woody: 0 }
+      end
 
       # 各スコアを合計
       total_scores.merge!(scores) { |key, old_val, new_val| old_val + new_val }
