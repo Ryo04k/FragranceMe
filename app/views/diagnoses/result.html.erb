@@ -1,0 +1,26 @@
+<div class="max-w-[1200px] mx-auto mb-20">
+  <div class="p-2">
+    <h1 class="text-2xl font-bold">診断結果</h1>
+
+    <h2 class="text-xl font-semibold mt-4">あなたの香りのスコア</h2>
+    <ul class="list-disc ml-6">
+      <li>フローラル: <%= @scores[:floral] %></li>
+      <li>柑橘: <%= @scores[:citrus] %></li>
+      <li>オリエンタル: <%= @scores[:oriental] %></li>
+      <li>スパイシー: <%= @scores[:spicy] %></li>
+      <li>ハーブ: <%= @scores[:herbal] %></li>
+      <li>ウッディ: <%= @scores[:woody] %></li>
+    </ul>
+
+    <h2 class="text-xl font-semibold mt-4">あなたにおすすめの香りは</h2>
+    <div class="mt-4">
+        <div class="mt-2">
+          <%= image_tag(@recommended_fragrance_image.image_path, alt: "#{@recommended_fragrance_image.name}の画像", class: "max-w-full h-auto") %>
+        </div>
+
+      <div class="mt-6">
+        <%= link_to '再診断する', start_diagnoses_path, class: 'btn btn-neutral' %>
+      </div>
+    </div>
+  </div>
+</div>
