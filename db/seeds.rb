@@ -18,6 +18,7 @@ questions = Question.create([
   { content: '好きなファッションを教えて下さい。' },
   { content: 'どのような香りをお探しですか？' },
   { content: 'あなたが心惹かれる香りのイメージはどれですか？' },
+  { content: 'どの季節が好きですか？' },
   { content: '周囲にどのような印象を与えたいですか？' }
 ])
 
@@ -35,11 +36,9 @@ answers = Answer.create([
   { question: questions[2], content: '特別な日' },
   { question: questions[2], content: 'ビジネスシーン' },
   { question: questions[2], content: 'リラックスしたい時' },
-  { question: questions[2], content: 'デートの時' },
 
   { question: questions[3], content: 'カジュアル' },
   { question: questions[3], content: 'キレイめ' },
-  { question: questions[3], content: '大人っぽい' },
   { question: questions[3], content: '個性的' },
   { question: questions[3], content: 'シンプル' },
 
@@ -52,9 +51,14 @@ answers = Answer.create([
   { question: questions[5], content: 'スパイシー' },
   { question: questions[5], content: '森の香り' },
 
-  { question: questions[6], content: 'フレッシュで爽やか' },
-  { question: questions[6], content: '落ち着いて知的' },
-  { question: questions[6], content: '華やかで女性らしい' }
+  { question: questions[6], content: '春' },
+  { question: questions[6], content: '夏' },
+  { question: questions[6], content: '秋' },
+  { question: questions[6], content: '冬' },
+
+  { question: questions[7], content: 'フレッシュで爽やか' },
+  { question: questions[7], content: '落ち着いて知的' },
+  { question: questions[7], content: '華やかで女性らしい' }
 ])
 
 # サンプルユーザーの作成
@@ -75,16 +79,17 @@ UserAnswer.create([
   { user: user, question: questions[3], answer: answers[3] }, # 好きなファッションを教えてください。 - カジュアル
   { user: user, question: questions[4], answer: answers[4] }, # どのような香りをお探しですか？ - 男性向け
   { user: user, question: questions[5], answer: answers[5] }, # あなたが心惹かれる香りのイメージはどれですか？ - フルーツバスケット
-  { user: user, question: questions[6], answer: answers[6] }  # 周囲にどのような印象を与えたいですか？ - フレッシュで爽やか
+  { user: user, question: questions[6], answer: answers[6] }, # どの季節が好きですか？ - 春
+  { user: user, question: questions[7], answer: answers[7] }  # 周囲にどのような印象を与えたいですか？ - フレッシュで爽やか
 ])
 
 # サンプルスコアの作成
 UserFragranceScore.create(
   diagnosis: diagnosis,
-  floral_score: 8,
-  citrus_score: 5,
+  floral_score: 10,
+  citrus_score: 6,
   oriental_score: 7,
   spicy_score: 3,
-  herbal_score: 6,
+  herbal_score: 7,
   woody_score: 4
 )
