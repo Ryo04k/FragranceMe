@@ -10,9 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_05_051715) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_11_033442) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answers", force: :cascade do |t|
+    t.bigint "question_id", null: false
+    t.string "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
+  end
+
+  create_table "diagnoses", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "fragrance_id", null: false
+    t.datetime "diagnosis_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fragrance_id"], name: "index_diagnoses_on_fragrance_id"
+    t.index ["user_id"], name: "index_diagnoses_on_user_id"
+  end
+
+  create_table "fragrances", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "image_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "content", null: false
+    t.string "image_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content"], name: "index_questions_on_content", unique: true
+  end
 
   create_table "reviews", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -60,6 +93,30 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_051715) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_answers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "question_id", null: false
+    t.bigint "answer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["answer_id"], name: "index_user_answers_on_answer_id"
+    t.index ["question_id"], name: "index_user_answers_on_question_id"
+    t.index ["user_id"], name: "index_user_answers_on_user_id"
+  end
+
+  create_table "user_fragrance_scores", force: :cascade do |t|
+    t.bigint "diagnosis_id", null: false
+    t.integer "floral_score", null: false
+    t.integer "citrus_score", null: false
+    t.integer "oriental_score", null: false
+    t.integer "spicy_score", null: false
+    t.integer "herbal_score", null: false
+    t.integer "woody_score", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["diagnosis_id"], name: "index_user_fragrance_scores_on_diagnosis_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -73,9 +130,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_051715) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "answers", "questions"
+  add_foreign_key "diagnoses", "fragrances"
+  add_foreign_key "diagnoses", "users"
   add_foreign_key "reviews", "shops"
   add_foreign_key "reviews", "users"
   add_foreign_key "shop_bookmarks", "shops"
   add_foreign_key "shop_bookmarks", "users"
   add_foreign_key "shop_images", "shops"
+  add_foreign_key "user_answers", "answers"
+  add_foreign_key "user_answers", "questions"
+  add_foreign_key "user_answers", "users"
+  add_foreign_key "user_fragrance_scores", "diagnoses"
 end

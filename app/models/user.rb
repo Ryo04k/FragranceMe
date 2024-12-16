@@ -3,6 +3,12 @@ class User < ApplicationRecord
   has_many :shops, through: :shop_bookmarks, source: :shop
   has_many :reviews, dependent: :destroy
 
+  # 診断
+  has_many :user_answers
+  has_many :diagnoses
+  has_many :user_fragrance_scores
+
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -27,5 +33,9 @@ class User < ApplicationRecord
   # オブジェクトが特定のユーザーに属しているかを判定
   def own?(object)
     id == object&.user_id
+  end
+
+  def fragrance_diagnoses
+    diagnoses.includes(:user_fragrance_score)
   end
 end

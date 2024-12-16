@@ -16,6 +16,17 @@ Rails.application.routes.draw do
   end
 
   resources :shop_bookmarks, only: %i[create destroy]
+
+  resources :diagnoses do
+    collection do
+      get "start", to: "diagnoses#start" # 診断ページTOP
+      get "question/:id", to: "diagnoses#show_question", as: "question" # 質問を表示するためのアクション。
+      post "answer", to: "diagnoses#answer_question" # ユーザーが質問に対して選択した回答を送信するためのアクション
+      get "result", to: "diagnoses#result" # ユーザーの診断結果を表示するためのアクション
+    end
+  end
+
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
