@@ -52,7 +52,7 @@ class UserFragranceForm
       "日常使い" => { floral: 1, citrus: 1, oriental: 0, spicy: 0, herbal: 1, woody: 1 },
       "特別な日" => { floral: 1, citrus: 0, oriental: 1, spicy: 0, herbal: 0, woody: 0 },
       "ビジネスシーン" => { floral: 0, citrus: 0, oriental: 1, spicy: 0, herbal: 0, woody: 1 },
-      "リラックスしたい時" => { floral: 1, citrus: 1, oriental: 0, spicy: 0, herbal: 1, woody: 0 },
+      "リラックスしたい時" => { floral: 1, citrus: 1, oriental: 0, spicy: 0, herbal: 1, woody: 0 }
     },
     fashion: {
       "カジュアル" => { floral: 1, citrus: 2, oriental: 0, spicy: 0, herbal: 1, woody: 0 },
@@ -100,7 +100,6 @@ class UserFragranceForm
   private
 
   def calculate_individual_scores(question_id, answer_content)
-
     mapped_answer = ANSWER_MAPPING[answer_content] || answer_content
 
     case question_id.to_i

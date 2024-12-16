@@ -2,11 +2,11 @@
   <div class="p-6 bg-white rounded-lg shadow-md">
 
     <h2 class="text-xl font-bold mb-8 text-center"><%= @question.content %></h2>
-    <%= form_with url: answer_diagnoses_path, method: :post, local: true do |form| %>
+    <%= form_with url: answer_diagnoses_path, method: :post, local: true do |f| %>
       <div class="space-y-6 max-w-[50%] mx-auto">
         <% @answers.each do |answer| %>
           <div class="flex items-center p-4 bg-gray-100 rounded-lg border border-gray-300 hover:bg-gray-200 transition">
-            <%= form.radio_button :answer, answer.id, id: "answer_#{answer.id}", class: "mr-4 text-blue-600 focus:ring-blue-500", onclick: "this.form.submit();" %>
+            <%= f.radio_button :answer, answer.id, id: "answer_#{answer.id}", class: "mr-4 text-blue-600 focus:ring-blue-500", onclick: "this.form.submit();" %>
             <%= label_tag "answer_#{answer.id}", answer.content, class: "text-base" %>
           </div>
         <% end %>

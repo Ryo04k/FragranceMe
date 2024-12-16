@@ -34,4 +34,8 @@ class User < ApplicationRecord
   def own?(object)
     id == object&.user_id
   end
+
+  def fragrance_diagnoses
+    diagnoses.includes(:user_fragrance_score)
+  end
 end
