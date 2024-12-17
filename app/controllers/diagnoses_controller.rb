@@ -1,4 +1,6 @@
 class DiagnosesController < ApplicationController
+  DIAGNOSIS_DATA_KEY = :diagnosis_data
+
   def start
     @user_fragrance_form = UserFragranceForm.new
   end
@@ -19,29 +21,13 @@ class DiagnosesController < ApplicationController
     @user_answers = session[:user_answers] || {}
     @user_fragrance_form = UserFragranceForm.new
 
-    # スコアを計算
+    # 各スコアを計算
     @scores = @user_fragrance_form.calculate_scores(@user_answers)
-
     @recommended_fragrance = recommend_fragrance(@scores)
     @recommended_fragrance_image = fetch_fragrance_image(@recommended_fragrance)
 
     if @recommended_fragrance.any?
-      if current_user
-        # ログインユーザーの場合、診断結果を保存
-        begin
-          Diagnosis.create_with_scores(current_user, @recommended_fragrance.first, @scores)
-        rescue => e
-          Rails.logger.error "診断結果の保存に失敗しました: #{e.message}"
-        end
-      else
-        # 未ログインユーザーの場合、結果をセッションに保存
-        session[:diagnosis_data] = {
-          fragrance_id: @recommended_fragrance.first,
-          scores: @scores
-        }
-        Rails.logger.info "セッションデータの中身: #{session.inspect}"
-        flash[:notice] = "診断結果を一時保存しました。"
-      end
+      save_diagnosis_or_session
     else
       flash[:alert] = "診断結果が保存出来ませんでした。"
     end
@@ -81,5 +67,30 @@ class DiagnosesController < ApplicationController
 
   def fetch_fragrance_image(recommended_fragrance)
     Fragrance.find_by(name: recommended_fragrance.first) if recommended_fragrance.any?
+  end
+
+  def save_diagnosis_or_session
+    if current_user
+      save_diagnosis
+    else
+      save_to_session
+    end
+  end
+
+  def save_diagnosis
+    begin
+      Diagnosis.create_with_scores(current_user, @recommended_fragrance.first, @scores)
+    rescue => e
+      Rails.logger.error "診断結果の保存に失敗しました: #{e.message}"
+      flash[:alert] = "診断結果の保存に失敗しました。"
+    end
+  end
+
+  def save_to_session
+    session[DIAGNOSIS_DATA_KEY] = {
+      fragrance_id: @recommended_fragrance.first,
+      score: @scores
+    }
+    Rails.logger.info "セッションデータの中身: #{session.inspect}"
   end
 end
