@@ -33,8 +33,8 @@
 
   <!-- タブ切り替え -->
   <div role="tablist" class="tabs tabs-bordered mt-3">
-    <a role="tab" class="tab tab-active text-base font-semibold text-gray-800" id="shopDetailsTab" onclick="showTab('shopDetailsContent')">ショップ詳細</a>
-    <a role="tab" class="tab text-base font-semibold text-gray-400" id="reviewsTab" onclick="showTab('reviewsContent')">口コミ（<%= @shop.reviews.count %>件）</a>
+    <a role="tab" class="tab tab-active text-base font-semibold text-gray-800" id="shopDetailsTab">ショップ詳細</a>
+    <a role="tab" class="tab text-base font-semibold text-gray-400" id="reviewsTab">口コミ（<%= @shop.reviews.count %>件）</a>
   </div>
 
   <!-- ショップ詳細コンテンツ -->
@@ -92,7 +92,7 @@
   </div>
 
 	<!-- 口コミコンテンツ -->
-	<div id="reviewsContent" class="hidden mb-24">
+	<div id="reviewsContent">
 		<div id="table-review">
 			<%= render @reviews, shop: @shop %>
 		</div>
@@ -136,30 +136,38 @@
 </script>
 
 <script type="text/javascript">
-  function showTab(tabContentId) {
-    // すべてのタブコンテンツを非表示にする
-    const contents = document.querySelectorAll('div[id$="Content"]'); // IDがContentで終わる要素を選択
-    contents.forEach(content => {
-      content.classList.add('hidden'); // hiddenクラスを追加して非表示
-    });
+function showTab(tabContentId) {
+  // すべてのタブコンテンツを非表示にする
+  const contents = document.querySelectorAll('div[id$="Content"]'); // IDがContentで終わる要素を選択
+  contents.forEach(content => {
+    content.classList.add('hidden'); // hiddenクラスを追加して非表示
+  });
 
-    // 選択されたタブのコンテンツを表示する
-    const selectedContent = document.getElementById(tabContentId);
-    selectedContent.classList.remove('hidden'); // hiddenクラスを削除して表示
+  // 選択されたタブのコンテンツを表示する
+  const selectedContent = document.getElementById(tabContentId);
+  selectedContent.classList.remove('hidden'); // hiddenクラスを削除して表示
 
-    // すべてのタブのアクティブクラスを削除
-    const tabs = document.querySelectorAll('.tab');
-    tabs.forEach(tab => {
-      tab.classList.remove('tab-active');
-      tab.classList.remove('text-gray-800');
-      tab.classList.add('text-gray-400');
-    });
+  // すべてのタブのアクティブクラスを削除
+  const tabs = document.querySelectorAll('.tab');
+  tabs.forEach(tab => {
+    tab.classList.remove('tab-active');
+    tab.classList.remove('text-gray-800');
+    tab.classList.add('text-gray-400');
+  });
 
-    // クリックされたタブにアクティブクラスを追加
-    const activeTab = document.querySelector(`[onclick="showTab('${tabContentId}')"]`);
-    if (activeTab) {
-      activeTab.classList.add('tab-active');
-      activeTab.classList.add('text-gray-800');
-    }
+  // クリックされたタブにアクティブクラスを追加
+  const activeTab = document.querySelector(`[id="${tabContentId.replace('Content', 'Tab')}"]`);
+  if (activeTab) {
+    activeTab.classList.add('tab-active');
+    activeTab.classList.add('text-gray-800');
   }
+}
+
+// タブにクリックイベントを追加する処理
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const tabContentId = tab.id.replace('Tab', 'Content'); // タブIDからコンテンツIDを生成
+    showTab(tabContentId);
+  });
+});
 </script>
