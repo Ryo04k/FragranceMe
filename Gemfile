@@ -38,6 +38,10 @@ gem "rails-i18n"
 # 認証
 gem "devise"
 
+gem "omniauth"
+gem "omniauth-rails_csrf_protection"
+gem "omniauth-google-oauth2"
+
 gem "devise-i18n"
 gem "devise-i18n-views"
 
