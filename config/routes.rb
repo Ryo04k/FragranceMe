@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root "static_pages#home"
   devise_for :users, controllers: {
-    registrations: "users/registrations"
+    registrations: "users/registrations",
+    # OmniAuthの認証が成功したときに、コールバックとしてUsers::OmniauthCallbacksControllerが呼び出される
+    omniauth_callbacks: "users/omniauth_callbacks"
   }
 
 
