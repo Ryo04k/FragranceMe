@@ -1,26 +1,67 @@
-<div class="max-w-[1200px] mx-auto mb-20">
-  <div class="p-2">
-    <h1 class="text-2xl font-bold">診断結果</h1>
+<div class="max-w-[1200px] mx-auto p-6">
+  <h1 class="text-2xl font-bold text-center text-gray-800">診断結果</h1>
 
-    <h2 class="text-xl font-semibold mt-4">あなたの香りのスコア</h2>
-    <ul class="list-disc ml-6">
-      <li>フローラル: <%= @scores[:floral] %></li>
-      <li>柑橘: <%= @scores[:citrus] %></li>
-      <li>オリエンタル: <%= @scores[:oriental] %></li>
-      <li>スパイシー: <%= @scores[:spicy] %></li>
-      <li>ハーブ: <%= @scores[:herbal] %></li>
-      <li>ウッディ: <%= @scores[:woody] %></li>
-    </ul>
+  <h2 class="text-xl text-center font-semibold mt-6 text-gray-700">あなたにおすすめの香りは</h2>
+  <div class="mt-4 flex justify-center">
+    <%= image_tag(@recommended_fragrance_image.image_path, alt: "#{@recommended_fragrance_image.name}の画像", class: "w-96 h-auto rounded shadow-sm") %>
+  </div>
 
-    <h2 class="text-xl font-semibold mt-4">あなたにおすすめの香りは</h2>
-    <div class="mt-4">
-        <div class="mt-2">
-          <%= image_tag(@recommended_fragrance_image.image_path, alt: "#{@recommended_fragrance_image.name}の画像", class: "max-w-full h-auto") %>
-        </div>
-
-      <div class="mt-6">
-        <%= link_to '再診断する', start_diagnoses_path, class: 'btn btn-neutral' %>
-      </div>
+  <h3 class="text-xl text-center font-semibold mt-6 text-gray-700">好きな香りの傾向</h3>
+    <div class="mx-auto w-full h-full md:w-96 md:h-80 mt-4">
+      <canvas id="myChart"></canvas>
     </div>
+
+  <div class="mt-8 text-center">
+    <%= link_to 'もう一度診断する', start_diagnoses_path, class: 'btn' %>
   </div>
 </div>
+
+<script>
+const ctx = document.getElementById('myChart');
+
+// スマートフォン用のフォントサイズを設定
+const isMobile = window.matchMedia('(max-width: 640px)').matches; // 640px以下の場合
+
+const myChart = new Chart(ctx, {
+    type: 'radar',
+    data: {
+        labels: ['フローラル', '柑橘', 'スパイシー', 'オリエンタル', 'ハーブ', 'ウッディ'],
+        datasets: [{
+            data: [<%= @scores[:floral] %>, <%= @scores[:citrus] %>, <%= @scores[:spicy] %>, <%= @scores[:oriental] %>, <%= @scores[:herbal] %>, <%= @scores[:woody] %>],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            r: {
+                min: 0,
+                max: 10,
+                ticks: {
+                    stepSize: 2, // ステップサイズ
+                    font: {
+                        size: isMobile ? 12 : 14 // スマホの場合は10px、それ以外は14px
+                    }
+                },
+                pointLabels: {
+                    font: {
+                        size: isMobile ? 12 : 15 // スマホの場合は12px、それ以外は15px
+                    }
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: false // 凡例を非表示
+            }
+        }
+    }
+});
+</script>
