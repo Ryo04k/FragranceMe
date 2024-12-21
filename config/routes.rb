@@ -6,7 +6,6 @@ Rails.application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks"
   }
 
-
   resources :shops do
     resources :reviews, only: %i[new create show edit update destroy], shallow: true
     collection do
@@ -17,6 +16,10 @@ Rails.application.routes.draw do
     end
   end
 
+  # マイページ
+  resource :profile, only: %i[show]
+
+  # ブックマーク
   resources :shop_bookmarks, only: %i[create destroy]
 
   resources :diagnoses do
