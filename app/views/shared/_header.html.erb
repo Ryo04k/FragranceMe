@@ -14,6 +14,7 @@
               <li><%= link_to "ショップ検索", shops_path %></li>
               <li><%= link_to "お気に入り", bookmarks_shops_path %></li>
               <li><%= link_to "香りタイプ診断", start_diagnoses_path %></li>
+              <li><%= link_to "マイページ", profile_path, data:{turbo: false} %></li>
               <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %></li>
             </ul>
           </details>

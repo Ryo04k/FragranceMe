@@ -9,7 +9,7 @@ class Diagnosis < ApplicationRecord
   validates :diagnosis_date, presence: true
 
 
- # ユーザーと香りの情報を使って診断結果を保存するメソッド
+ # Fragranceテーブルに受け取った香りが見つかればユーザー情報とスコアを保存
  def self.create_with_scores(user, fragrance_name, scores)
   fragrance = Fragrance.find_by(name: fragrance_name)
   raise ActiveRecord::RecordNotFound, "指定された香りが見つかりませんでした。" unless fragrance
@@ -35,5 +35,22 @@ class Diagnosis < ApplicationRecord
   end
 rescue ActiveRecord::RecordInvalid => e
   raise "診断結果の保存に失敗しました: #{e.message}"
+end
+
+# ユーザーに紐づく最新の診断結果を取得
+def self.latest_for_user(user)
+  user.diagnoses.includes(:fragrance, :user_fragrance_score).order(diagnosis_date: :desc).first
+end
+
+# ユーザーの診断結果のスコアを取得
+def user_scores
+  [
+    user_fragrance_score.floral_score,
+    user_fragrance_score.citrus_score,
+    user_fragrance_score.spicy_score,
+    user_fragrance_score.oriental_score,
+    user_fragrance_score.herbal_score,
+    user_fragrance_score.woody_score
+  ]
 end
 end
