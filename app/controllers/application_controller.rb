@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   before_action :basic_auth
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
+  # 診断結果のセッションデータ
+  DIAGNOSIS_DATA_KEY = :diagnosis_data
 
   private
 

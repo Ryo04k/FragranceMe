@@ -1,4 +1,5 @@
 class DiagnosesController < ApplicationController
+  # セッションに保存する診断結果のキー
   DIAGNOSIS_DATA_KEY = :diagnosis_data
 
   # 診断の開始時にフォームオブジェクトを初期化
@@ -100,9 +101,10 @@ class DiagnosesController < ApplicationController
   end
 
   # 未ログインユーザーの場合、診断結果をセッションに保存
+  # fragrance_idには、おすすめのfragrance_id、scoreには診断結果のスコアを保存
   def save_to_session
     session[DIAGNOSIS_DATA_KEY] = {
-      fragrance_id: @recommended_fragrance.first,
+      fragrance_name: @recommended_fragrance.first,
       score: @scores
     }
     Rails.logger.info "セッションデータの中身: #{session.inspect}"
