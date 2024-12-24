@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: "users/registrations",
     # OmniAuthの認証が成功したときに、コールバックとしてUsers::OmniauthCallbacksControllerが呼び出される
-    omniauth_callbacks: "users/omniauth_callbacks"
+    omniauth_callbacks: "users/omniauth_callbacks",
+    sessions: "users/sessions"
   }
 
   resources :shops do

@@ -1,15 +1,22 @@
 <div class="max-w-[1200px] mx-auto p-6">
   <h1 class="text-2xl font-bold text-center text-gray-800">診断結果</h1>
 
-  <h2 class="text-xl text-center font-semibold mt-6 text-gray-700">あなたにおすすめの香りは</h2>
+  <h2 class="text-xl text-center font-semibold mt-6 text-gray-700">あなたにおすすめの香り</h2>
   <div class="mt-4 flex justify-center">
     <%= image_tag(@recommended_fragrance_image.image_path, alt: "#{@recommended_fragrance_image.name}の画像", class: "w-96 h-auto rounded shadow-sm") %>
   </div>
 
-  <h3 class="text-xl text-center font-semibold mt-6 text-gray-700">好きな香りの傾向</h3>
+  <h3 class="text-xl text-center font-semibold mt-6 text-gray-700">あなた合う香りの傾向</h3>
     <div class="mx-auto w-full h-full md:w-96 md:h-80 mt-4">
       <canvas id="myChart"></canvas>
     </div>
+
+		<% unless user_signed_in? %>
+    <div class="text-center mt-10">
+			<p>アカウント登録またはログインすることで、<br>今回の診断結果をマイページから、いつでも見返すことができます！</p>
+			<%= link_to 'アカウント登録・ログインはこちら', user_session_path, class: 'btn mt-4' %>
+    </div>
+		<% end %>
 
   <div class="mt-8 text-center">
     <%= link_to 'もう一度診断する', start_diagnoses_path, class: 'btn' %>
@@ -43,7 +50,7 @@ const myChart = new Chart(ctx, {
         scales: {
             r: {
                 min: 0,
-                max: 10,
+                max: 8,
                 ticks: {
                     stepSize: 2, // ステップサイズ
                     font: {
