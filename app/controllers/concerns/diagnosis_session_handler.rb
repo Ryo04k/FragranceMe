@@ -10,9 +10,9 @@ module DiagnosisSessionHandler
     Rails.logger.debug "ユーザー情報 #{current_user.inspect}"
 
     scores = diagnosis_data["score"].transform_keys(&:to_sym)
-    fragrance_name = diagnosis_data["fragrance_name"]
+    fragrance_id = diagnosis_data["fragrance_id"]
 
-    Diagnosis.create_with_scores(current_user, fragrance_name, scores)
+    Diagnosis.create_with_scores(current_user, fragrance_id, scores)
     session.delete(ApplicationController::DIAGNOSIS_DATA_KEY)
   end
 end
