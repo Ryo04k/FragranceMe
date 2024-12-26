@@ -3,7 +3,6 @@ class DiagnosesController < ApplicationController
   before_action :initialize_user_answers, only: [ :answer_question ]
   before_action :set_question, only: [ :show_question ]
 
-
   # セッションに保存する診断結果のキー
   DIAGNOSIS_DATA_KEY = :diagnosis_data
 
@@ -19,13 +18,13 @@ class DiagnosesController < ApplicationController
   # ユーザーの回答に基づいて診断結果を計算し、スコアの高い香りを表示
   def result
     @user_answers = session[:user_answers] || {}
+    Rails.logger.info "resultスコアの中身: #{@user_answers.inspect}"
 
-    @scores = @user_fragrance_form.calculate_scores(@user_answers)
+    @scores = @user_fragrance_form.calculate_scores
     Rails.logger.info "スコアの中身: #{@scores.inspect}"
 
     @recommended_fragrance_id = recommend_fragrance(@scores)
     Rails.logger.info "テキスト: #{@recommended_fragrance_id.inspect}"
-
 
     if @recommended_fragrance_id
       @recommended_fragrance = Fragrance.find(@recommended_fragrance_id)
@@ -38,10 +37,10 @@ class DiagnosesController < ApplicationController
   private
 
   def initialize_user_fragrance_form
-    @user_fragrance_form = UserFragranceForm.new
+    @user_fragrance_form = UserFragranceForm.new(diagnosis_id: params[:diagnosis_id], user_answers: session[:user_answers] || {})
   end
 
-  # session[:user_answers] が存在しない場合、空のハッシュ {} を作成して session[:user_answers] に代入
+  # ユーザーの回答をセッションに保存
   def initialize_user_answers
     session[:user_answers] ||= {}
   end
@@ -58,31 +57,11 @@ class DiagnosesController < ApplicationController
     Question.exists?(next_question_id) ? question_diagnoses_path(next_question_id) : result_diagnoses_path
   end
 
-
-
   def recommend_fragrance(scores)
     max_score = scores.values.max
     top_fragrance_name = scores.select { |fragrance_name, score| score == max_score }.keys.first
     Fragrance.find_by(image_url: "#{top_fragrance_name}.jpg")&.id
   end
-
-  # 香りの名前を日本語に変換
-  # def translate_fragrance_name(name)
-  #   case name
-  #   when :herbal then "ハーブ"
-  #   when :floral then "フローラル"
-  #   when :citrus then "柑橘"
-  #   when :oriental then "オリエンタル"
-  #   when :spicy then "スパイシー"
-  #   when :woody then "ウッディ"
-  #   else name.to_s
-  #   end
-  # end
-
-  # Fragranceモデルから合致する香りを取得
-  # def fetch_fragrance_image(recommended_fragrance)
-  #   Fragrance.find_by(id: recommended_fragrance_id) if recommended_fragrance_id.any?
-  # end
 
   # 診断結果をデータベースまたはセッションに保存
   def save_diagnosis_or_session
