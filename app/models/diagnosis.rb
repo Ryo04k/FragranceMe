@@ -10,8 +10,8 @@ class Diagnosis < ApplicationRecord
 
 
  # Fragranceテーブルに受け取った香りが見つかればユーザー情報とスコアを保存
- def self.create_with_scores(user, fragrance_name, scores)
-  fragrance = Fragrance.find_by(name: fragrance_name)
+ def self.create_with_scores(user, fragrance_id, scores)
+  fragrance = Fragrance.find_by(id: fragrance_id)
   raise ActiveRecord::RecordNotFound, "指定された香りが見つかりませんでした。" unless fragrance
 
   ActiveRecord::Base.transaction do
