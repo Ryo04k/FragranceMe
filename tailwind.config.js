@@ -29,6 +29,7 @@ module.exports = {
       },
       colors: {
         customColor: "#111",
+        main: "#e57777",
       },
       screens: {
         hoverable: { raw: '(hover: hover) and (pointer: fine)' },
