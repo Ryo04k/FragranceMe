@@ -1,0 +1,36 @@
+<aside id="default-sidebar" class="bg-base-400 shadow fixed left-0 top-30 h-full z-50 hidden md:block" aria-label="Sidebar">
+  <div class="h-full px-3 py-4">
+    <ul>
+      <li>
+        <%= link_to shops_path, class: "flex items-center p-4 text-gray-900 hover:text-main transition duration-200" do %>
+          <span class="material-symbols-outlined text-2xl">search</span>
+          <span class="flex-1 ml-3 text-sm">一覧から探す</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to map_shops_path, class: "flex items-center p-4 text-gray-900 hover:text-main transition duration-200" do %>
+          <span class="material-symbols-outlined text-2xl">map_search</span>
+          <span class="flex-1 ml-3 text-sm">マップから探す</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to bookmarks_shops_path, class: "flex items-center p-4 text-gray-900 hover:text-main transition duration-200" do %>
+          <span class="material-symbols-outlined text-2xl">favorite</span>
+          <span class="flex-1 ml-3 text-sm">お気に入り</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to profile_path, class: "flex items-center p-4 text-gray-900 hover:text-main transition duration-200" do %>
+          <span class="material-symbols-outlined text-2xl">person</span>
+          <span class="flex-1 ml-3 text-sm">マイページ</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to start_diagnoses_path, class: "flex items-center p-4 text-gray-900 hover:text-main transition duration-200" do %>
+          <span class="material-symbols-outlined text-2xl">diagnosis</span>
+          <span class="flex-1 ml-3 text-sm">フレグランス診断</span>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</aside>

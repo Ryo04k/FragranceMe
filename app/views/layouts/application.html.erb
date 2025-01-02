@@ -25,16 +25,23 @@
     <%= include_gon %>
   </head>
 
-  <body class="flex flex-col min-h-screen font-custom text-customColor text-custom-size font-custom-weight tracking-custom leading-custom">
+  <body class="flex flex-col min-h-screen font-custom text-customColor text-custom-size font-custom-weight tracking-custom leading-custom bg-background">
     <% if user_signed_in? %>
       <%= render "shared/header" %>
     <% else %>
       <%= render "shared/before_login_header" %>
     <% end %>
+  <div class="flex-grow flex justify-between">
+    <% unless request.path == "/" %>
+      <%# <div class="ml-auto flex"> %>
+        <%# <%= render "shared/navigation" %>
+      <%# </div> %>
+    <% end %>
     <div class="flex-grow">
-    <%= render 'layouts/flash_messages' %>
-    <%= yield %>
+      <%= render 'layouts/flash_messages' %>
+      <%= yield %>
     </div>
+  </div>
     <%= render "shared/footer" %>
   </body>
 </html>
