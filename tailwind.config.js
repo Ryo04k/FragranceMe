@@ -30,7 +30,6 @@ module.exports = {
       colors: {
         customColor: "#111",
         main: "#e57777",
-        base: "#fafafa"
       },
       screens: {
         hoverable: { raw: '(hover: hover) and (pointer: fine)' },
