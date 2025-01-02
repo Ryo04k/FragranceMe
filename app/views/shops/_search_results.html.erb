@@ -1,7 +1,7 @@
 <% if @filtered_shops.any? %>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 px-4">
     <% @filtered_shops.each do |shop| %>
-      <div class="bg-white border shadow-sm hoverable:hover:shadow-lg transition-shadow duration-300 group rounded">
+      <div class="bg-white border shadow-sm hoverable:hover:shadow transition-shadow duration-300 group rounded">
         <a href="/shops/<%= shop.id %>" data-turbo="false">
           <div class="relative w-full h-36 flex items-center justify-center overflow-hidden">
             <% if shop.photo_urls.any? %>
