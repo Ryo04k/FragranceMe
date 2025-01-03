@@ -91,24 +91,24 @@
     </div>
   </div>
 
-	<!-- 口コミコンテンツ -->
-	<div id="reviewsContent">
-		<div id="table-review">
-			<%= render @reviews, shop: @shop %>
-		</div>
-    <% if @reviews.empty? %>
-      <%= render "reviews/no_reviews" %>
-		<% end %>
+  <!-- 口コミ コンテンツ -->
+  <div id="reviewsContent" class="hidden">
+    <div id="table-review">
+      <%= render @reviews, shop: @shop %>
+    </div>
 
-		<% if user_signed_in? %>
-			<%= render "reviews/form", review: @review, shop: @shop %>
-    <% else %>
-      <div class="flex justify-center mt-6">
-        <%= link_to "口コミを投稿する", new_user_session_path, class: "btn btn-neutral btn-wide" %>
+    <% if user_signed_in? %>
+      <%= render "reviews/form", review: @review, shop: @shop %>
+    <% elsif @reviews.empty? %>
+      <div class="mx-auto py-8 px-4 pb-0 flex flex-col items-center justify-center">
+        <h3 class="font-semibold text-sm md:text-lg">口コミはまだありません</h3>
+        <p class="text-sm mt-1">ぜひ、あなたの体験の投稿をお待ちしています！</p>
+        <%= link_to "口コミを投稿する", new_user_session_path, class: "btn btn-neutral btn-wide mt-5" %>
       </div>
-		<% end %>
-	</div>
+    <% end %>
+  </div>
 </div>
+
 
 <style>
   .slider-thumbnail .swiper-slide.swiper-slide-thumb-active {
