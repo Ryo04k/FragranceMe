@@ -10,7 +10,7 @@ class ShopsController < ApplicationController
   def list
     @latitude = params[:latitude].to_f
     @longitude = params[:longitude].to_f
-    @radius = (params[:radius] || 5).to_f
+    @radius = (params[:radius] || 2).to_f
 
     @nearby_shops = Shop.includes(:shop_images).near([ @latitude, @longitude ], @radius, units: :km).limit(10)
 
@@ -33,8 +33,10 @@ class ShopsController < ApplicationController
     @review = Review.new
     @reviews = @shop.reviews.includes(:user).order(created_at: :desc)
 
+    # ショップ画像のURLを取得
     if @shop
       @shop_images = @shop.photo_urls
+      Rails.logger.debug "画像の配列: #{@shop_images.inspect}"
     else
       redirect_to shops_path
     end
