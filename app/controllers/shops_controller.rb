@@ -1,4 +1,5 @@
 class ShopsController < ApplicationController
+  before_action :authenticate_user!, only: [ :bookmarks ]
   before_action :set_ransack_query, only: [ :index ]
 
   def index;end
