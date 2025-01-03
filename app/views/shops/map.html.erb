@@ -1,9 +1,9 @@
 <div class="mx-auto md:mb-20">
-  <div id="location_container" class="relative">
+  <div id="location_container" class="">
 
-    <div id="map" class="rounded w-screen h-screen md:h-[600px] md:mb-8"></div>
+    <div id="map" class="relative rounded w-screen h-screen md:h-[600px] md:mb-8"></div>
 
-    <div class="absolute right-4 bottom-36 z-50">
+    <div class="absolute right-4 bottom-0 md:bottom-56 z-50">
       <div data-controller="sidebar">
         <%= render "shops/sidebar"  %>
         <button data-action="click->sidebar#toggleButton" aria-controls="default-sidebar" type="button" class="md:hidden z-50 text-white rounded-lg h-20 w-24 md:w-20 bg-main opacity-90 flex flex-col items-center justify-center font-bold mb-3 py-2 hover:brightness-105 transition duration-200" data-sidebar-target="toggleButton">
@@ -21,7 +21,7 @@
       <% end %>
     </div>
 
-    <div id="shop-list" class="px-4 max-w-[1200px] mx-auto hidden md:block">
+    <div class="shop-list px-4 max-w-[1200px] mx-auto hidden md:block">
       <!-- 周辺店舗を表示 -->
     </div>
   </div>
@@ -140,9 +140,9 @@ function showCurrentLocation() {
       };
       map.setCenter(userLocation);
 			map.setZoom(initialZoomLevel);
- 			setCurrentLocationMaker(map, userLocation); // ここで現在地の円を追加
+      setCurrentLocationMaker(map, userLocation);
 
-      // 周辺店舗を取得
+      // 現在地周辺の店舗を取得
       fetchNearbyShops(userLocation.lat, userLocation.lng);
     }, () => {
       alert('位置情報の取得に失敗しました。');
@@ -166,10 +166,13 @@ async function fetchNearbyShops(lat, lng) {
 }
 
 function displayShopList(shops) {
-  const shopListElement = document.getElementById('shop-list');
-  shopListElement.innerHTML = '<h2 class="text-lg md:text-2xl text-center font-bold mb-4">現在地から近いショップ</h2>';
+  const shopListElements = document.querySelectorAll('.shop-list');
+  console.log(shopListElements)
 
-  if (shops.length > 0) {
+  shopListElements.forEach(shopListElement => {
+    shopListElement.innerHTML = '<h2 class="text-lg md:text-2xl text-center font-bold mb-4">現在地から近いショップ</h2>';
+
+  if (shops.length > 0){
     const ul = document.createElement('ul');
     ul.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8";
 
@@ -177,11 +180,11 @@ function displayShopList(shops) {
       const li = createShopListItem(shop);
       ul.appendChild(li);
     });
-
     shopListElement.appendChild(ul);
-  } else {
+  }else{
     shopListElement.innerHTML += '<p class="text-base text-center">周辺にショップが見つかりませんでした。</p>';
   }
+  });
 }
 
 function createShopListItem(shop) {
