@@ -33,15 +33,18 @@
     <% end %>
   <div class="flex-grow">
     <% unless request.path == "/" %>
+      <%= render "shared/navigation" %>
       <%# <div class="ml-auto flex"> %>
         <%# <%= render "shared/navigation" %>
       <%# </div> %>
     <% end %>
     <div class="flex-grow">
-      <%= render 'layouts/flash_messages' %>
+      <%# <%= render 'layouts/flash_messages' %>
       <%= yield %>
     </div>
   </div>
+  <% if request.path == "/" %>
     <%= render "shared/footer" %>
+  <% end %>
   </body>
 </html>
