@@ -1,32 +1,33 @@
-<aside id="default-sidebar" class="bg-base-400 shadow fixed left-0 top-30 h-full z-50 hidden" aria-label="Sidebar">
-  <div class="h-full px-1 py-4">
+<!-- PCメニュー -->
+<aside id="default-sidebar" class="bg-base-400 shadow fixed top-0 left-0 pt-20 h-full z-10 hidden" aria-label="Sidebar">
+  <div class="h-full py-4">
     <ul>
       <li>
-        <%= link_to shops_path, class: "flex items-center p-4 text-gray-900 hover:text-main transition duration-200" do %>
+        <%= link_to shops_path, class: "flex items-center p-4 hover:text-main transition duration-200" do %>
           <span class="material-symbols-outlined text-2xl">search</span>
           <span class="flex-1 ml-3 text-sm">一覧から探す</span>
         <% end %>
       </li>
       <li>
-        <%= link_to map_shops_path, class: "flex items-center p-4 text-gray-900 hover:text-main transition duration-200" do %>
+        <%= link_to map_shops_path, class: "flex items-center p-4 hover:text-main transition duration-200" do %>
           <span class="material-symbols-outlined text-2xl">map_search</span>
-          <span class="flex-1 ml-3 text-sm">マップから探す</span>
+          <span class="flex-1 ml-3 text-sm">現在地から探す</span>
         <% end %>
       </li>
       <li>
-        <%= link_to bookmarks_shops_path, class: "flex items-center p-4 text-gray-900 hover:text-main transition duration-200" do %>
+        <%= link_to bookmarks_shops_path, class: "flex items-center p-4 hover:text-main transition duration-200" do %>
           <span class="material-symbols-outlined text-2xl">favorite</span>
           <span class="flex-1 ml-3 text-sm">お気に入り</span>
         <% end %>
       </li>
       <li>
-        <%= link_to start_diagnoses_path, class: "flex items-center p-4 text-gray-900 hover:text-main transition duration-200" do %>
+        <%= link_to start_diagnoses_path, class: "flex items-center p-4 hover:text-main transition duration-200" do %>
           <span class="material-symbols-outlined text-2xl">edit_note</span>
           <span class="flex-1 ml-3 text-sm">フレグランス診断</span>
         <% end %>
       </li>
       <li>
-        <%= link_to profile_path, class: "flex items-center p-4 text-gray-900 hover:text-main transition duration-200" do %>
+        <%= link_to profile_path, class: "flex items-center p-4 hover:text-main transition duration-200" do %>
           <span class="material-symbols-outlined text-2xl">person</span>
           <span class="flex-1 ml-3 text-sm">マイページ</span>
         <% end %>
@@ -35,32 +36,32 @@
   </div>
 </aside>
 
-
+<!-- SPメニュー -->
 <div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-base-200 shadow border-t border-gray-200 md:hidden">
   <div class="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
     <%= link_to shops_path, class: "inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50" do %>
       <span class="material-symbols-outlined text-2xl">search</span>
-      <span class="text-[9px]">一覧から探す</span>
+      <span class="text-[8px]">一覧から探す</span>
     <% end %>
 
     <%= link_to map_shops_path, class: "inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50" do %>
       <span class="material-symbols-outlined text-2xl">map_search</span>
-      <span class="text-[9px]">マップから探す</span>
+      <span class="text-[8px]">現在地から探す</span>
     <% end %>
 
     <%= link_to bookmarks_shops_path, class: "inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50" do %>
       <span class="material-symbols-outlined text-2xl">favorite</span>
-      <span class="text-[9px]">お気に入り</span>
+      <span class="text-[8px]">お気に入り</span>
     <% end %>
 
     <%= link_to start_diagnoses_path, class: "inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50" do %>
       <span class="material-symbols-outlined text-2xl">edit_note</span>
-      <span class="text-[9px]">診断</span>
+      <span class="text-[8px]">フレグランス診断</span>
     <% end %>
 
     <%= link_to profile_path, class: "inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50" do %>
       <span class="material-symbols-outlined text-2xl">person</span>
-      <span class="text-[9px]">マイページ</span>
+      <span class="text-[8px]">マイページ</span>
     <% end %>
   </div>
 </div>
