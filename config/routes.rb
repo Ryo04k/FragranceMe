@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
   # マイページ
-  resource :profile, only: %i[show]
+  resource :profile, only: %i[show edit update]
 
   # ブックマーク
   resources :shop_bookmarks, only: %i[create destroy]
