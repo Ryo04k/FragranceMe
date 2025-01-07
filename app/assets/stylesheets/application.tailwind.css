@@ -50,6 +50,10 @@
     font-weight: 100 !important;
   }
 
+  ::selection {
+    background: rgba(255, 181, 181, 0.5);
+  }
+
   @media (max-width: 768px) {
     .swiper-button-next::after,
     .swiper-button-prev::after {
