@@ -4,11 +4,11 @@
     <%= render 'shared/error_messages', object: f.object %>
       <div class="mb-2">
         <%= f.label :body, class: "block text-gray-700" %>
-        <%= f.text_area :body, class: "form-control mt-1 block w-full border rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2", rows: "4", placeholder: "購入した商品、自分の感想やおすすめポイントを気軽に投稿してみてください！" %>
+        <%= f.text_area :body, class: "form-control mt-1 block w-full border rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2", rows: "4", placeholder: "あなたの体験・感想や購入商品など気軽に投稿してみてください！" %>
       </div>
 
       <div class="flex justify-center">
-        <%= f.submit "口コミを投稿する", class: "mt-1 btn btn-wide btn-neutral rounded" %>
+        <%= f.submit "口コミを投稿する", class: "mt-1 bg-main btn-wide py-3 text-white rounded hover:bg-opacity-80 transition duration-200" %>
       </div>
     <% end %>
   </div>

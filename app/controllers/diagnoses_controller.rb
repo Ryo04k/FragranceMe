@@ -6,8 +6,13 @@ class DiagnosesController < ApplicationController
   # セッションに保存する診断結果のキー
   DIAGNOSIS_DATA_KEY = :diagnosis_data
 
-  # 診断の開始時にフォームオブジェクトを初期化
   def start;end
+
+  def show_question
+    @total_questions = Question.count
+    @current_question_id = params[:id].to_i
+    @previous_question_id = @current_question_id - 1
+  end
 
   # ユーザーの質問への回答をセッションに保存し、次の質問または結果ページにリダイレクト
   def answer_question
@@ -17,7 +22,7 @@ class DiagnosesController < ApplicationController
 
   # ユーザーの回答に基づいて診断結果を計算し、スコアの高い香りを表示
   def result
-    @user_answers = session[:user_answers] || {}
+    # @user_answers = session[:user_answers] || {}
     Rails.logger.info "resultスコアの中身: #{@user_answers.inspect}"
 
     @scores = @user_fragrance_form.calculate_scores
