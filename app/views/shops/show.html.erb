@@ -72,8 +72,8 @@
         <p class="text-base font-bold w-full md:w-40 flex mb-2 md:mb-0 items-center">
           <span class="material-symbols-outlined mr-2">desktop_windows</span> 公式サイト
         </p>
-        <div class="inline-flex items-end">
-        <%= link_to @shop.web_site.to_s, @shop.web_site.to_s, class: "border-b pb-0.5 border-gray-700 text-base w-full md:w-auto  w-auto", target: :_blank, rel: "noopener noreferrer" %>
+        <div class="inline-flex items-end hover:text-main transition duration-200">
+        <%= link_to @shop.web_site.to_s, @shop.web_site.to_s, class: "border-b pb-0.5 border-gray-700 hover:border-main text-base md:w-auto  w-auto", target: :_blank, rel: "noopener noreferrer" %>
         <span class="material-symbols-outlined ml-1" style="font-size:19px;"> open_in_new </span>
         </div>
       </div>
@@ -95,7 +95,7 @@
     </iframe>
 
     <div class="flex justify-end mt-3 mr-2 md:mr-0">
-      <%= link_to "https://www.google.com/maps/search/?api=1&query=#{CGI.escape(@shop.name)},#{CGI.escape(@shop.address)}", target: :_blank, class: "text-xs btn btn-outline" do %>
+      <%= link_to "https://www.google.com/maps/search/?api=1&query=#{CGI.escape(@shop.name)},#{CGI.escape(@shop.address)}", target: :_blank, class: "text-xs btn hover:text-main transition duration-200" do %>
         <span class="material-symbols-outlined">map_search</span>
         <span>GoogleMapで開く</span>
       <% end %>
@@ -114,7 +114,7 @@
       <div class="mx-auto py-8 px-4 pb-0 flex flex-col items-center justify-center">
         <h3 class="font-semibold text-sm md:text-lg">口コミはまだありません</h3>
         <p class="text-sm mt-1">ぜひ、あなたの体験の投稿をお待ちしています！</p>
-        <%= link_to "口コミを投稿する", new_user_session_path, class: "btn btn-neutral btn-wide mt-5" %>
+        <%= link_to "口コミを投稿する", new_user_session_path, class: "text-center mt-3 bg-main btn-wide py-3 text-white rounded hover:bg-opacity-80 transition duration-200" %>
       </div>
     <% end %>
   </div>
