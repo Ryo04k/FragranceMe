@@ -1,18 +1,27 @@
-<div class="max-w-[1200px] mx-auto mb-20 p-6 bg-gray-50 rounded-lg shadow-lg">
-  <div class="p-6 bg-white rounded-lg shadow-md">
+<div class="max-w-[1200px] mx-auto mt-20 mb-20 p-6 rounded shadow-lg">
+  <div class="p-6">
+<div class="text-center">
+   <p class="-mb-1"><%= "#{@current_question_id}/#{@total_questions}" %></p>
+  <progress class="progress progress-primary bg-gray-200 w-64 h-3" value="<%= @current_question_id %>" max="<%= @total_questions %>"></progress>
+</div>
+    <h2 class="text-xl font-bold mb-8 mt-6 text-center"><%= @question.content %></h2>
+  <%= form_with url: answer_diagnoses_path, method: :post, local: true do |f| %>
+    <div class="space-y-6 w-full md:max-w-[50%] mx-auto">
+      <% @answers.each do |answer| %>
+        <div class="flex justify-center items-center p-4 bg-gray-100 rounded-lg border border-gray-300 hover:bg-gray-200 transition cursor-pointer" onclick="document.getElementById('answer_<%= answer.id %>').checked = true; this.closest('form').submit();">
+          <%= f.radio_button :answer, answer.id, id: "answer_#{answer.id}", class: "hidden" %>
+          <span class="text-base"><%= answer.content %></span>
+        </div>
+      <% end %>
+    </div>
+    <%= hidden_field_tag :question_id, @question.id %>
+  <% end %>
 
-    <h2 class="text-xl font-bold mb-8 text-center"><%= @question.content %></h2>
-    <%= form_with url: answer_diagnoses_path, method: :post, local: true do |f| %>
-      <div class="space-y-6 max-w-[50%] mx-auto">
-        <% @answers.each do |answer| %>
-          <div class="flex items-center p-4 bg-gray-100 rounded-lg border border-gray-300 hover:bg-gray-200 transition">
-            <%= f.radio_button :answer, answer.id, id: "answer_#{answer.id}", class: "mr-4 text-blue-600 focus:ring-blue-500", onclick: "this.form.submit();" %>
-            <%= label_tag "answer_#{answer.id}", answer.content, class: "text-base" %>
-          </div>
-        <% end %>
+    <% if @previous_question_id >= 1 %>
+      <div class="mt-10 flex items-center hover:text-main transition">
+        <span class="material-symbols-outlined" style="font-size: 25px;">arrow_back</span>
+        <%= link_to "前の質問に戻る", question_diagnoses_path(@previous_question_id) %>
       </div>
-      <%= hidden_field_tag :question_id, @question.id %>
     <% end %>
-
   </div>
 </div>
