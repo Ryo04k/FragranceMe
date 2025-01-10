@@ -1,7 +1,7 @@
-<div class="max-w-[1200px] mx-auto mb-20">
-  <h2 class="text-2xl md:text-3xl font-bold mt-6 mb-1 ml-2 md:ml-0">お気に入り</h2>
+<div class="max-w-screen-xl mx-auto mb-20 px-4 mt-10">
+  <h2 class="text-2xl md:text-3xl font-bold">お気に入り</h2>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 px-4">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
     <% if @shop_bookmarks.any? %>
       <% @shop_bookmarks.each do |bookmark| %>
         <%= render partial: "shop_bookmark", locals: { bookmark: bookmark } %>
