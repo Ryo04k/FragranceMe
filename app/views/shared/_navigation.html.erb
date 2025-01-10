@@ -1,40 +1,101 @@
-<!-- PCメニュー -->
-<aside id="default-sidebar" class="bg-base-400 shadow fixed top-0 left-0 pt-20 h-full z-10 hidden" aria-label="Sidebar">
-  <div class="h-full py-4">
-    <ul>
-      <li>
-        <%= link_to shops_path, class: "flex items-center p-4 hover:text-main transition duration-200" do %>
-          <span class="material-symbols-outlined text-2xl">search</span>
-          <span class="flex-1 ml-3 text-sm">一覧から探す</span>
+<aside id="default-sidebar" class="bg-base-400 shadow fixed top-0 left-0 h-full z-10 w-16 transition-all duration-200 ease-in-out hidden md:block">
+  <div class="h-full pt-20 w-full overflow-hidden" style="background-color: rgba(251, 250, 250, 0.9);">
+    <ul class="h-full">
+      <li class="group h-16 menu-item flex items-center">
+        <%= link_to shops_path, class: "flex items-center p-4 transition", style: ("font-variation-settings: 'FILL' 1" if current_page?('/shops') || (request.path.start_with?('/shops/') && params[:id])) do %>
+          <span class="material-symbols-outlined" style="font-size:29px; <%= 'font-variation-settings: \'FILL\' 1, \'wght\' 500; color: #e57777;' if current_page?('/shops') || (request.path.start_with?('/shops/') && params[:id]) %>">search</span>
+          <span class="flex-1 ml-3 text-sm text-transition" style="<%= 'color: #e57777;' if current_page?('/shops') || (request.path.start_with?('/shops/') && params[:id]) %>">一覧から探す</span>
         <% end %>
       </li>
-      <li>
-        <%= link_to map_shops_path, class: "flex items-center p-4 hover:text-main transition duration-200" do %>
-          <span class="material-symbols-outlined text-2xl">map_search</span>
-          <span class="flex-1 ml-3 text-sm">現在地から探す</span>
+
+      <li class="group h-16 menu-item flex items-center">
+        <%= link_to map_shops_path, class: "flex items-center p-4 transition", style: ("font-variation-settings: 'FILL' 1;" if current_page?('/map_shops')) do %>
+          <span class="material-symbols-outlined" style="font-size:29px; <%= 'font-variation-settings: \'FILL\' 1; color: #e57777;' if current_page?('/shops/map') %>">map_search</span>
+          <span class="flex-1 ml-3 text-sm text-transition" style="<%= 'color: #e57777;' if current_page?('/shops/map') %>">現在地から探す</span>
         <% end %>
       </li>
-      <li>
-        <%= link_to bookmarks_shops_path, class: "flex items-center p-4 hover:text-main transition duration-200" do %>
-          <span class="material-symbols-outlined text-2xl">favorite</span>
-          <span class="flex-1 ml-3 text-sm">お気に入り</span>
+
+      <li class="group h-16 menu-item flex items-center">
+        <%= link_to bookmarks_shops_path, class: "flex items-center p-4 transition", style: ("font-variation-settings: 'FILL' 1;" if current_page?('/bookmarks_shops')) do %>
+          <span class="material-symbols-outlined" style="font-size:29px; <%= 'font-variation-settings: \'FILL\' 1; color: #e57777;' if current_page?('/shops/bookmarks') %>">favorite</span>
+          <span class="flex-1 ml-3 text-sm text-transition" style="<%= 'color: #e57777;' if current_page?('/shops/bookmarks') %>">お気に入り</span>
         <% end %>
       </li>
-      <li>
-        <%= link_to start_diagnoses_path, class: "flex items-center p-4 hover:text-main transition duration-200" do %>
-          <span class="material-symbols-outlined text-2xl">edit_note</span>
-          <span class="flex-1 ml-3 text-sm">フレグランス診断</span>
+
+      <li class="group h-16 menu-item flex items-center">
+        <%= link_to start_diagnoses_path, class: "flex items-center p-4 transition", style: ("font-variation-settings: 'FILL' 1;" if current_page?('/start_diagnoses')) do %>
+          <span class="material-symbols-outlined" style="font-size:31px; <%= 'font-variation-settings: \'FILL\' 1; color: #e57777;' if current_page?('/diagnoses/start') %>">edit_note</span>
+          <span class="flex-1 ml-3 text-sm text-transition" style="<%= 'color: #e57777;' if current_page?('/diagnoses/start') %>">フレグランス診断</span>
         <% end %>
       </li>
-      <li>
-        <%= link_to profile_path, class: "flex items-center p-4 hover:text-main transition duration-200" do %>
-          <span class="material-symbols-outlined text-2xl">person</span>
-          <span class="flex-1 ml-3 text-sm">マイページ</span>
+
+      <li class="group h-16 menu-item flex items-center">
+        <%= link_to profile_path, class: "flex items-center p-4 transition" do %>
+          <span class="material-symbols-outlined" style="font-size:30px; <%= 'font-variation-settings: \'FILL\' 1; color: #e57777;' if current_page?('/profile') %>">person</span>
+          <span class="flex-1 ml-3 text-sm text-transition" style="<%= 'color: #e57777;' if current_page?('/profile') %>">マイページ</span>
         <% end %>
       </li>
     </ul>
   </div>
 </aside>
+
+
+<script>
+document.addEventListener('turbo:load', function() {
+  const sidebar = document.getElementById('default-sidebar');
+  const items = sidebar.querySelectorAll('li');
+
+  sidebar.addEventListener('mouseenter', () => {
+    items.forEach(item => {
+      item.classList.add('open');
+      item.classList.remove('closed');
+      const text = item.querySelector('span:nth-child(2)');
+      if (text) {
+        text.classList.add('text-visible'); // 表示用クラスを追加
+      }
+    });
+    sidebar.classList.remove('w-16');
+    sidebar.classList.add('w-48');
+  });
+
+  sidebar.addEventListener('mouseleave', () => {
+    items.forEach(item => {
+      const text = item.querySelector('span:nth-child(2)');
+      if (text) {
+        text.classList.remove('text-visible'); // 一旦不透明にする
+      }
+    });
+    sidebar.classList.remove('w-48');
+    sidebar.classList.add('w-16');
+  });
+});
+</script>
+
+<style>
+  .text-transition {
+    /* transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out; */
+    transition: opacity 0.5s ease-in-out;
+    visibility: hidden; /* 初期状態で非表示 */
+    opacity: 0;
+    transform: translateX(-10px); /* スライド効果 */
+    overflow: hidden;
+  }
+
+  .text-visible {
+    visibility: visible; /* 表示状態 */
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .menu-item {
+    transition: background-color 0.3s ease; /* ホバー時の背景色のトランジション */
+  }
+
+  .menu-item:hover {
+    color: #e57777;
+    background-color: #f2efef;  /* ホバー時の背景色 */
+  }
+</style>
 
 <!-- SPメニュー -->
 <div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-gray-100 shadow border-t border-gray-200 md:hidden">

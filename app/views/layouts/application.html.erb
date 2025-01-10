@@ -32,17 +32,19 @@
     <% else %>
       <%= render "shared/before_login_header" %>
     <% end %>
-  <div class="flex-grow">
+
+  <main class="flex md:flex">
     <% unless request.path == "/" %>
-      <div class="flex">
+      <div class="md:w-16 md:flex-none">
         <%= render "shared/navigation" %>
       </div>
     <% end %>
-    <div class="flex-grow">
+    <div class="flex-grow overflow-auto"> <!-- overflow-auto でコンテンツがはみ出た場合にスクロール -->
       <%# <%= render 'layouts/flash_messages' %>
       <%= yield %>
     </div>
-  </div>
+  </main>
+
   <% if request.path == "/" %>
     <%= render "shared/footer" %>
   <% end %>
