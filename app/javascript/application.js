@@ -2,6 +2,7 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 import Rails from "@rails/ujs"
+import "./side_navigation"
 Rails.start()
 
 document.addEventListener("turbo:click", (event) => {

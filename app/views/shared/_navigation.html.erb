@@ -1,3 +1,4 @@
+<!-- PCメニュー -->
 <aside id="default-sidebar" class="bg-base-400 shadow fixed top-0 left-0 h-full z-10 w-16 transition-all duration-200 ease-in-out hidden md:block">
   <div class="h-full pt-20 w-full overflow-hidden" style="background-color: rgba(251, 250, 250, 0.9);">
     <ul class="h-full">
@@ -38,64 +39,6 @@
     </ul>
   </div>
 </aside>
-
-
-<script>
-document.addEventListener('turbo:load', function() {
-  const sidebar = document.getElementById('default-sidebar');
-  const items = sidebar.querySelectorAll('li');
-
-  sidebar.addEventListener('mouseenter', () => {
-    items.forEach(item => {
-      item.classList.add('open');
-      item.classList.remove('closed');
-      const text = item.querySelector('span:nth-child(2)');
-      if (text) {
-        text.classList.add('text-visible'); // 表示用クラスを追加
-      }
-    });
-    sidebar.classList.remove('w-16');
-    sidebar.classList.add('w-48');
-  });
-
-  sidebar.addEventListener('mouseleave', () => {
-    items.forEach(item => {
-      const text = item.querySelector('span:nth-child(2)');
-      if (text) {
-        text.classList.remove('text-visible'); // 一旦不透明にする
-      }
-    });
-    sidebar.classList.remove('w-48');
-    sidebar.classList.add('w-16');
-  });
-});
-</script>
-
-<style>
-  .text-transition {
-    /* transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out; */
-    transition: opacity 0.5s ease-in-out;
-    visibility: hidden; /* 初期状態で非表示 */
-    opacity: 0;
-    transform: translateX(-10px); /* スライド効果 */
-    overflow: hidden;
-  }
-
-  .text-visible {
-    visibility: visible; /* 表示状態 */
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  .menu-item {
-    transition: background-color 0.3s ease; /* ホバー時の背景色のトランジション */
-  }
-
-  .menu-item:hover {
-    color: #e57777;
-    background-color: #f2efef;  /* ホバー時の背景色 */
-  }
-</style>
 
 <!-- SPメニュー -->
 <div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-gray-100 shadow border-t border-gray-200 md:hidden">

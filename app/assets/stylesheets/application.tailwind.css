@@ -3,60 +3,86 @@
 @tailwind utilities;
 
 .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2; /* 2行まで表示 */
-    overflow: hidden;
-    text-overflow: ellipsis; /* テキストがあふれた場合に...を表示 */
-  }
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* 2行まで表示 */
+  overflow: hidden;
+  text-overflow: ellipsis; /* テキストがあふれた場合に...を表示 */
+}
 
-  .text-shadow {
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1490196078);
-  }
+.text-shadow {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1490196078);
+}
 
-  .material-symbols-outlined {
-    font-variation-settings:
-      'FILL' 0,
-      'wght' 300,
-      'GRAD' 0,
-      'opsz' 24;
-  }
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' 0,
+    'opsz' 24;
+}
 
-  .material-symbols-outlined-bookmark {
-    font-variation-settings:
-      'FILL' 0,
-      'wght' 200,
-      'GRAD' 0,
-      'opsz' 24;
-  }
+.material-symbols-outlined-bookmark {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 200,
+    'GRAD' 0,
+    'opsz' 24;
+}
 
-  .material-symbols-outlined-unbookmark {
-    font-variation-settings:
-      'FILL' 1,
-      'wght' 200,
-      'GRAD' 0,
-      'opsz' 24;
-  }
+.material-symbols-outlined-unbookmark {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 200,
+    'GRAD' 0,
+    'opsz' 24;
+}
 
-  .material-icons.md-30 {
-    font-size: 30px;
-  }
+.material-icons.md-30 {
+  font-size: 30px;
+}
 
-  .material-icons.md-32 {
-    font-size: 32px;
-  }
+.material-icons.md-32 {
+  font-size: 32px;
+}
 
-  .material-icons.weight-sm {
-    font-weight: 100 !important;
-  }
+.material-icons.weight-sm {
+  font-weight: 100 !important;
+}
 
-  ::selection {
-    background: rgba(255, 181, 181, 0.5);
-  }
+/* 選択範囲の色を指定 */
+::selection {
+  background: rgba(255, 181, 181, 0.5);
+}
 
-  @media (max-width: 768px) {
-    .swiper-button-next::after,
-    .swiper-button-prev::after {
-      font-size: 20px;
-    }
+/* サイドナビゲーション */
+.text-transition {
+  transition: opacity 0.5s ease-in-out;
+  visibility: hidden; /* 初期状態で非表示 */
+  opacity: 0;
+  transform: translateX(-10px); /* スライド効果 */
+  overflow: hidden;
+}
+
+.text-visible {
+  visibility: visible; /* 表示状態 */
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.menu-item {
+  transition: background-color 0.3s ease; /* ホバー時の背景色のトランジション */
+}
+
+.menu-item:hover {
+  color: #e57777;
+  background-color: #f2efef;
+}
+
+/* Swiper */
+@media (max-width: 768px) {
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    font-size: 20px;
   }
+}
