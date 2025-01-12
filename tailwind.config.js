@@ -28,8 +28,9 @@ module.exports = {
         custom: 1.734,
       },
       colors: {
-        customColor: "#111",
+        customColor: "#333",
         main: "#e57777",
+        background: "#fafafa",
       },
       screens: {
         hoverable: { raw: '(hover: hover) and (pointer: fine)' },
