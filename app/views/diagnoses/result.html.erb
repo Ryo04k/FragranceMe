@@ -1,74 +1,103 @@
-<div class="max-w-[1200px] mx-auto p-6">
-  <h1 class="text-2xl font-bold text-center text-gray-800">診断結果</h1>
+<div class="w-full md:max-w-screen-xl mx-auto bg-white shadow-sm p-4 pb-28 md:pb-16 pt-10 lg:mt-20 md:mb-20">
+  <h2 class="text-2xl md:text-3xl font-semibold text-center text-main">診断結果</h2>
+  <p class="text-center mt-4 text-lg md:text-lg font-semibold">あなたには「<%= @recommended_fragrance.name %>」系の香りが<br class="md:hidden">おすすめです！</p>
 
-  <h2 class="text-xl text-center font-semibold mt-6 text-gray-700">あなたにおすすめの香り</h2>
-  <div class="mt-4 flex justify-center">
-    <%= image_tag(@recommended_fragrance.image_path, alt: "#{@recommended_fragrance.name}の画像", class: "w-96 h-auto rounded shadow-sm") %>
+<div class="mt-4 flex flex-col md:flex-row justify-center items-start space-y-6 md:space-y-0 md:space-x-6 items-center">
+  <!-- 香りの画像 -->
+  <div class="md:w-96 flex flex-col items-center">
+    <h3 class="text-lg font-medium text-center mt-6 mb-2 text-gray-700">おすすめの香りについて</h3>
+    <%= image_tag(@recommended_fragrance.image_path, alt: "#{@recommended_fragrance.name}の画像", class: "w-full h-full rounded-lg shadow-lg") %>
   </div>
 
-  <h3 class="text-xl text-center font-semibold mt-6 text-gray-700">あなた合う香りの傾向</h3>
-    <div class="mx-auto w-full h-full md:w-96 md:h-80 mt-4">
-      <canvas id="myChart"></canvas>
+  <!-- Chart.js -->
+  <div class="md:w-96 flex flex-col items-center">
+    <h3 class="text-lg font-medium text-center mt-6 mb-2 text-gray-700">香りのタイプ別評価</h3>
+    <div class="w-full shadow-lg bg-white rounded-lg overflow-hidden flex items-center justify-center p-4">
+      <canvas id="myChart" class="h-full w-full"></canvas>
     </div>
-
-		<% unless user_signed_in? %>
-    <div class="text-center mt-10">
-			<p>アカウント登録またはログインすることで、<br>今回の診断結果をマイページから、いつでも見返すことができます！</p>
-			<%= link_to 'アカウント登録・ログインはこちら', user_session_path, class: 'btn mt-4' %>
-    </div>
-		<% end %>
-
-  <div class="mt-8 text-center">
-    <%= link_to 'もう一度診断する', start_diagnoses_path, class: 'btn' %>
   </div>
 </div>
 
+  <% unless user_signed_in? %>
+    <div class="text-center mt-10">
+      <p class="text-base mb-7">
+        アカウント登録またはログインすることで、<br>
+        <span class="text-main">今回の診断結果をマイページから、<br class="md:hidden">
+        いつでも見返すことができます！</span>
+      </p>
+      <%= link_to 'アカウント登録・ログインはこちら', user_session_path, class: "text-sm font-medium bg-main text-white rounded-lg px-4 py-4 shadow hover:opacity-90 transition duration-200" %>
+    </div>
+  <% end %>
+
+  <div class="mt-10 flex flex-col items-center">
+    <h3 class="text-base mb-3 text-gray-700 font-medium">診断結果をシェアする</h3>
+    <% share_url = "https://twitter.com/share?url=https://www.fragrance-me.com/" %>
+    <% share_text = "あなたにおすすめの香りは「#{@recommended_fragrance.name}」系です！\n\nFragranceMeでお気に入りの香りを見つけましょう！\n" %>
+
+    <%= link_to "#{share_url}&text=#{ERB::Util.url_encode(share_text)}", target: '_blank', class: "flex items-center justify-center w-32 h-12 bg-gray-200 text-black rounded-lg shadow transition-transform transform hover:scale-105 hover:opacity-90" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" class="w-5 h-5 mr-2 text-black opacity-80">
+        <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path>
+      </svg>
+      シェア
+    <% end %>
+  </div>
+
+  <div class="mt-10 text-center">
+    <%= link_to 'もう一度診断する', start_diagnoses_path, class: "text-base link transition duration-200 hover:text-main" %>
+  </div>
+</div>
+
+
 <script>
-const ctx = document.getElementById('myChart');
 
-// スマートフォン用のフォントサイズを設定
-const isMobile = window.matchMedia('(max-width: 640px)').matches; // 640px以下の場合
+document.addEventListener('turbo:load', function() {
 
-const myChart = new Chart(ctx, {
+  const ctx = document.getElementById('myChart');
+
+  // スマートフォン用のフォントサイズを設定
+  const isMobile = window.matchMedia('(max-width: 640px)').matches; // 640px以下の場合
+
+  const myChart = new Chart(ctx, {
     type: 'radar',
     data: {
-        labels: ['フローラル', '柑橘', 'スパイシー', 'オリエンタル', 'ハーブ', 'ウッディ'],
-        datasets: [{
-            data: [<%= @scores[:floral] %>, <%= @scores[:citrus] %>, <%= @scores[:spicy] %>, <%= @scores[:oriental] %>, <%= @scores[:herbal] %>, <%= @scores[:woody] %>],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-            ],
-            borderWidth: 1
-        }]
+      labels: ['フローラル', '柑橘', 'スパイシー', 'オリエンタル', 'ハーブ', 'ウッディ'],
+      datasets: [{
+        data: [<%= @scores[:floral] %>, <%= @scores[:citrus] %>, <%= @scores[:spicy] %>, <%= @scores[:oriental] %>, <%= @scores[:herbal] %>, <%= @scores[:woody] %>],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+        ],
+        borderWidth: 1
+      }]
     },
     options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            r: {
-                min: 0,
-                max: 8,
-                ticks: {
-                    stepSize: 2, // ステップサイズ
-                    font: {
-                        size: isMobile ? 12 : 14 // スマホの場合は10px、それ以外は14px
-                    }
-                },
-                pointLabels: {
-                    font: {
-                        size: isMobile ? 12 : 15 // スマホの場合は12px、それ以外は15px
-                    }
-                }
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        r: {
+          min: 0,
+          max: 10,
+          ticks: {
+            stepSize: 2, // ステップサイズ
+            font: {
+              size: isMobile ? 12 : 14 // スマホの場合は10px、それ以外は14px
             }
-        },
-        plugins: {
-            legend: {
-                display: false // 凡例を非表示
+          },
+          pointLabels: {
+            font: {
+              size: isMobile ? 12 : 15 // スマホの場合は12px、それ以外は15px
             }
+          }
         }
+      },
+      plugins: {
+        legend: {
+          display: false // 凡例を非表示
+        }
+      }
     }
-});
+  });
+  });
 </script>

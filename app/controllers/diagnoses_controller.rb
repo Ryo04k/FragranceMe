@@ -22,10 +22,8 @@ class DiagnosesController < ApplicationController
 
   # ユーザーの回答に基づいて診断結果を計算し、スコアの高い香りを表示
   def result
-    # @user_answers = session[:user_answers] || {}
-    Rails.logger.info "resultスコアの中身: #{@user_answers.inspect}"
-
     @scores = @user_fragrance_form.calculate_scores
+
     Rails.logger.info "スコアの中身: #{@scores.inspect}"
 
     @recommended_fragrance_id = recommend_fragrance(@scores)
