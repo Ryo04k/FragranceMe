@@ -1,4 +1,6 @@
-<% if @filtered_shops.any? %>
+<% if @search_word.present? %>
+  <p class="text-gray-700 mt-8">「<%= @search_word %>」の検索結果：<span class="font-medium"><%= @total_count %>件</span></p>
+<% end %>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
     <% @filtered_shops.each do |shop| %>
       <div class="bg-white shadow-sm border group rounded">
@@ -27,9 +29,8 @@
     <% end %>
   </div>
   <%= paginate @filtered_shops %>
-<% else %>
-  <% if params[:q].present? %>
+
+  <% if @filtered_shops.blank? %>
     <p class="text-center mt-8 text-sm sm:text-base">指定された条件ではショップが見つかりませんでした。<br>
-      検索条件を変更して、再度検索してください。</p>
+      検索キーワードを変更して、再度検索してください。</p>
   <% end %>
-<% end %>
