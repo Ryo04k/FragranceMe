@@ -1,23 +1,11 @@
-<header class="w-full h-16">
-  <div class="navbar md:px-0">
-    <div class="flex-1">
-      <a href="/" class="btn btn-ghost text-xl">FragranceMe</a>
-    </div>
-    <!-- メニュー -->
-    <div class="flex-none">
-      <ul class="menu menu-horizontal flex items-center text-black">
-        <li>
-          <details class="relative">
-            <summary class="mr-2">メニュー</summary>
-            <ul class="bg-my_white px-1 py-2 rounded-md text-sm top-7 right-1 leading-relaxed w-48 z-50">
-              <li><%= link_to "ホーム", root_path %></li>
-              <li><%= link_to "ショップ検索", shops_path %></li>
-              <li><%= link_to "香りタイプ診断", start_diagnoses_path %></li>
-              <li><%= link_to "ログイン", new_user_session_path %></li>
-            </ul>
-          </details>
-        </li>
-      </ul>
-    </div>
+<header class="navbar bg-base-100 w-full h-16 shadow-sm z-50" style="background-color: rgba(251, 250, 250);">
+  <h1 class="flex-1">
+    <a href="/" class="btn btn-ghost text-xl">FragranceMe</a>
+  </h1>
+  <div class="flex-none gap-2 items-center">
+    <%= link_to new_user_session_path, class: "flex items-center rounded mx-1 px-3 py-2 bg-main text-sm text-white hover:opacity-90 duration-300" do %>
+      <span class="material-symbols-outlined pr-1">login</span>
+      ログイン
+    <% end %>
   </div>
 </header>
