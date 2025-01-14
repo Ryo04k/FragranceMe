@@ -57,6 +57,7 @@ class ShopsController < ApplicationController
 
   def fetch_filtered_shops
     shops = params[:q].present? ? @q.result(distinct: true) : Shop.all
+    @total_count = shops.count
     paginate_shops(shops)
   end
 
