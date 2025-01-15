@@ -3,6 +3,8 @@ class Shop < ApplicationRecord
   has_many :shop_bookmarks, dependent: :destroy
   has_many :reviews, dependent: :destroy
 
+  scope :experienced_shops, -> { where(has_experience: true) }
+
   def self.ransackable_attributes(auth_object = nil)
     [ "name", "address" ]
   end

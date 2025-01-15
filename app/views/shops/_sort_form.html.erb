@@ -1,0 +1,13 @@
+<div class="mt-8 justify-items-end">
+  <%= search_form_for @q, html: { id: 'filter-form' } do |f| %>
+    <%= hidden_field_tag 'q[name_or_address_cont]', params.dig(:q, :name_or_address_cont) %>
+    <div class="form-control flex justify-end items-center">
+      <label class="label cursor-pointer flex items-center">
+        <span class="label-text mr-2">香水が作れるショップのみ表示する</span>
+        <input type="checkbox" name="q[has_experience_eq]" value="true" class="toggle toggle-primary"
+              <%= params.dig(:q, :has_experience_eq) == 'true' ? 'checked' : '' %>
+              onchange="this.form.submit();" />
+      </label>
+    </div>
+  <% end %>
+</div>

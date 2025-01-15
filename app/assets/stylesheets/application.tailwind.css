@@ -79,6 +79,16 @@
   background-color: #f2efef;
 }
 
+.toggle:checked {
+  @apply bg-main; /* オンのときの色 */
+  @apply border-main; /* オンのときの色 */
+}
+
+.toggle:not(:checked) {
+  @apply bg-gray-400; /* オフのときの色 */
+  @apply border-gray-400; /* オフのときの色 */
+}
+
 /* Swiper */
 @media (max-width: 768px) {
   .swiper-button-next::after,

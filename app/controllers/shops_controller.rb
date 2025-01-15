@@ -56,10 +56,22 @@ class ShopsController < ApplicationController
   end
 
   def fetch_filtered_shops
-    shops = params[:q].present? ? @q.result(distinct: true) : Shop.all
+    shops = fetch_shops
+    shops = filter_experienced_shops(shops)
+
     @total_count = shops.count
     @search_word = @q.name_or_address_cont
     paginate_shops(shops)
+  end
+
+  def fetch_shops
+    params[:q].present? ? @q.result(distinct: true) : Shop.all
+  end
+
+  def filter_experienced_shops(shops) # オリジナル香水ショップのみフィルタリング
+    return shops unless params.dig(:q, :has_experience_eq) == "true"
+
+    shops.experienced_shops
   end
 
   def paginate_shops(shops)

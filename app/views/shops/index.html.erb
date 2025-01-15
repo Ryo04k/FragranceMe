@@ -3,10 +3,9 @@
     <div class="w-full md:max-w-screen-sm mx-auto">
       <%= render "search_form", q: @q, url: shops_path %>
     </div>
-
     <%= turbo_frame_tag "search_results", data: { turbo_action: :advance }  do %>
+      <%= render 'sort_form' %>
       <%= render partial: 'search_results', locals: { filtered_shops: @filtered_shops } %>
     <% end %>
-
   </div>
 </div>
