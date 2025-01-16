@@ -1,9 +1,9 @@
-<div class="mt-8 flex items-center justify-end">
-  <%= search_form_for @q, html: { id: 'filter-form', method: :get }, class: "flex items-center" do |f| %>
+<div class="mt-8 flex md:justify-end justify-items-end ml-auto">
+  <%= search_form_for @q, html: { id: 'filter-form', method: :get }, class: "ml-auto md:flex justify-items-end md:items-center" do |f| %>
     <%= hidden_field_tag 'q[name_or_address_cont]', params.dig(:q, :name_or_address_cont) %>
 
-    <div class="form-control justify-end items-center mr-4">
-      <label class="label cursor-pointer items-center">
+    <div class="form-control md:mr-4">
+      <label class="label cursor-pointer">
         <span class="label-text mr-2">香水が作れるショップのみ表示</span>
         <input type="checkbox" name="q[has_experience_eq]" value="true" class="toggle toggle-primary"
               <%= params.dig(:q, :has_experience_eq) == 'true' ? 'checked' : '' %>
@@ -11,8 +11,8 @@
       </label>
     </div>
 
-    <div>
-      <select name="q[s]" class="select select-bordered min-h-2 h-8 rounded border-gray-400" onchange="this.form.submit()">
+    <div class="flex justify-end mt-3 md:mt-0">
+      <select name="q[s]" class="select select-bordered min-h-2 h-8 rounded border-gray-400 justify-items-end" onchange="this.form.submit()">
         <option value="" <%= "selected" if params.dig(:q, :s).blank? %>>並び替え（標準）</option>
         <option value="rating" <%= "selected" if params.dig(:q, :s) == "rating" %>>評価が高い順</option>
         <option value="reviews" <%= "selected" if params.dig(:q, :s) == "reviews" %>>口コミが多い順</option>
