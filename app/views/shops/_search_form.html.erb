@@ -1,6 +1,6 @@
-<%= search_form_for @q, url: shops_path, method: :get, data: { turbo_frame: "search_results" }, html: { class: "bg-gray-50 rounded-md border border-gray-200 shadow-sm flex items-center p-1 w-full shadow-sm" } do |f| %>
-  <span class="material-symbols-outlined text-gray-600 mx-1">search</span>
+<%= search_form_for @q, url: shops_path, method: :get, data: { turbo_frame: "search_results" }, html: { class: "bg-gray-50 rounded-md border border-gray-300 shadow-sm flex items-center p-1 w-full shadow-sm" } do |f| %>
+  <span class="material-symbols-outlined text-gray-400 mx-1" style="font-variation-settings: 'FILL' 1;" >search</span>
   <%= f.text_field :name_or_address_cont, placeholder: "ショップ名や住所から探す", class: "w-full outline-none bg-gray-50 autofill:bg-transparent text-sm autofill:shadow-[inset_0_0_0px_1000px_theme(colors.gray.50)]" %>
 
-  <%= f.submit "検索", class: "bg-neutral text-white text-center text-sm rounded-md p-2 w-20 my-btn cursor-pointer" %>
+  <%= f.submit "検索", class: "bg-main text-white text-center text-sm rounded-md p-2 w-20 my-btn cursor-pointer" %>
 <% end %>

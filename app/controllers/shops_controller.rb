@@ -37,7 +37,6 @@ class ShopsController < ApplicationController
     # ショップ画像のURLを取得
     if @shop
       @shop_images = @shop.photo_urls
-      Rails.logger.debug "画像の配列: #{@shop_images.inspect}"
     else
       redirect_to shops_path
     end
@@ -52,26 +51,46 @@ class ShopsController < ApplicationController
 
   def set_ransack_query
     @q = Shop.ransack(params[:q])
-    @filtered_shops = fetch_filtered_shops
-  end
-
-  def fetch_filtered_shops
-    shops = fetch_shops
-    shops = filter_experienced_shops(shops)
-
-    @total_count = shops.count
-    @search_word = @q.name_or_address_cont
-    paginate_shops(shops)
+    @filtered_shops = fetch_filtered_shops # フィルタリング条件に基づいたショップを取得
   end
 
   def fetch_shops
     params[:q].present? ? @q.result(distinct: true) : Shop.all
   end
 
+  def fetch_filtered_shops
+    shops = fetch_shops # Ransackでのキーワード検索結果を取得
+    shops = filter_experienced_shops(shops) # オリジナル香水ショップを取得
+
+    # ソート条件を保持
+    sort_param = params.dig(:q, :s)
+
+    if sort_param.present?
+      shops = apply_sorting(shops, sort_param)
+    end
+
+    paginate_shops(shops)
+  end
+
   def filter_experienced_shops(shops) # オリジナル香水ショップのみフィルタリング
     return shops unless params.dig(:q, :has_experience_eq) == "true"
 
     shops.experienced_shops
+  end
+
+  def apply_sorting(shops, sort_param)
+    case sort_param
+    when "rating"
+      shops.order(rating: :desc)
+    when "reviews"
+      shops
+      .left_joins(:reviews) # shopsテーブルとreviewsテーブルを結合
+      .select('shops.*, COUNT(reviews.id) AS reviews_count') # shopsテーブルの全カラムとreviewsのカウントを選択
+      .group('shops.id') # ショップIDでグループ化
+      .order('COUNT(reviews.id) DESC')
+    else
+      shops
+    end
   end
 
   def paginate_shops(shops)
