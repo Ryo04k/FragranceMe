@@ -85,9 +85,9 @@ class ShopsController < ApplicationController
     when "reviews"
       shops
       .left_joins(:reviews) # shopsテーブルとreviewsテーブルを結合
-      .select('shops.*, COUNT(reviews.id) AS reviews_count') # shopsテーブルの全カラムとreviewsのカウントを選択
-      .group('shops.id') # ショップIDでグループ化
-      .order('COUNT(reviews.id) DESC')
+      .select("shops.*, COUNT(reviews.id) AS reviews_count") # shopsテーブルの全カラムとreviewsのカウントを選択
+      .group("shops.id") # ショップIDでグループ化
+      .order("COUNT(reviews.id) DESC")
     else
       shops
     end
