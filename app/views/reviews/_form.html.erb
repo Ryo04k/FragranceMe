@@ -1,4 +1,4 @@
-<div class="mt-5 md:mt-10 p-5 md:p-0" id="review-form">
+<div class="mt-5 md:mt-10 p-5" id="review-form">
   <div class="w-full max-w-lg mx-auto">
     <%= form_with model: review, url: shop_reviews_path(shop) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
@@ -8,7 +8,7 @@
       </div>
 
       <div class="flex justify-center">
-        <%= f.submit "口コミを投稿する", class: "mt-1 bg-main btn-wide py-3 text-white rounded hover:bg-opacity-80 transition duration-200" %>
+        <%= f.submit "口コミを投稿する", class: "cursor-pointer mt-1 bg-main btn-wide py-3 text-white rounded hover:bg-opacity-90 transition duration-200" %>
       </div>
     <% end %>
   </div>
