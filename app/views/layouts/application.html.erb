@@ -39,8 +39,8 @@
         <%= render "shared/navigation" %>
       </div>
     <% end %>
-    <div class="flex-grow overflow-auto"> <!-- overflow-auto でコンテンツがはみ出た場合にスクロール -->
-      <%# <%= render 'layouts/flash_messages' %>
+    <div class="flex-grow overflow-auto">
+      <%= render 'layouts/flash_messages' %>
       <%= yield %>
     </div>
   </main>

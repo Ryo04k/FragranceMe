@@ -12,3 +12,19 @@ document.addEventListener("turbo:click", (event) => {
         });
     }
 });
+
+// フラッシュメッセージの表示切り替え
+document.addEventListener("turbo:load", () => {
+  const flashMessage = document.getElementById('flash-message');
+
+  const fadeOutFlashMessage = (element) => {
+    element.style.opacity = '0';
+    setTimeout(() => {
+      element.style.display = 'none';
+    }, 500);
+  };
+
+  setTimeout(() => {
+    fadeOutFlashMessage(flashMessage);
+  }, 3000);
+});
