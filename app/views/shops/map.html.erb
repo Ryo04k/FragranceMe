@@ -24,7 +24,7 @@
       <% end %>
     </div>
 
-    <div class="shop-list px-4 w-full md:max-w-screen-xl mx-auto hidden md:block">
+    <div class="shop-list bg-baseColor rounded-md p-4 w-full md:max-w-screen-xl mx-auto hidden md:block shadow-custom">
       <!-- 現在地周辺の店舗を表示 -->
     </div>
   </div>
@@ -198,7 +198,7 @@ function displayShopList(shops) {
   console.log(shopListElements)
 
   shopListElements.forEach(shopListElement => {
-    shopListElement.innerHTML = '<h2 class="text-lg md:text-2xl text-center font-bold mb-4">現在地から近いショップ</h2>';
+    shopListElement.innerHTML = '<h2 class="text-lg md:text-2xl text-center font-bold mt-2 mb-5">現在地から近いショップ</h2>';
 
   if (shops.length > 0){
     const ul = document.createElement('ul');
@@ -210,7 +210,7 @@ function displayShopList(shops) {
     });
     shopListElement.appendChild(ul);
   }else{
-    shopListElement.innerHTML += '<p class="text-base text-center">周辺にショップが見つかりませんでした。</p>';
+    shopListElement.innerHTML += '<p class="text-base text-center mb-4">周辺にショップが見つかりませんでした。</p>';
   }
   });
 }

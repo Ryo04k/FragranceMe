@@ -1,5 +1,5 @@
-<div class="max-w-screen-xl mx-auto mb-20 px-4 mt-10">
-  <h2 class="text-2xl md:text-3xl font-bold">お気に入り</h2>
+<div class="w-11/12 md:max-w-screen-xl mx-auto mb-20 p-4 py-9 md:px-8 mt-12 rounded-md bg-baseColor shadow-custom">
+  <h2 class="text-xl md:text-2xl font-bold">お気に入りショップ一覧</h2>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
     <% if @shop_bookmarks.any? %>
@@ -12,9 +12,9 @@
   <% if @shop_bookmarks.blank? %>
     <div class="mt-8 text-center">
       <h3 class="text-lg font-semibold">まだお気に入りがありません</h3>
-      <p>気になるショップを見つけたら、<span class="block sm:inline">ぜひ追加してみましょう！</p>
-      <div class="mt-4">
-        <%= link_to "ショップを探す", shops_path, class: "btn btn-neutral btn-wide text-base" %>
+      <p class="text-sm md:text-base">気になるショップを見つけたら、<span class="block sm:inline">ぜひ追加してみましょう！</p>
+      <div class="mt-6">
+        <%= link_to "ショップを探す", shops_path, class: "bg-main btn-wide py-3 px-12 text-white rounded hover:bg-opacity-90 transition duration-200" %>
       </div>
     </div>
   <% end %>

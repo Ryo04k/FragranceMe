@@ -30,10 +30,15 @@ module.exports = {
       colors: {
         customColor: "#333",
         main: "#e57777",
-        background: "#fafafa",
+        baseColor: "#fdfbfa",
+        subColor: "#e9c4b7",
+        background: "#f7edea",
       },
       screens: {
         hoverable: { raw: '(hover: hover) and (pointer: fine)' },
+      },
+      boxShadow: {
+        'custom': '0px 0px 60px 20px rgba(249,185,185,.1)',
       },
     },
   },
