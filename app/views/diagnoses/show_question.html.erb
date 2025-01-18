@@ -1,27 +1,30 @@
-<div class="max-w-[1200px] mx-auto mt-20 mb-20 p-6 rounded shadow-lg">
-  <div class="p-6">
-<div class="text-center">
-   <p class="-mb-1"><%= "#{@current_question_id}/#{@total_questions}" %></p>
-  <progress class="progress progress-primary bg-gray-200 w-64 h-3" value="<%= @current_question_id %>" max="<%= @total_questions %>"></progress>
-</div>
-    <h2 class="text-xl font-bold mb-8 mt-6 text-center"><%= @question.content %></h2>
-  <%= form_with url: answer_diagnoses_path, method: :post, local: true do |f| %>
-    <div class="space-y-6 w-full md:max-w-[50%] mx-auto">
-      <% @answers.each do |answer| %>
-        <div class="flex justify-center items-center p-4 bg-gray-100 rounded-lg border border-gray-300 hover:bg-gray-200 transition cursor-pointer" onclick="document.getElementById('answer_<%= answer.id %>').checked = true; this.closest('form').submit();">
-          <%= f.radio_button :answer, answer.id, id: "answer_#{answer.id}", class: "hidden" %>
-          <span class="text-base"><%= answer.content %></span>
+<div class="min-h-screen pt-20" style="background-image: radial-gradient(farthest-corner at 90% 50px, #FFEEEF 0%, #FFF8F6 30%, #FFEDEF 55%, #FCE7E3 100%);">
+  <div class="w-11/12 md:max-w-screen-xl mx-auto px-3 py-12 rounded-md bg-baseColor shadow-custom">
+
+    <div class="text-center">
+      <p class="-mb-1"><%= "#{@current_question_id}/#{@total_questions}" %></p>
+      <progress class="progress progress-primary bg-gray-200 w-64 h-3" value="<%= @current_question_id %>" max="<%= @total_questions %>"></progress>
+    </div>
+
+    <h2 class="text-base md:text-xl font-bold mb-8 mt-6 text-center">Q. <%= @question.content %></h2>
+
+    <%= form_with url: answer_diagnoses_path, method: :post, local: true do |f| %>
+      <div class="space-y-6 w-full md:max-w-[50%] mx-auto">
+        <% @answers.each do |answer| %>
+          <div class="flex justify-center items-center p-4 rounded-md border border-gray-300 hover:bg-main  hover:text-white duration-200 cursor-pointer" onclick="document.getElementById('answer_<%= answer.id %>').checked = true; this.closest('form').submit();">
+            <%= f.radio_button :answer, answer.id, id: "answer_#{answer.id}", class: "hidden" %>
+            <span class="text-sm md:text-base"><%= answer.content %></span>
+          </div>
+        <% end %>
+      </div>
+      <%= hidden_field_tag :question_id, @question.id %>
+    <% end %>
+      <% if @previous_question_id >= 1 %>
+        <div class="mt-10 md:ml-12 text-sm flex items-center hover:text-main transition">
+          <span class="material-symbols-outlined" style="font-size: 25px;">arrow_back</span>
+          <%= link_to "前の質問に戻る", question_diagnoses_path(@previous_question_id) %>
         </div>
       <% end %>
     </div>
-    <%= hidden_field_tag :question_id, @question.id %>
-  <% end %>
-
-    <% if @previous_question_id >= 1 %>
-      <div class="mt-10 flex items-center hover:text-main transition">
-        <span class="material-symbols-outlined" style="font-size: 25px;">arrow_back</span>
-        <%= link_to "前の質問に戻る", question_diagnoses_path(@previous_question_id) %>
-      </div>
-    <% end %>
   </div>
 </div>
