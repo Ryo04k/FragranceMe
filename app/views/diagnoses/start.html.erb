@@ -1,10 +1,14 @@
-<div class="max-w-[1200px] mx-auto mt-20 mb-20 p-6 bg-white rounded-lg shadow-lg">
-  <div class="text-center mb-6">
-    <h2 class="text-3xl font-bold text-gray-800 mb-2">フレグランス診断</h2>
-    <p class="text-lg text-gray-600">あなたにぴったりの香りを見つけましょう。</p>
-  </div>
+<div class="min-h-screen pt-20" style="background-image: radial-gradient(farthest-corner at 90% 50px, #FFEEEF 0%, #FFF8F6 30%, #FFEDEF 55%, #FCE7E3 100%);">
+  <div class="w-11/12 md:max-w-screen-xl mx-auto py-20 px-2 rounded-md bg-baseColor shadow-custom">
+    <div class="text-center mb-6 ">
+      <h2 class="text-xl md:text-3xl font-bold text-gray-800">香りタイプ診断</h2>
+      <p class="mt-3 text-center text-sm md:text-base text-gray-600">香りは心を豊かにし、周囲に素敵な印象を<br class="block md:hidden">もたらします。<br>
+      この診断を通じて、<br class="block md:hidden">あなたにぴったりの香りを見つけてみましょう！
+      </p>
+    </div>
 
-  <div class="flex justify-center">
-    <%= link_to '診断をスタートする', question_diagnoses_path(1), class: "bg-main text-white rounded-lg px-6 py-3 hover:bg-opacity-80 transition duration-300" %>
+    <div class="flex justify-center">
+      <%= link_to '診断を始める', question_diagnoses_path(1), class: "bg-main text-white rounded-lg px-12 py-3 shadow transition duration-300 hover:opacity-90" %>
+    </div>
   </div>
 </div>
