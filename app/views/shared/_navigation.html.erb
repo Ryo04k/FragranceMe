@@ -1,5 +1,5 @@
 <!-- PCメニュー -->
-<aside id="default-sidebar" class="bg-base-400 shadow-custom fixed top-0 left-0 h-full z-10 w-16 transition-all duration-200 ease-in-out hidden lg:block bg-baseColor opacity-90">
+<aside id="default-sidebar" class="shadow-custom fixed top-0 left-0 h-full z-10 w-16 transition-all duration-200 ease-in-out hidden lg:block bg-baseColor opacity-90">
   <div class="h-full pt-20 w-full overflow-hidden ">
     <ul class="h-full">
       <li class="group h-16 menu-item flex items-center">
@@ -41,31 +41,31 @@
 </aside>
 
 <!-- SPメニュー -->
-<div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-gray-100 shadow border-t border-gray-200 block lg:hidden">
+<div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-gray-50 shadow border-t border-gray-200 block lg:hidden">
   <div class="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
-    <%= link_to shops_path, class: "inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50" do %>
-      <span class="material-symbols-outlined text-2xl">search</span>
-      <span class="text-[9px]">一覧から探す</span>
+    <%= link_to shops_path, class: "inline-flex flex-col items-center justify-center px-1" do %>
+      <span class="material-symbols-outlined text-2xl" style="<%= 'font-variation-settings: \'FILL\' 1, \'wght\' 300; color: #e57777;' if current_page?('/shops') || (request.path.start_with?('/shops/') && params[:id]) %>">search</span>
+      <span class="text-[9px]" style="<%= 'color: #e57777;' if current_page?('/shops') || (request.path.start_with?('/shops/') && params[:id]) %>">一覧から探す</span>
     <% end %>
 
-    <%= link_to map_shops_path, class: "inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50" do %>
-      <span class="material-symbols-outlined text-2xl">map_search</span>
-      <span class="text-[9px]">現在地から探す</span>
+    <%= link_to map_shops_path, class: "inline-flex flex-col items-center justify-center px-1" do %>
+      <span class="material-symbols-outlined text-2xl" style="<%= 'font-variation-settings: \'FILL\' 1; color: #e57777;' if current_page?('/shops/map') %>">map_search</span>
+      <span class="text-[9px]" style="<%= 'color: #e57777;' if current_page?('/shops/map') %>">現在地から探す</span>
     <% end %>
 
-    <%= link_to bookmarks_shops_path, class: "inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50" do %>
-      <span class="material-symbols-outlined text-2xl">favorite</span>
-      <span class="text-[9px]">お気に入り</span>
+    <%= link_to bookmarks_shops_path, class: "inline-flex flex-col items-center justify-center px-1" do %>
+      <span class="material-symbols-outlined text-2xl" style="<%= 'font-variation-settings: \'FILL\' 1; color: #e57777;' if current_page?('/shops/bookmarks') %>">favorite</span>
+      <span class="text-[9px]" style="<%= 'color: #e57777;' if current_page?('/shops/bookmarks') %>">お気に入り</span>
     <% end %>
 
-    <%= link_to start_diagnoses_path, class: "inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50" do %>
-      <span class="material-symbols-outlined text-2xl">edit_note</span>
-      <span class="text-[9px]">香りタイプ診断</span>
+    <%= link_to start_diagnoses_path, class: "inline-flex flex-col items-center justify-center px-1" do %>
+      <span class="material-symbols-outlined text-2xl" style="<%= 'font-variation-settings: \'FILL\' 1; color: #e57777;' if current_page?('/diagnoses/start') %>">edit_note</span>
+      <span class="text-[9px]" style="<%= 'color: #e57777;' if current_page?('/diagnoses/start') %>">香りタイプ診断</span>
     <% end %>
 
-    <%= link_to profile_path, class: "inline-flex flex-col items-center justify-center px-1 hover:bg-gray-50" do %>
-      <span class="material-symbols-outlined text-2xl">person</span>
-      <span class="text-[9px]">マイページ</span>
+    <%= link_to profile_path, class: "inline-flex flex-col items-center justify-center px-1" do %>
+      <span class="material-symbols-outlined text-2xl" style="<%= 'font-variation-settings: \'FILL\' 1; color: #e57777;' if current_page?('/profile') %>">person</span>
+      <span class="text-[9px]" style="<%= 'color: #e57777;' if current_page?('/profile') %>">マイページ</span>
     <% end %>
   </div>
 </div>
