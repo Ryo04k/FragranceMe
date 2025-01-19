@@ -114,8 +114,12 @@
       <div class="mx-auto py-8 px-4 flex flex-col items-center justify-center">
         <h3 class="font-semibold text-sm md:text-lg">口コミはまだありません</h3>
         <p class="text-sm mt-1">ぜひ、あなたの体験の投稿をお待ちしています！</p>
-        <%= link_to "口コミを投稿する", new_user_session_path, class: "text-center mt-3 bg-main btn-wide py-3 text-white rounded hover:bg-opacity-80 transition duration-200" %>
+        <%= link_to "口コミを投稿する", new_user_session_path, class: "shadow text-center mt-3 bg-main px-10 py-3 text-white rounded hover:bg-opacity-80 transition duration-200" %>
       </div>
+    <% else %>
+        <div class="mx-auto py-6 px-4 flex flex-col items-center justify-center">
+          <%= link_to "口コミを投稿する", new_user_session_path, class: "shadow text-center mt-3 bg-main px-10 py-3 text-white rounded hover:bg-opacity-80 transition duration-200" %>
+        </div>
     <% end %>
   </div>
 </div>
