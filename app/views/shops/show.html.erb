@@ -1,7 +1,7 @@
 <div class="w-full md:max-w-screen-xl mx-auto mb-20 mt-12 bg-baseColor rounded-md shadow-custom md:p-4">
-  <h2 class="text-xl md:text-2xl font-bold pt-7"><%= @shop.name %></h2>
+  <h2 class="text-xl pl-2 md:pl-0 md:text-2xl font-bold pt-7"><%= @shop.name %></h2>
 
-  <div class="flex mb-2 mt-1">
+  <div class="flex mb-2 mt-1 pl-2 md:pl-0">
     <div class="flex items-center mr-3">
       <!-- レーティング -->
       <% full_stars = @shop.rating.floor %>
@@ -46,7 +46,7 @@
   </div>
 
   <!-- ショップ詳細コンテンツ -->
-  <div id="shopDetailsContent" class="block p-4">
+  <div id="shopDetailsContent" class="block p-4 pt-0">
     <% if @shop.opening_hours.present? %>
       <div class="py-8 border-b border-gray-300 flex flex-col md:flex-row items-start">
         <p class="text-base font-semibold w-full md:w-40 flex items-start mb-2 md:mb-0 items-center">
@@ -95,7 +95,7 @@
     </iframe>
 
     <div class="flex justify-end mt-3 pb-8">
-      <%= link_to "https://www.google.com/maps/search/?api=1&query=#{CGI.escape(@shop.name)},#{CGI.escape(@shop.address)}", target: :_blank, class: "text-xs btn hover:text-main transition duration-200" do %>
+      <%= link_to "https://www.google.com/maps/search/?api=1&query=#{CGI.escape(@shop.name)},#{CGI.escape(@shop.address)}", target: :_blank, class: "text-xs btn hover:text-main transition duration-200 rounded-md" do %>
         <span class="material-symbols-outlined">map_search</span>
         <span>GoogleMapで開く</span>
       <% end %>
