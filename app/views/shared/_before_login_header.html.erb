@@ -1,11 +1,17 @@
 <header class="navbar bg-base-100 w-full h-16 z-50 border-t-4 border-main bg-baseColor shadow-custom">
-  <h1 class="flex-1">
-    <a href="/" class="btn btn-ghost text-xl">FragranceMe</a>
-  </h1>
-  <div class="flex-none gap-2 items-center">
-    <%= link_to new_user_session_path, class: "flex items-center rounded mx-1 px-3 py-2 bg-main text-sm text-white hover:opacity-90 duration-300" do %>
-      <span class="material-symbols-outlined pr-1">login</span>
-      ログイン
-    <% end %>
+  <div class="flex justify-between items-center w-full">
+    <div class="flex items-center flex-1">
+      <h1>
+        <a href="/" class="btn btn-ghost text-xl">FragranceMe</a>
+      </h1>
+      <p class="text-xs font-medium hidden lg:block">あなたにぴったりの香りに出会える、フレグランスショップ検索サイト</p> <!-- ml-2を追加 -->
+    </div>
+
+    <div class="flex-none items-center">
+      <%= link_to new_user_session_path, class: "flex items-center rounded mx-1 px-3 py-2 bg-main text-sm text-white hover:opacity-90 duration-300" do %>
+        <span class="material-symbols-outlined pr-1">login</span>
+        ログイン
+      <% end %>
+    </div>
   </div>
 </header>

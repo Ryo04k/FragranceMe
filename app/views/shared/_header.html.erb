@@ -1,31 +1,37 @@
 <header class="navbar bg-base-100 w-full h-16 z-50 border-t-4 border-main bg-baseColor shadow-custom">
-  <h1 class="flex-1">
-    <a href="/" class="btn btn-ghost text-xl">FragranceMe</a>
-  </h1>
-  <div class="flex-none gap-2">
-    <div class="dropdown dropdown-end">
-      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-        <div class="w-10 rounded-full">
-          <%= image_tag "default_avatar.png", alt: "アバター画像" %>
-        </div>
-      </div>
-      <ul
-        tabindex="0"
-        class="menu menu-sm dropdown-content bg-white rounded-lg shadow-lg mt-3 w-52 transition-all duration-300 ease-in-out">
-        <li class="flex hover:bg-gray-100 rounded-md transition duration-200 p-2">
-          <%= link_to profile_path, class: "flex items-center w-full text-gray-800 transition duration-200", data: { turbo: false } do %>
-            <span class="material-symbols-outlined text-gray-600 mr-1 transition duration-200">person</span>
-            マイページ
-          <% end %>
-        </li>
+  <div class="flex justify-between items-center w-full">
+    <div class="flex items-center flex-1">
+      <h1>
+        <a href="/" class="btn btn-ghost text-xl">FragranceMe</a>
+      </h1>
+      <p class="text-xs font-medium hidden lg:block">あなたにぴったりの香りに出会える、フレグランスショップ検索サイト</p>
+    </div>
 
-        <li class="flex hover:bg-gray-100 rounded-md transition duration-200 p-2 hover:text-main">
-          <%= link_to destroy_user_session_path, class: "flex items-center w-full text-gray-800 transition duration-200", data: { turbo_method: :delete } do %>
-            <span class="material-symbols-outlined text-gray-600 mr-1 transition duration-200">logout</span>
-            ログアウト
-          <% end %>
-        </li>
-      </ul>
+    <div class="flex-none">
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+          <div class="w-10 rounded-full">
+            <%= image_tag "default_avatar.png", alt: "アバター画像" %>
+          </div>
+        </div>
+        <ul
+          tabindex="0"
+          class="menu menu-sm dropdown-content bg-white rounded-lg shadow-lg mt-3 w-52 transition-all duration-300 ease-in-out">
+          <li class="flex hover:bg-gray-100 rounded-md transition duration-200 p-2">
+            <%= link_to profile_path, class: "flex items-center w-full text-gray-800 transition duration-200", data: { turbo: false } do %>
+              <span class="material-symbols-outlined text-gray-600 mr-1 transition duration-200">person</span>
+              マイページ
+            <% end %>
+          </li>
+
+          <li class="flex hover:bg-gray-100 rounded-md transition duration-200 p-2 hover:text-main">
+            <%= link_to destroy_user_session_path, class: "flex items-center w-full text-gray-800 transition duration-200", data: { turbo_method: :delete } do %>
+              <span class="material-symbols-outlined text-gray-600 mr-1 transition duration-200">logout</span>
+              ログアウト
+            <% end %>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </header>
