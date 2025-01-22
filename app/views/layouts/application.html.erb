@@ -24,6 +24,7 @@
     <%= stylesheet_link_tag "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
     <%= include_gon %>
+    <%= display_meta_tags(default_meta_tags) %>
   </head>
 
   <body class="flex flex-col min-h-screen font-custom text-customColor text-custom-size font-custom-weight tracking-custom leading-custom bg-background">
