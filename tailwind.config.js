@@ -40,6 +40,9 @@ module.exports = {
       boxShadow: {
         'custom': '0px 0px 60px 20px rgba(249,185,185,.1)',
       },
+      backgroundImage: {
+        'custom-radial': 'radial-gradient(farthest-corner at 90% 50px, #FFEEEF 0%, #FFF8F6 30%, #FFEDEF 55%, #FCE7E3 100%)',
+      },
     },
   },
   plugins: [require("daisyui")],
