@@ -4,8 +4,13 @@
       <div class="w-full sm:w-1/2 text-center sm:text-left text-sm">
         <p>© 2024. FragranceMe</p>
       </div>
-      <div class="w-full mt-1 md:mt-0 sm:w-auto text-sm text-center sm:text-right">
-        <%= link_to "プライバシーポリシー", privacy_policy_path %>
+      <div class="flex flex-col sm:flex-row w-full mt-1 md:mt-0 sm:w-auto text-sm text-center sm:text-right space-y-1 sm:space-y-0 sm:space-x-4"> <!-- flex-colを追加 -->
+        <div>
+          <%= link_to "プライバシーポリシー", privacy_policy_path %>
+        </div>
+        <div>
+          <%= link_to "利用規約", terms_path %>
+        </div>
       </div>
     </div>
   </div>
