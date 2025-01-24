@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Map", type: :request  do
-
   before do
     ENV["BASIC_AUTH_USER"] = "username"
     ENV["BASIC_AUTH_PASSWORD"] = "password"
@@ -23,7 +22,7 @@ RSpec.describe "Map", type: :request  do
     end
 
     it "周辺ショップ情報の取得に成功すること" do
-      get "/shops/list", params: { latitude: latitude, longitude: longitude } , headers: { "HTTP_AUTHORIZATION" => "Basic " + Base64.encode64("username:password") }
+      get "/shops/list", params: { latitude: latitude, longitude: longitude }, headers: { "HTTP_AUTHORIZATION" => "Basic " + Base64.encode64("username:password") }
       expect(response).to have_http_status(:success)
       expect(response.content_type).to eq("application/json; charset=utf-8")
 
