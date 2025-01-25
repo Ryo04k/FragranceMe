@@ -15,7 +15,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[google_oauth2]
 
-  validates :name, presence: true, uniqueness: true, length: {maximum: 50}
+  validates :name, presence: true, uniqueness: true, length: { maximum: 50 }
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, presence: true, length: { minimum: 6 }, on: :create
   validates :uid, presence: true, uniqueness: { scope: :provider }, if: -> { provider == "google_oauth2" }
