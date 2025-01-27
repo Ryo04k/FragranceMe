@@ -28,8 +28,10 @@ class Shop < ApplicationRecord
   after_validation :geocode, if: ->(obj) { obj.address.present? && obj.address_changed? }
 
   def photo_urls
-    shop_images.map do |shop_image|
-      "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=#{shop_image.image}&key=#{GoogleApi.api_key}"
+    Rails.cache.fetch([ self, "photo_urls" ], expires_in: 1.week) do
+      shop_images.map do |shop_image|
+        "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=#{shop_image.image}&key=#{GoogleApi.api_key}"
+      end
     end
   end
 end
