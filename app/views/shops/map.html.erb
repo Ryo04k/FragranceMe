@@ -2,7 +2,7 @@
   <div id="map-container">
     <div id="map" class="w-full relative rounded h-screen lg:h-[600px] md:mb-8"></div>
 
-    <div class="absolute right-4 bottom-20 md:bottom-56 z-50">
+    <div class="absolute right-4 bottom-20 md:bottom-60 z-50">
       <!-- SPレイアウト表示 -->
       <div data-controller="sidebar">
         <%= render "shops/sidebar" %>
@@ -217,7 +217,7 @@ function displayShopList(shops) {
 
 function createShopListItem(shop) {
   const li = document.createElement('li');
-  li.className = "border rounded shadow-sm flex flex-col hover:shadow-lg transition-shadow duration-300 group";
+  li.className = "border rounded shadow-sm flex flex-col hover:opacity-90 duration-300 group";
 
   const imageUrl = `https://maps.googleapis.com/maps/api/place/photo?maxheight=300&maxwidth=300&photo_reference=${shop.image}&key=${googleMapApiKey}`;
   const shopLink = `/shops/${shop.id}`; // 詳細ページへのリンク作成

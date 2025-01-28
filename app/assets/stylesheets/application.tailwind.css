@@ -79,6 +79,12 @@
   background-color: #f2efef;
 }
 
+.blurred-bg {
+  background: rgba(255, 255, 255, 0.4); /* 半透明の白背景 */
+  backdrop-filter: blur(10px); /* ブラー効果 */
+  overflow: hidden; /* 内容がはみ出さないように */
+}
+
 .toggle:checked {
   @apply bg-main; /* オンのときの色 */
   @apply border-main; /* オンのときの色 */
