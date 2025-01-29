@@ -11,7 +11,7 @@ module ApplicationHelper
   def default_meta_tags
     {
       site: "FragranceMe",
-      title: "フレグランスショップ検索サービス",
+      title: "FragranceMe",
       reverse: true,
       charset: "utf-8",
       description: "FragranceMeは、気になるフレグランスショップを簡単に見つけることができるサービスです。香り探しをもっと楽しく、快適に！",
@@ -29,7 +29,7 @@ module ApplicationHelper
       },
       twitter: {
         card: "summary_large_image",
-        image: image_url("ogp_01.jpg")
+        image: image_url("ogp_03.jpg")
       }
     }
   end
