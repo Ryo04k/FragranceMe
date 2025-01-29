@@ -24,7 +24,7 @@ module ApplicationHelper
         description: :description,
         type: "website",
         url: "https://www.fragrance-me.com/",
-        image: image_url("ogp_01.jpg"),
+        image: image_url("ogp_03.jpg"),
         local: "ja-JP"
       },
       twitter: {
