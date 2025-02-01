@@ -5,11 +5,14 @@
       <%= image_tag "mv_02.jpg", class: "h-[320px] md:h-[680px] object-cover w-screen" %>
     </div>
     <div class="absolute inset-0 flex flex-col items-center justify-center">
-      <p class="text-shadow z-10 text-white font-semibold text-2xl text-center md:text-4xl">
+      <h2 class="text-shadow z-10 text-white font-semibold text-3xl leading-10 text-center md:text-4xl">
         お気に入りの香りに、<br class="md:hidden">きっと出会える。
-      </p>
-      <div class="mt-8  md:mt-10">
-        <%= link_to "ショップを探しに行く", shops_path, class: "text-center font-semibold mt-3 bg-main px-6  md:px-10 py-3 text-white rounded-md brightness-110 cursor-pointer shadow-custom" %>
+      </h2>
+      <div class="mt-8">
+        <%= link_to shops_path, class: "flex items-center text-base text-center font-medium mt-3 bg-main px-6 py-3 text-white rounded-md brightness-110 cursor-pointer shadow-custom" do %>
+          <span class="material-symbols-outlined pr-1 mt-0.5" style="font-size:25px; font-variation-settings: 'FILL' 1;">search</span>
+          <span>ショップを探しに行く</span>
+        <% end %>
       </div>
     </div>
   </div>
@@ -40,7 +43,10 @@
       </div>
 
       <div class="my-12 text-center">
-        <%= link_to "ショップを探しに行く", shops_path, class: "text-center font-semibold mt-3 bg-main px-6 md:px-10 py-3 text-white rounded-md brightness-110 cursor-pointer shadow-custom hover:opacity-90 transition duration-300" %>
+        <%= link_to shops_path, class: "flex items-center text-base text-center font-medium mt-3 bg-main px-6 py-3 text-white rounded-md brightness-110 cursor-pointer shadow-custom hover:opacity-90 transition duration-300" do %>
+          <span class="material-symbols-outlined pr-1 mt-0.5" style="font-size:25px; font-variation-settings: 'FILL' 1;">search</span>
+          <span>ショップを探しに行く</span>
+        <% end %>
       </div>
     </div>
   </div>
