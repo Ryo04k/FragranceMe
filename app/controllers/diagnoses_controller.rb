@@ -3,7 +3,6 @@ class DiagnosesController < ApplicationController
   before_action :initialize_user_answers, only: [ :answer_question ]
   before_action :set_question, only: [ :show_question ]
 
-  # セッションに保存する診断結果のキー
   DIAGNOSIS_DATA_KEY = :diagnosis_data
 
   def start;end
@@ -14,7 +13,6 @@ class DiagnosesController < ApplicationController
     @previous_question_id = @current_question_id - 1
   end
 
-  # ユーザーの質問への回答をセッションに保存し、次の質問または結果ページにリダイレクト
   def answer_question
     session[:user_answers][params[:question_id]] = params[:answer]
     redirect_to next_question_or_results(params[:question_id])
@@ -24,10 +22,7 @@ class DiagnosesController < ApplicationController
   def result
     @scores = @user_fragrance_form.calculate_scores
 
-    Rails.logger.info "スコアの中身: #{@scores.inspect}"
-
     @recommended_fragrance_id = recommend_fragrance(@scores)
-    Rails.logger.info "テキスト: #{@recommended_fragrance_id.inspect}"
 
     if @recommended_fragrance_id
       @recommended_fragrance = Fragrance.find(@recommended_fragrance_id)
@@ -54,7 +49,6 @@ class DiagnosesController < ApplicationController
     @answers = @question.answers
   end
 
-  # 次の質問が存在する場合はその質問のパスを返し、存在しない場合は診断結果のパスを返す
   def next_question_or_results(current_question_id)
     next_question_id = current_question_id.to_i + 1
     Question.exists?(next_question_id) ? question_diagnoses_path(next_question_id) : result_diagnoses_path
@@ -80,7 +74,6 @@ class DiagnosesController < ApplicationController
     begin
       Diagnosis.create_with_scores(current_user, @recommended_fragrance_id, @scores)
     rescue => e
-      Rails.logger.error "診断結果の保存に失敗しました: #{e.message}"
       flash[:alert] = "診断結果の保存に失敗しました。"
     end
   end
@@ -91,6 +84,5 @@ class DiagnosesController < ApplicationController
       fragrance_id: @recommended_fragrance_id,
       score: @scores
     }
-    Rails.logger.info "セッションデータの中身: #{session.inspect}"
   end
 end

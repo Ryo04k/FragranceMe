@@ -41,7 +41,6 @@ class User < ApplicationRecord
     shop_bookmarks.exists?(shop_id: shop.id)
   end
 
-  # オブジェクトが特定のユーザーに属しているかを判定
   def own?(object)
     id == object&.user_id
   end

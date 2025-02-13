@@ -3,13 +3,11 @@ class Diagnosis < ApplicationRecord
   belongs_to :fragrance
   has_one :user_fragrance_score
 
-  # ユーザーID、香りID、診断日付は必須
   validates :user_id, presence: true
   validates :fragrance_id, presence: true
   validates :diagnosis_date, presence: true
 
 
- # Fragranceテーブルに受け取った香りが見つかればユーザー情報とスコアを保存
  def self.create_with_scores(user, fragrance_id, scores)
   fragrance = Fragrance.find_by(id: fragrance_id)
   raise ActiveRecord::RecordNotFound, "指定された香りが見つかりませんでした。" unless fragrance
@@ -37,12 +35,10 @@ rescue ActiveRecord::RecordInvalid => e
   raise "診断結果の保存に失敗しました: #{e.message}"
 end
 
-# ユーザーに紐づく最新の診断結果を取得
 def self.latest_for_user(user)
   user.diagnoses.includes(:fragrance, :user_fragrance_score).order(diagnosis_date: :desc).first
 end
 
-# ユーザーの診断結果のスコアを取得
 def user_scores
   [
     user_fragrance_score.floral_score,
