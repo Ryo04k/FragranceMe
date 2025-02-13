@@ -34,7 +34,6 @@ class ShopsController < ApplicationController
     @review = Review.new
     @reviews = @shop.reviews.includes(:user).order(created_at: :desc)
 
-    # ショップ画像のURLを取得
     if @shop
       @shop_images = @shop.photo_urls
     else

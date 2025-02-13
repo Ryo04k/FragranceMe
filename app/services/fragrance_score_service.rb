@@ -88,11 +88,9 @@ end
     def calculate_scores
       total_scores = { floral: 0, citrus: 0, oriental: 0, spicy: 0, herbal: 0, woody: 0 }
 
-      # user_answersの各要素に対して、calculate_individual_scoresメソッドを呼び出し、スコアを計算
       @user_answers.each do |question_id, answer_content|
         scores = calculate_individual_scores(question_id, answer_content)
 
-        # 計算したスコアをtotal_scoresにマージ
         total_scores.merge!(scores) { |key, old_val, new_val| old_val + new_val }
       end
 
@@ -101,13 +99,9 @@ end
 
     private
 
-    # 各質問に対するスコアを計算し、ハッシュで返す
     def calculate_individual_scores(question_id, answer_content)
       mapped_answer = ANSWER_MAPPING[answer_content] || answer_content
 
-      # question_idを整数に変換し、対応するスコアデータをSCORE_DATAハッシュから取得
-      # 質問IDが"1"の場合は SCORE_DATA[:expertise]が選択される
-      # mapped_answerが存在しない場合や nil の場合にdefault_scoresを返す
       case question_id.to_i
       when 1 then SCORE_DATA[:expertise][mapped_answer] || default_scores
       when 2 then SCORE_DATA[:lifestyle][mapped_answer] || default_scores
