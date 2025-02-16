@@ -18,7 +18,6 @@ class DiagnosesController < ApplicationController
     redirect_to next_question_or_results(params[:question_id])
   end
 
-  # ユーザーの回答に基づいて診断結果を計算し、スコアの高い香りを表示
   def result
     @scores = @user_fragrance_form.calculate_scores
 
@@ -38,12 +37,10 @@ class DiagnosesController < ApplicationController
     @user_fragrance_form = UserFragranceForm.new(diagnosis_id: params[:diagnosis_id], user_answers: session[:user_answers] || {})
   end
 
-  # ユーザーの回答をセッションに保存
   def initialize_user_answers
     session[:user_answers] ||= {}
   end
 
-  # 質問を取得し、紐づけられた回答を取得
   def set_question
     @question = Question.find(params[:id])
     @answers = @question.answers
@@ -60,7 +57,6 @@ class DiagnosesController < ApplicationController
     Fragrance.find_by(image_url: "#{top_fragrance_name}.jpg")&.id
   end
 
-  # 診断結果をデータベースまたはセッションに保存
   def save_diagnosis_or_session
     if current_user
       save_diagnosis
@@ -69,7 +65,6 @@ class DiagnosesController < ApplicationController
     end
   end
 
-  # ログインユーザーの場合、診断結果をデータベースに保存
   def save_diagnosis
     begin
       Diagnosis.create_with_scores(current_user, @recommended_fragrance_id, @scores)
@@ -78,7 +73,6 @@ class DiagnosesController < ApplicationController
     end
   end
 
-  # 未ログインユーザーの場合、診断結果をセッションに保存
   def save_to_session
     session[DIAGNOSIS_DATA_KEY] = {
       fragrance_id: @recommended_fragrance_id,

@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   root "static_pages#home"
   devise_for :users, controllers: {
     registrations: "users/registrations",
-    # OmniAuthの認証が成功したときに、コールバックとしてUsers::OmniauthCallbacksControllerが呼び出される
     omniauth_callbacks: "users/omniauth_callbacks",
     sessions: "users/sessions"
   }
@@ -17,25 +16,21 @@ Rails.application.routes.draw do
     end
   end
 
-  # マイページ
   resource :profile, only: %i[show edit update]
 
-  # ブックマーク
   resources :shop_bookmarks, only: %i[create destroy]
 
   resources :diagnoses do
     collection do
-      get "start", to: "diagnoses#start" # 診断ページTOP
-      get "question/:id", to: "diagnoses#show_question", as: "question" # 質問を表示するためのアクション。
-      post "answer", to: "diagnoses#answer_question" # ユーザーが質問に対して選択した回答を送信するためのアクション
-      get "result", to: "diagnoses#result" # ユーザーの診断結果を表示するためのアクション
+      get "start", to: "diagnoses#start"
+      get "question/:id", to: "diagnoses#show_question", as: "question"
+      post "answer", to: "diagnoses#answer_question"
+      get "result", to: "diagnoses#result"
     end
   end
 
-  # プライバシーポリシー
   get "privacy", to: "static_pages#privacy", as: "privacy_policy"
 
-  # 利用規約
   get "terms", to: "static_pages#terms", as: "terms"
 
 
