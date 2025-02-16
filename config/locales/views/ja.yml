@@ -1,0 +1,21 @@
+ja:
+  shops:
+    index:
+      title: 一覧から探す
+    map:
+      title: 現在地から探す
+    bookmarks:
+      title: お気に入りショップ一覧
+  profiles:
+    show:
+      title: マイページ
+  diagnoses:
+    start:
+      title: 香りタイプ診断
+      result: 診断結果
+  registrations:
+    new:
+      title: アカウント作成
+  sessions:
+    new:
+      title: ログイン

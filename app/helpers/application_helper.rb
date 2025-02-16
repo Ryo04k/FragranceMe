@@ -8,6 +8,11 @@ module ApplicationHelper
     end
   end
 
+  def page_title(title = "")
+    base_title = "FragranceMe"
+    title.present? ? "#{title} | #{base_title}" : base_title
+  end
+
   def default_meta_tags
     {
       site: "FragranceMe",
