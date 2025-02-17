@@ -35,7 +35,7 @@ Password：password<br>
 
 | <center>一覧から探す</center> | <center>現在地から探す</center> |
 | ---- | ---- |
-| [![Image from Gyazo](https://i.gyazo.com/8e1a8ecfbbb6be1e4d65a79ade18c99b.gif)](https://i.gyazo.com/8e1a8ecfbbb6be1e4d65a79ade18c99b.gif) | [![Image from Gyazo](https://i.gyazo.com/dca271720425a009fd308bd3e2f98f9e.gif)](https://i.gyazo.com/dca271720425a009fd308bd3e2f98f9e.gif) |
+| [![Image from Gyazo](https://i.gyazo.com/8e1a8ecfbbb6be1e4d65a79ade18c99b.gif)](https://i.gyazo.com/8e1a8ecfbbb6be1e4d65a79ade18c99b.gif) | [![Image](https://github.com/user-attachments/assets/586c6608-cfc1-4ab5-b81c-5d9816a50c55)](https://github.com/user-attachments/assets/586c6608-cfc1-4ab5-b81c-5d9816a50c55) |
 | ショップ名・地域から検索することができます。<br>また、評価・口コミでのソートやオリジナル香水ショップのフィルタリングができます。 | GoogleMapから登録されているショップを探すことができます。<br>同時に現在地から2kmのショップをリストで表示します。 |
 
 | <center>ショップ詳細</center> | <center>お気に入り</center> |
