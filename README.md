@@ -40,7 +40,7 @@ Password：password<br>
 
 | <center>ショップ詳細</center> | <center>お気に入り</center> |
 | ---- | ---- |
-| [![Image from Gyazo](https://i.gyazo.com/5b97055e5a334b693b22f0ed2cc3e0e6.gif)](https://i.gyazo.com/5b97055e5a334b693b22f0ed2cc3e0e6.gif) | [![Image from Gyazo](https://i.gyazo.com/c29fe20143e7c765db958fd8cf4483e7.gif)](https://i.gyazo.com/c29fe20143e7c765db958fd8cf4483e7.gif) |
+| [![Image](https://github.com/user-attachments/assets/49dad28a-89ac-478b-8bc9-06b54dd9903b)](https://github.com/user-attachments/assets/49dad28a-89ac-478b-8bc9-06b54dd9903b) | [![Image from Gyazo](https://i.gyazo.com/c29fe20143e7c765db958fd8cf4483e7.gif)](https://i.gyazo.com/c29fe20143e7c765db958fd8cf4483e7.gif) |
 | 店内画像・営業時間・口コミなど基本情報を確認できます。<br>ページ下部のGoogleMapから経路検索ができます。 | 気になったショップをお気に入りに登録できます。<br>登録したショップは一覧から確認することができます。 |
 
 
