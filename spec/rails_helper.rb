@@ -1,5 +1,14 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
+
+require 'simplecov'
+SimpleCov.start do
+  if ENV['CIRCLE_ARTIFACTS']
+    dir = File.join(ENV['CIRCLE_ARTIFACTS'], 'coverage')
+    SimpleCov.coverage_dir(dir)
+  end
+end
+
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
