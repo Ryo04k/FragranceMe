@@ -44,3 +44,5 @@ public/assets/*
 /vendor/bundle
 
 /config/credentials/development.key
+
+/coverage
