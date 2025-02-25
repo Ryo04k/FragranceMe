@@ -34,7 +34,7 @@ class DiagnosesController < ApplicationController
   private
 
   def initialize_user_fragrance_form
-    @user_fragrance_form = UserFragranceForm.new(diagnosis_id: params[:diagnosis_id], user_answers: session[:user_answers] || {})
+    @user_fragrance_form = UserFragranceForm.new(user_answers: session[:user_answers])
   end
 
   def initialize_user_answers

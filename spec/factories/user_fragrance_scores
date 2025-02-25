@@ -1,0 +1,11 @@
+FactoryBot.define do
+  factory :user_fragrance_score do
+    diagnosis
+    floral_score { 1 }
+    citrus_score { 1 }
+    oriental_score { 1 }
+    spicy_score { 1 }
+    herbal_score { 1 }
+    woody_score { 1 }
+  end
+end
