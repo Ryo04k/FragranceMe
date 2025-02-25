@@ -13,7 +13,7 @@ class ShopsController < ApplicationController
     @longitude = params[:longitude].to_f
     @radius = (params[:radius] || 2).to_f
 
-    @nearby_shops = Shop.includes(:shop_images).near([ @latitude, @longitude ], @radius, units: :km).limit(10)
+    @nearby_shops = Shop.includes(:shop_images).near([ @latitude, @longitude ], @radius, units: :km).limit(6)
 
     @nearby_shops_json = @nearby_shops.map do |shop|
       shop.as_json(only: [ :id, :name, :latitude, :longitude, :address, :rating ]).merge(
@@ -50,7 +50,7 @@ class ShopsController < ApplicationController
 
   def set_ransack_query
     @q = Shop.ransack(params[:q])
-    @filtered_shops = fetch_filtered_shops # フィルタリング条件に基づいたショップを取得
+    @filtered_shops = fetch_filtered_shops
   end
 
   def fetch_shops
@@ -58,10 +58,9 @@ class ShopsController < ApplicationController
   end
 
   def fetch_filtered_shops
-    shops = fetch_shops # Ransackでのキーワード検索結果を取得
-    shops = filter_experienced_shops(shops) # オリジナル香水ショップを取得
+    shops = fetch_shops
+    shops = filter_experienced_shops(shops)
 
-    # ソート条件を保持
     sort_param = params.dig(:q, :s)
 
     if sort_param.present?
@@ -83,9 +82,9 @@ class ShopsController < ApplicationController
       shops.order(rating: :desc)
     when "reviews"
       shops
-      .left_joins(:reviews) # shopsテーブルとreviewsテーブルを結合
-      .select("shops.*, COUNT(reviews.id) AS reviews_count") # shopsテーブルの全カラムとreviewsのカウントを選択
-      .group("shops.id") # ショップIDでグループ化
+      .left_joins(:reviews)
+      .select("shops.*, COUNT(reviews.id) AS reviews_count")
+      .group("shops.id")
       .order("COUNT(reviews.id) DESC")
     else
       shops
