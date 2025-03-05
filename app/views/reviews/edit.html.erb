@@ -1,0 +1,16 @@
+<div class="p-5" id="review-form">
+  <div class="w-full max-w-lg mx-auto">
+     <h2 class="text-xl md:text-2xl font-bold mb-4">口コミの編集（<%= @shop.name %>）</h2>
+    <%= form_with model: @review, url: review_path(@review) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+      <div class="mb-2">
+        <%= f.label :body, class: "block text-gray-700" %>
+        <%= f.text_area :body, class: "form-control mt-1 block w-full border rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2", rows: "4" %>
+      </div>
+
+      <div class="flex justify-center">
+        <%= f.submit "口コミを更新する", class: "cursor-pointer mt-1 bg-main px-10 py-3 text-white rounded hover:bg-opacity-90 transition duration-200 shadow" %>
+      </div>
+    <% end %>
+  </div>
+</div>
