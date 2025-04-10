@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       get "map"
       get "list"
       get "bookmarks"
+      get "autocomplete"
     end
   end
 
