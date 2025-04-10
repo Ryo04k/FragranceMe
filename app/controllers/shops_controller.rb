@@ -45,6 +45,13 @@ class ShopsController < ApplicationController
     @shop_bookmarks = current_user.shop_bookmarks.includes(:shop).order(created_at: :desc)
   end
 
+  def autocomplete
+    query = params[:q]
+    shops = Shop.where("name LIKE ?", "%#{query}%").select(:name).distinct.limit(5)
+
+    render json: shops.map { |shop| {id: nil, name: shop.name} }
+  end
+
 
   private
 
@@ -92,7 +99,7 @@ class ShopsController < ApplicationController
   end
 
   def paginate_shops(shops)
-    shops.page(params[:page]).per(12)
+    shops.page(params[:page]).per(1)
   end
 
   def generate_shops_json(shops)
