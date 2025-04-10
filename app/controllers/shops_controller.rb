@@ -49,7 +49,7 @@ class ShopsController < ApplicationController
     query = params[:q]
     shops = Shop.where("name LIKE ?", "%#{query}%").select(:name).distinct.limit(5)
 
-    render json: shops.map { |shop| {id: nil, name: shop.name} }
+    render json: shops.map { |shop| { id: nil, name: shop.name } }
   end
 
 
