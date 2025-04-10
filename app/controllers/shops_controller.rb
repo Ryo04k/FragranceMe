@@ -99,7 +99,7 @@ class ShopsController < ApplicationController
   end
 
   def paginate_shops(shops)
-    shops.page(params[:page]).per(1)
+    shops.page(params[:page]).per(12)
   end
 
   def generate_shops_json(shops)
