@@ -46,7 +46,6 @@ function initMap() {
   const loadingDiv = document.getElementById("loading");
   const mapDiv = document.getElementById("map-container");
 
-
   loadingDiv.classList.remove("hidden"); // ローディングを表示
     mapDiv.classList.add("hidden"); // 初期状態で地図を非表示
 
@@ -62,11 +61,12 @@ function initMap() {
     mapDiv.classList.remove("hidden"); // 地図を表示
   });
 
-  // 各ショップのマーカーを作成
+  // マップ上にショップのマーカーを表示
   shops.forEach(shop => createMarker(shop));
 }
 
-function setCurrentLocationMaker(map, position) {
+ // ユーザーの現在地を表示するオリジナルマーカー
+function setCurrentLocationMaker(map, userLocation) {
   // 既存の円がある場合は削除
   if (currentLocationCircle) {
     currentLocationCircle.setMap(null);
@@ -80,13 +80,13 @@ function setCurrentLocationMaker(map, position) {
       fillColor: '#e57777',
       fillOpacity: 0.2,
       map: map,
-      center: position,
+      center: userLocation,
       radius: 40
     });
 
     // 現在地を示すマーカーを作成
     new google.maps.Marker({
-      position: position,
+      position: userLocation,
       map: map,
       icon: {
         path: google.maps.SymbolPath.CIRCLE,
@@ -99,11 +99,13 @@ function setCurrentLocationMaker(map, position) {
     });
   }
 
+  // 現在地の表示ボタン
 	document.addEventListener("turbo:load", () => {
 		const showLocationButton = document.getElementById("show-location-btn")
 		showLocationButton.addEventListener("click", showCurrentLocation);
 	});
 
+  // ショップのマーカーを作成
 function createMarker(shop) {
   const marker = new google.maps.Marker({
     map: map,
@@ -147,47 +149,48 @@ function generateInfoWindowContent(shop, imageUrl) {
   `;
 }
 
-function showCurrentLocation() {
-  return new Promise((resolve, reject) => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        const userLocation = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        map.setCenter(userLocation);
-        map.setZoom(initialZoomLevel);
-        setCurrentLocationMaker(map, userLocation);
-
-        // 現在地周辺の店舗を取得
-        fetchNearbyShops(userLocation.lat, userLocation.lng)
-          .then(() => {
-            resolve();
-          })
-          .catch(error => {
-            console.error('Error fetching nearby shops:', error);
-            alert('周辺ショップの取得に失敗しました。');
-            resolve();
-          });
-
-      }, () => {
-        alert('位置情報の取得に失敗しました。');
-        map.setCenter({ lat: 35.6803997, lng: 139.7690174 }); // 東京の座標
-        resolve();
-      });
-    } else {
+// ユーザーの現在地と周辺ショップ情報を取得
+async function showCurrentLocation() {
+  try {
+    if (!navigator.geolocation){
       alert('お使いのブラウザでは地理位置情報の取得がサポートされていません。');
       map.setCenter({ lat: 35.6803997, lng: 139.7690174 }); // 東京の座標
-      resolve();
+      return;
     }
-  });
+
+    // 現在地を取得
+    const position = await getCurrentPosition();
+    const userLocation = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude,
+    };
+
+    // 地図の中心を現在地に設定
+    map.setCenter(userLocation);
+    map.setZoom(initialZoomLevel);
+
+    // 現在地のマーカーを表示
+    setCurrentLocationMaker(map, userLocation);
+
+    await fetchNearbyShops(userLocation.lat, userLocation.lng);
+
+  } catch (error) {
+    alert('位置情報の取得に失敗しました。');
+    map.setCenter({ lat: 35.6803997, lng: 139.7690174 }); // 東京の座標
+  }
+
+  function getCurrentPosition() {
+    return new Promise((resolve, reject) =>{
+      navigator.geolocation.getCurrentPosition(resolve,reject);
+    });
+  }
 }
 
-// ユーザーの現在地に基づいた周辺店舗情報を取得
+// 周辺のショップ情報を取得
 async function fetchNearbyShops(lat, lng) {
   try {
     const response = await fetch(`/shops/list?latitude=${lat}&longitude=${lng}`);
-    const shops = await response.json(); // レスポンスをJSON形式に変換
+    const shops = await response.json();
     displayShopList(shops); // 店舗リストを表示する関数を呼び出す
   } catch (error) {
     console.error('Error:', error);
@@ -196,7 +199,6 @@ async function fetchNearbyShops(lat, lng) {
 
 function displayShopList(shops) {
   const shopListElements = document.querySelectorAll('.shop-list');
-  console.log(shopListElements)
 
   shopListElements.forEach(shopListElement => {
     shopListElement.innerHTML = '<h2 class="text-lg md:text-2xl text-center font-bold mt-2 mb-5">現在地から近いショップ</h2>';
@@ -221,8 +223,7 @@ function createShopListItem(shop) {
   li.className = "border rounded shadow-sm flex flex-col hover:opacity-90 duration-300 group";
 
   const imageUrl = `https://maps.googleapis.com/maps/api/place/photo?maxheight=300&maxwidth=300&photo_reference=${shop.image}&key=${googleMapApiKey}`;
-  const shopLink = `/shops/${shop.id}`; // 詳細ページへのリンク作成
-
+  const shopLink = `/shops/${shop.id}`;
   li.innerHTML = `
     <a href="${shopLink}" class="flex flex-col h-full">
       <div class="w-full h-36 overflow-hidden mb-0">
