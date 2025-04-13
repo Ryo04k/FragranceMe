@@ -14,8 +14,6 @@ class DiagnosesController < ApplicationController
 
   def answer_question
     session[:user_answers][params[:question_id].to_sym] = params[:answer]
-    Rails.logger.info "テキスト: #{session[:user_answers].inspect}"
-
     redirect_to next_question_or_results(params[:question_id])
   end
 
