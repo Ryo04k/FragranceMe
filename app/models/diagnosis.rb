@@ -8,14 +8,11 @@ class Diagnosis < ApplicationRecord
   validates :diagnosis_date, presence: true
 
 
- def self.create_with_scores(user, fragrance_id, scores)
-  fragrance = Fragrance.find_by(id: fragrance_id)
-  raise ActiveRecord::RecordNotFound, "指定された香りが見つかりませんでした。" unless fragrance
-
+def self.create_with_scores(user, fragrance_id, scores)
   ActiveRecord::Base.transaction do
     diagnosis = create!(
       user_id: user.id,
-      fragrance_id: fragrance.id,
+      fragrance_id: fragrance_id,
       diagnosis_date: Time.current
     )
 
@@ -28,8 +25,6 @@ class Diagnosis < ApplicationRecord
       herbal_score: scores[:herbal].to_i,
       woody_score: scores[:woody].to_i
     )
-
-    diagnosis
   end
 rescue ActiveRecord::RecordInvalid => e
   raise "診断結果の保存に失敗しました: #{e.message}"
