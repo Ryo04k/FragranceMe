@@ -1,5 +1,4 @@
 class DiagnosesController < ApplicationController
-  before_action :initialize_user_fragrance_form, only: [ :start, :result ]
   before_action :initialize_user_answers, only: [ :answer_question ]
   before_action :set_question, only: [ :show_question ]
 
@@ -14,20 +13,22 @@ class DiagnosesController < ApplicationController
   end
 
   def answer_question
-    session[:user_answers][params[:question_id]] = params[:answer]
+    session[:user_answers][params[:question_id].to_sym] = params[:answer]
+    Rails.logger.info "テキスト: #{session[:user_answers].inspect}"
+
     redirect_to next_question_or_results(params[:question_id])
   end
 
   def result
+    initialize_user_fragrance_form
     @scores = @user_fragrance_form.calculate_scores
+    @recommended_fragrance = find_recommended_fragrance(@scores)
 
-    @recommended_fragrance_id = recommend_fragrance(@scores)
-
-    if @recommended_fragrance_id
-      @recommended_fragrance = Fragrance.find(@recommended_fragrance_id)
+    if @recommended_fragrance
       save_diagnosis_or_session
     else
-      flash[:alert] = "診断結果が保存出来ませんでした。"
+      flash.now[:danger] = "診断結果を保存出来ませんでした。"
+      ender :new, status: :unprocessable_entity
     end
   end
 
@@ -51,32 +52,21 @@ class DiagnosesController < ApplicationController
     Question.exists?(next_question_id) ? question_diagnoses_path(next_question_id) : result_diagnoses_path
   end
 
-  def recommend_fragrance(scores)
-    max_score = scores.values.max
-    top_fragrance_name = scores.select { |fragrance_name, score| score == max_score }.keys.first
-    Fragrance.find_by(image_url: "#{top_fragrance_name}.jpg")&.id
+  def find_recommended_fragrance(scores)
+    top_fragrance_name = scores.key(scores.values.max)
+    recommended_fragrance = Fragrance.find_by(image_url: "#{top_fragrance_name}.jpg")
+
+    recommended_fragrance
   end
 
   def save_diagnosis_or_session
     if current_user
-      save_diagnosis
+      Diagnosis.create_with_scores(current_user, @recommended_fragrance.id, @scores)
     else
-      save_to_session
+      session[DIAGNOSIS_DATA_KEY] = {
+        fragrance_id: @recommended_fragrance.id,
+        score: @scores
+      }
     end
-  end
-
-  def save_diagnosis
-    begin
-      Diagnosis.create_with_scores(current_user, @recommended_fragrance_id, @scores)
-    rescue => e
-      flash[:alert] = "診断結果の保存に失敗しました。"
-    end
-  end
-
-  def save_to_session
-    session[DIAGNOSIS_DATA_KEY] = {
-      fragrance_id: @recommended_fragrance_id,
-      score: @scores
-    }
   end
 end
