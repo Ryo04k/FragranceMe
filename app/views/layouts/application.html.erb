@@ -33,11 +33,9 @@
     <% end %>
 
   <main class="flex md:flex">
-    <% unless request.path == "/" %>
       <div class="lg:w-16 md:flex-none">
         <%= render "shared/navigation" %>
       </div>
-    <% end %>
     <div class="flex-grow overflow-auto">
       <%= render 'layouts/flash_messages' %>
       <%= yield %>
