@@ -1,11 +1,10 @@
 <div class="w-full md:max-w-screen-xl mx-auto mb-20 mt-12 bg-baseColor rounded-md shadow-custom md:p-4">
   <h2 class="text-xl pl-2 md:pl-0 md:text-2xl font-bold pt-7"><%= @shop.name %></h2>
-
-  <div class="flex mb-2 mt-1 pl-2 md:pl-0">
+  <!-- タグ -->
+  <p class="mt-3"><%= experience_tag(@shop) %></p>
+  <div class="flex my-2 pl-2 md:pl-0">
     <div class="flex items-center mr-3">
       <!-- レーティング -->
-      <% full_stars = @shop.rating.floor %>
-      <% half_star = @shop.rating - full_stars >= 0.5 %>
       <%= render_rating(@shop, text_size: "text-lg", svg_size: "w-5 h-5") %>
     </div>
     <!-- お気に入りボタン -->
