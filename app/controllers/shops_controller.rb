@@ -9,36 +9,32 @@ class ShopsController < ApplicationController
   end
 
   def list
-    @latitude = params[:latitude].to_f
-    @longitude = params[:longitude].to_f
-    @radius = (params[:radius] || 2).to_f
+    latitude = params[:latitude].to_f
+    longitude = params[:longitude].to_f
+    radius = 2
 
-    @nearby_shops = Shop.includes(:shop_images).near([ @latitude, @longitude ], @radius, units: :km).limit(6)
+    nearby_shops = Shop.includes(:shop_images).near([ latitude, longitude ], radius, units: :km).limit(6)
+    nearby_shops_json = generate_shops_json(nearby_shops)
 
-    @nearby_shops_json = @nearby_shops.map do |shop|
-      shop.as_json(only: [ :id, :name, :latitude, :longitude, :address, :rating ]).merge(
-        image: shop.shop_images.first&.image
-      )
-    end
-
-    render json: @nearby_shops_json
+    render json: nearby_shops_json
   end
 
   def map
-    @shops = Shop.includes(:shop_images)
-    @shops_json = generate_shops_json(@shops)
+    shops = Shop.includes(:shop_images)
+    @shops_json = generate_shops_json(shops)
   end
 
   def show
     @shop = Shop.includes(:shop_images).find_by(id: params[:id])
+
+    if @shop.nil?
+      redirect_to shops_path, alert: "ショップが見つかりませんでした。"
+      return
+    end
+
     @review = Review.new
     @reviews = @shop.reviews.includes(:user).order(created_at: :desc)
-
-    if @shop
-      @shop_images = @shop.photo_urls
-    else
-      redirect_to shops_path
-    end
+    @shop_images = @shop.photo_urls
   end
 
   def bookmarks
@@ -54,11 +50,6 @@ class ShopsController < ApplicationController
 
 
   private
-
-  def set_ransack_query
-    @q = Shop.ransack(params[:q])
-    @filtered_shops = fetch_filtered_shops
-  end
 
   def fetch_shops
     params[:q].present? ? @q.result(distinct: true) : Shop.all
@@ -100,6 +91,11 @@ class ShopsController < ApplicationController
 
   def paginate_shops(shops)
     shops.page(params[:page]).per(12)
+  end
+
+  def set_ransack_query
+    @q = Shop.ransack(params[:q])
+    @filtered_shops = fetch_filtered_shops
   end
 
   def generate_shops_json(shops)
