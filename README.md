@@ -90,7 +90,7 @@ Password：password<br>
 | バックエンド   | Ruby 3.2.3 / Rails 7.1.3                                                             |
 | データベース   | PostgreSQL                                                                           |
 | 開発環境       | Docker                                                                               |
-| インフラ       | Render / AmazonS3                                                                    |
+| インフラ       | Render                                                                    |
 | API            | Google Maps JavaScript API / Google Places API / Google Geolocation API |
 | VCS            | GitHub                                                                               |
 | CI/CD          | GitHub Actions                                                                       |

@@ -100,7 +100,7 @@ end
     private
 
     def calculate_individual_scores(question_id, answer_content)
-      mapped_answer = ANSWER_MAPPING[answer_content] || answer_content
+      mapped_answer = ANSWER_MAPPING[answer_content]
 
       case question_id.to_i
       when 1 then SCORE_DATA[:expertise][mapped_answer] || default_scores
@@ -109,7 +109,8 @@ end
       when 4 then SCORE_DATA[:fashion][mapped_answer] || default_scores
       when 5 then SCORE_DATA[:desired_fragrance][mapped_answer] || default_scores
       when 6 then SCORE_DATA[:image][mapped_answer] || default_scores
-      when 7 then SCORE_DATA[:impression][mapped_answer] || default_scores
+      when 7 then SCORE_DATA[:season][mapped_answer] || default_scores
+      when 8 then SCORE_DATA[:impression][mapped_answer] || default_scores
       else default_scores
       end
     end

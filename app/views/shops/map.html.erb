@@ -4,7 +4,7 @@
     <div id="map" class="w-full relative rounded h-screen lg:h-[600px] md:mb-8"></div>
 
     <div class="absolute right-4 bottom-20 md:bottom-60 z-50">
-      <!-- SPレイアウト表示 -->
+      <!-- SPのみ ドロワー表示 -->
       <div data-controller="sidebar">
         <%= render "shops/sidebar" %>
         <button data-action="click->sidebar#toggleButton" aria-controls="default-sidebar" type="button" class="lg:hidden z-50 text-white rounded-lg h-20 w-24 md:w-20 bg-main opacity-90 flex flex-col items-center justify-center font-bold mb-3 py-2 hover:brightness-105 transition duration-200" data-sidebar-target="toggleButton">
@@ -12,7 +12,7 @@
           <span data-sidebar-target="buttonText" style="font-size: 13px;">周辺ショップ</span>
         </button>
       </div>
-      <!-- // SPレイアウト表示 -->
+      <!-- // SPのみ ドロワー表示 -->
 
       <button id="show-location-btn" class="text-white rounded-lg h-18 w-18 bg-main opacity-90 flex flex-col items-center justify-center font-bold w-24 h-20 md:w-20 shadow hover:brightness-105 transition duration-200" style="font-size: 13px;">
         <span class="material-symbols-outlined mb-1 text-white" style="font-size: 35px;">my_location</span>
@@ -243,34 +243,16 @@ function createShopListItem(shop) {
 }
 
 	// レビュー評価の関数
-	function generateStarRating(rating) {
-		const fullStars = Math.floor(rating);
-		const halfStar = rating - fullStars >= 0.5;
-		let starsHTML = '';
+function generateStarRating(rating) {
+  const fullStars = Math.floor(rating);
+  const halfStar = rating - fullStars >= 0.5;
+  const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
 
-  for (let i = 1; i <= 5; i++) {
-    if (i <= fullStars) {
-      starsHTML += `<svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M10 15l-5.878 3.09 1.122-6.534L0 6.236l6.545-.954L10 0l2.455 5.282L20 6.236l-5.244 5.32 1.122 6.534z" />
-                    </svg>`;
-    } else if (halfStar && i === fullStars + 1) {
-      starsHTML += `<svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                      <defs>
-                        <mask id="right-half-star">
-                          <rect width="100%" height="100%" fill="white" />
-                          <rect x="50%" width="50%" height="100%" fill="black" />
-                        </mask>
-                      </defs>
-                      <path d="M10 15l-5.878 3.09 1.122-6.534L0 6.236l6.545-.954L10 0l2.455 5.282L20 6.236l-5.244 5.32 1.122 6.534z" fill="currentColor" mask="url(#right-half-star)" />
-                      <path d="M10 15l-5.878 3.09 1.122-6.534L0 6.236l6.545-.954L10 0l2.455 5.282L20 6.236l-5.244 5.32 1.122 6.534z" fill="currentColor" opacity="0.5" />
-                    </svg>`;
-    } else {
-      starsHTML += `<svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" opacity="0.5">
-                      <path d="M10 15l-5.878 3.09 1.122-6.534L0 6.236l6.545-.954L10 0l2.455 5.282L20 6.236l-5.244 5.32 1.122 6.534z" />
-                    </svg>`;
-    }
-  }
-  return starsHTML;
+  return `
+    ${'<svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.534L0 6.236l6.545-.954L10 0l2.455 5.282L20 6.236l-5.244 5.32 1.122 6.534z" /></svg>'.repeat(fullStars)}
+    ${halfStar ? '<svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.534L0 6.236l6.545-.954L10 0l2.455 5.282L20 6.236l-5.244 5.32 1.122 6.534z" /></svg>' : ''}
+    ${'<svg class="w-4 h-4 text-yellow-400 opacity-50" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.534L0 6.236l6.545-.954L10 0l2.455 5.282L20 6.236l-5.244 5.32 1.122 6.534z" /></svg>'.repeat(emptyStars)}
+  `;
 }
 </script>
 
