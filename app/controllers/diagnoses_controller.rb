@@ -13,7 +13,7 @@ class DiagnosesController < ApplicationController
   end
 
   def answer_question
-    session[:user_answers][params[:question_id].to_sym] = params[:answer]
+    session[:user_answers][params[:question_id]] = params[:answer]
     redirect_to next_question_or_results(params[:question_id])
   end
 
