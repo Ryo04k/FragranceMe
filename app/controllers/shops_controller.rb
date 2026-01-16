@@ -52,7 +52,11 @@ class ShopsController < ApplicationController
   private
 
   def fetch_shops
-    params[:q].present? ? @q.result(distinct: true) : Shop.all
+    if params[:q].present?
+      @q.result(distinct: true).includes(:shop_images)
+    else
+      Shop.includes(:shop_images)
+    end
   end
 
   def fetch_filtered_shops

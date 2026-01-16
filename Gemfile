@@ -98,6 +98,7 @@ group :development do
   gem "web-console"
   gem "rack-livereload"
   gem "erb_lint"
+  gem 'bullet'
 end
 
 group :test do
