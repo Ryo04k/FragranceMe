@@ -39,7 +39,7 @@ namespace :Shop do
       return nil unless find_place_data["status"] == "OK"
 
       find_place_data["candidates"]&.first&.fetch("place_id", nil)
-    rescue StandardError => e
+    rescue => e
       puts "place_id検索でエラー: query=#{query} error=#{e.class} #{e.message}"
       nil
     end
@@ -103,7 +103,7 @@ namespace :Shop do
       result[:rating] = place_detail_data["result"]["rating"]
 
       result
-    rescue StandardError => e
+    rescue => e
       puts "詳細情報取得でエラー: 店名=#{shop['店名']} error=#{e.class} #{e.message}"
       :not_found
     end
