@@ -1,6 +1,5 @@
 # FragranceMe
-
-サービスURL：https://www.fragrance-me.com/
+サービスURL：https://fragranceme.onrender.com/
 
 ![alt text](app/assets/images/ogp_03.jpg)
 <br>
