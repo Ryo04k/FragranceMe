@@ -10,11 +10,12 @@ namespace :Shop do
       return { raw: nil, domestic: nil } if raw.blank?
 
       digits = raw.gsub(/\D/, "")
-      domestic = if digits.start_with?("81")
-                   "0#{digits[2..]}"
-                 elsif digits.start_with?("0")
-                   digits
-                 end
+      domestic =
+        if digits.start_with?("81")
+          "0#{digits[2..]}"
+        elsif digits.start_with?("0")
+          digits
+        end
 
       {
         raw: raw,
