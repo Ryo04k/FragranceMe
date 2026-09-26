@@ -13,6 +13,8 @@ module Myapp
     config.i18n.default_locale = :ja
     config.time_zone = "Tokyo"
     config.active_record.default_timezone = :local
+    # Active Storage は未使用のため画像 variant の処理を無効化する（image_processing gem 未導入の警告を抑止）
+    config.active_storage.variant_processor = :disabled
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
