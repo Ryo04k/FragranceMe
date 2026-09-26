@@ -25,6 +25,8 @@ def self.create_with_scores(user, fragrance_id, scores)
       herbal_score: scores[:herbal].to_i,
       woody_score: scores[:woody].to_i
     )
+
+    diagnosis
   end
 rescue ActiveRecord::RecordInvalid => e
   raise "診断結果の保存に失敗しました: #{e.message}"
